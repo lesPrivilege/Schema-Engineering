@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+
+# GitHub Pages entry point is generated from the dated release.
+papers/dist/index.html
