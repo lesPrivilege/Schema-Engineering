@@ -92,6 +92,7 @@ def main() -> None:
         "index switch": "getElementById('paper-index').hidden = mode !== 'index'" in release,
         "responsive metadata": 'name="viewport"' in release,
         "self-contained runtime": "<script src=" not in release and "<link rel=" not in release,
+        "environment-independent fences": '<div class="codehilite">' not in release,
         "9.1 index record": "### 2026-09-01 · 9.1" in sources["index"],
     }
     failed = [name for name, passed in checks.items() if not passed]

@@ -37,7 +37,15 @@ def strip_front_matter(text: str) -> str:
 def md_to_html(text: str) -> str:
     return markdown2.markdown(
         text,
-        extras=["tables", "fenced-code-blocks", "footnotes", "header-ids"],
+        # highlightjs-lang keeps fenced rendering independent of whether the
+        # optional Pygments package happens to exist in the host environment.
+        extras=[
+            "tables",
+            "fenced-code-blocks",
+            "highlightjs-lang",
+            "footnotes",
+            "header-ids",
+        ],
     )
 
 

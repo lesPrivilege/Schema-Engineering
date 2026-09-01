@@ -70,8 +70,7 @@ body { margin: 0; background: #fff; color: var(--text); font-family: "Times New 
 
 <p>这一方法完整覆盖三条互相嵌套、不能混写的链：</p>
 
-<div class="codehilite">
-<pre><span></span><code>A. Expert Demonstration
+<pre><code class="text language-text">A. Expert Demonstration
 → Invisible Human Harness Extraction
 → Work Contract
 → Agent Extension
@@ -91,20 +90,17 @@ C. Production Use / Review / Revision / Failure
 → Contract / Evaluator / Harness / Context / Tool Refinement
 → Selective Model Post-training, only when justified
 </code></pre>
-</div>
 
 <p>第一条把 Expert Demonstration 编订为自带 Validator、Evaluator、Review boundary 和 E2E release suite 的 Agent Extension；第二条把当前工作状态投影为有限 Context，再把概率性 Proposal 通过 typed commitment interface 提升为 Committed Work State；第三条在 Extension 进入生产后，把失败先归因到 Contract、Evaluator、Context、Tool、Harness、Model 或机构分歧，再决定改进对象。模型提出并执行，确定性系统维护不变量，Evaluator 测量已明确规定的语义，人承担不可约的专业判断。</p>
 
 <p>横向三条工作链之外，系统还具有一条不能混写的纵向分层：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Model Capability Layer
+<pre><code class="text language-text">Model Capability Layer
 → Agentic Runtime / Harness
 → Work Extension
 → Commitment Boundary / System of Record
 → Person / Organization / Downstream Work
 </code></pre>
-</div>
 
 <p>上游扩展 reasoning、knowledge、tool use 与执行边界；下游把通用能力收敛为带有领域语义、HITL、Review 和 accepted-work-product 标准的工作渗透面。每层拥有自己的 Contract、Eval、长期资产和改进周期，不能借用相邻层的成功证明自身正确。</p>
 
@@ -138,18 +134,15 @@ C. Production Use / Review / Revision / Failure
 
 <p>它完成两项不同的转换：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Expert practice → transferable Agent capability
+<pre><code class="text language-text">Expert practice → transferable Agent capability
 Probabilistic proposal → accountable work commitment
 </code></pre>
-</div>
 
 <p>前者解决“专家亲自跑通的 Demo 如何成为其他人可用的能力”；后者解决“模型输出凭什么改变正式状态”。只写后者，Schema Engineering 会退化为 Work Commitment Runtime；只写前者，它会退化为专家 workflow 产品化。两项转换共同发生在一条持续的 Context / State 循环中：正式状态被投影给一次执行，一次执行的结果再经过窄化提交改变正式状态。</p>
 
 <p>它的最小操作不是“给工作加上结构”，而是建立一条 typed commitment interface。模型和人都可以提出变化，但不能直接改写正式状态：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Stable Contract + Current Semantic State + selected Resources / History
+<pre><code class="text language-text">Stable Contract + Current Semantic State + selected Resources / History
 → Context Projection
 → Model / Human Proposal
 → Candidate State Change
@@ -162,7 +155,6 @@ Probabilistic proposal → accountable work commitment
 → Atomic Projection: Current Semantic State + Active Artifact Reference
 → New Context Projection
 </code></pre>
-</div>
 
 <p>输入端把现实工作编排为本次执行可用的 Context；输出端把概率性结果编排为可提交、可拒收、可审阅的 Candidate Change。Runtime 不执行专家全部思维，只执行一项提议进入正式工作需要满足的条件。没有 Candidate State Change、正式检查和 Committed Event 的提交路径，领域建模、workflow、结构化输出或 memory summarization 本身不构成 Schema Engineering。</p>
 
@@ -179,8 +171,7 @@ Probabilistic proposal → accountable work commitment
 
 <p>Work Contract 不一定是一份单文件。它可以编译或投影为：</p>
 
-<div class="codehilite">
-<pre><span></span><code>state schema
+<pre><code class="text language-text">state schema
 + artifact schema
 + evidence requirements
 + completion obligations
@@ -193,7 +184,6 @@ Probabilistic proposal → accountable work commitment
 + E2E and Work Eval cases
 + version / compatibility metadata
 </code></pre>
-</div>
 
 <p>这些对象可以在同一系统中物理合并；逻辑责任必须清楚，物理服务不必拆散。</p>
 
@@ -245,10 +235,8 @@ Probabilistic proposal → accountable work commitment
 
 <p>Eval 会从这套编纂关系中自然生长出来。只要系统已经明确记录：</p>
 
-<div class="codehilite">
-<pre><span></span><code>state → source → judgment → transition → artifact
+<pre><code class="text language-text">state → source → judgment → transition → artifact
 </code></pre>
-</div>
 
 <p>Eval 就可以检查来源是否正确且仍然有效、判断是否越过前置条件、冲突是否被披露、状态转换是否符合 Contract、Artifact 是否能够沿 provenance 回溯。它不再是后来外加的一组问答，而是对工作目录、契约与成果的校勘机制。Schema Engineering 先解决“如何记述和继续一项工作”，再获得“如何检查它是否按已声明的标准成立”。</p>
 
@@ -273,27 +261,23 @@ Probabilistic proposal → accountable work commitment
 
 <p>删除测试必须连同 Capture Economics 一起执行。一个语义对象即使理论上有价值，如果只能由最昂贵的专家持续手工填报、维护成本接近或超过它节省的 Review、恢复和错误成本，也不应成为默认 Schema。优先路径应当是：</p>
 
-<div class="codehilite">
-<pre><span></span><code>normal work behavior
+<pre><code class="text language-text">normal work behavior
 → implicit event / before-after capture
 → uncertain semantic inference
 → selective clarification, only when ambiguity matters
 → Candidate rule or state change
 → authorized promotion
 </code></pre>
-</div>
 
 <p>而不是让专家为了未来 AI 学习，把日常工作改造成高频数据标注。</p>
 
 <p>泛化到一个新场景时，不从“能结构化什么”开始，而先回答四个最低问题：</p>
 
-<div class="codehilite">
-<pre><span></span><code>What persists?                 运行结束后，哪些事实、决定和 Artifact 应当留下？
+<pre><code class="text language-text">What persists?                 运行结束后，哪些事实、决定和 Artifact 应当留下？
 What expires?                  哪些信息具有时效、版本或适用范围？
 What gates action?             什么状态必须确认后才能继续或提交？
 What deserves attention next? 下一次执行应优先披露什么，而不是重放全部历史？
 </code></pre>
-</div>
 
 <p>如果一项 Schema 声明不能改变这四个问题中的任何一个，也不能改善 validation、Review、recovery 或 accountability，它很可能只是形式主义。</p>
 
@@ -348,8 +332,7 @@ What deserves attention next? 下一次执行应优先披露什么，而不是�
 
 <p>Semantic Minimum 定义扩展方向，不是产品采用的前置建设清单。Deployable Minimum 可以把多个逻辑对象压在一套现有系统或单体实现中。完整 Kernel 由以下对象构成：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Matter
+<pre><code class="text language-text">Matter
 ├── Resources / Context
 ├── Assignment / Work Contract
 ├── Operator
@@ -364,7 +347,6 @@ What deserves attention next? 下一次执行应优先披露什么，而不是�
 └── Review
     └── Revision / Outcome
 </code></pre>
-</div>
 
 <h4 id="41-matter">4.1 Matter</h4>
 
@@ -467,8 +449,7 @@ What deserves attention next? 下一次执行应优先披露什么，而不是�
 
 <p>这些对象共同形成一条可恢复的工作链：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Matter created
+<pre><code class="text language-text">Matter created
 → Resources, Accountable Principal and permissions established
 → Assignment accepted
 → Operator and Work Contract selected
@@ -480,7 +461,6 @@ What deserves attention next? 下一次执行应优先披露什么，而不是�
 → Current Semantic State and active Artifact reference projected atomically
 → Outcome and reusable signals recorded
 </code></pre>
-</div>
 
 <p>这条链不要求线性推进。Review 可以把成果退回执行，Assignment 可以拆给新的 Operator，新证据可以重开已经关闭的问题，新 Artifact 也可以取代旧版本。每次回转都通过 Committed Event 改变 Current Semantic State 和 active Artifact reference；历史记录与当前状态因此保持一致。</p>
 
@@ -548,8 +528,7 @@ What deserves attention next? 下一次执行应优先披露什么，而不是�
 
 <p>Continuity Runtime 的输入侧可以沿四个动词理解：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Store
+<pre><code class="text language-text">Store
 → preserve Sources / Events / Artifacts / Raw History / Committed State
 
 Govern
@@ -561,7 +540,6 @@ Retrieve
 Compile
 → assemble the minimal sufficient working set for this role, task and stage
 </code></pre>
-</div>
 
 <p>四者不能互相替代。Store 很大不表示 Context 应当很大；Retrieve 相关不表示对象仍然有效；Compile 不是把全部 Schema 序列化给模型，而是根据 Current Semantic State、Assignment、role、Authority、task stage 与 disclosure policy 生成可执行投影。同一份 Canonical State 也可以分别编译为 Model-facing Context 与 Human-facing Work Surface。</p>
 
@@ -569,15 +547,13 @@ Compile
 
 <p>Context Projection 根据当前 Operator、Lane、Assignment 和任务阶段生成：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Stable Contract
+<pre><code class="text language-text">Stable Contract
 + relevant Current Semantic State
 + selected Resources
 + retrievable Raw History
 + current Assignment
 = Context Projection
 </code></pre>
-</div>
 
 <p>Projection 可以随模型、上下文窗口和执行策略变化而重建，正式状态不随投影变化而丢失。Recovery 因此是重建有效的 Current Semantic State 并生成新的 Context Projection，不是让模型总结此前发生的一切。</p>
 
@@ -587,8 +563,7 @@ Compile
 
 <p>一次 Run 不是从“全部记忆”直接生成“新的记忆”，而是位于两次治理之间：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Stable Contract + Current Semantic State + selected Resources / History
+<pre><code class="text language-text">Stable Contract + Current Semantic State + selected Resources / History
 → Task-specific Context Projection
 → Model Attention / Tool Execution
 → Candidate Output
@@ -597,7 +572,6 @@ Compile
 → New Current Semantic State
 → Next Context Projection
 </code></pre>
-</div>
 
 <p>输入侧决定哪些现实以什么状态进入 attention；输出侧决定哪些结果具有何种效力并可以继续存在。模型可以产生高质量 prose、finding 或 plan，但它们在提交前仍然只是 Candidate。只有通过相应 Contract 的部分，才可以成为 authoritative state、active Artifact、retrieval index 或下一轮的优先 Context。</p>
 
@@ -619,25 +593,21 @@ Compile
 
 <p>没有结构化治理时，系统往往反复支付同一笔成本：</p>
 
-<div class="codehilite">
-<pre><span></span><code>全部历史
+<pre><code class="text language-text">全部历史
 → 塞入 Context
 → 模型重新辨别有效与失效状态
 → 再摘要或压缩
 → 丢弃大部分
 → 下一次重新开始
 </code></pre>
-</div>
 
 <p>Schema Engineering 把它改写为：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Raw History / Evidence
+<pre><code class="text language-text">Raw History / Evidence
 → 一次编订与提交
 → Current Semantic State
 → task-specific Context Projection
 </code></pre>
-</div>
 
 <p>前者反复支付 token、latency、retrieval、context construction、状态重判和 attention dilution；后者把已经解决过的状态判断保存下来，只在当前任务需要时渐进披露。更多 Context 因而不能自动等价于更好的 Context。上下文窗口扩张类似仓库扩容，不会使目录、版本和权威关系失去价值。</p>
 
@@ -651,14 +621,12 @@ Compile
 
 <p>这可以进一步表述为工作知识层的 <strong>sparse activation</strong>：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Total governed work knowledge and capability
+<pre><code class="text language-text">Total governed work knowledge and capability
 → Matter / Contract / Catalog boundary
 → retrieve potentially relevant objects and packs
 → compile a minimal sufficient working set
 → Model Attention / Tool Execution / Human Review
 </code></pre>
-</div>
 
 <p>目标不是把总存量压缩为一份永久摘要，而是使总容量与单次激活成本解耦。随着 Matter、Artifact、历史和可用 capability 增长，per-run Context 应主要随当前 Assignment 的 working set 变化，而不是随整个 repository 线性增长。Compile layer 同时控制两类错误：under-inclusion 会遗漏有约束力的事实、active version 或 Authority；over-inclusion 会引入已 superseded、越权或无关对象，增加 token、attention dilution、状态重判与 stale-context 风险。</p>
 
@@ -682,8 +650,7 @@ Compile
 
 <p>需要事实依据的正式主张必须关联机器可读的 Evidence Relation。来源坐标只说明材料在哪里，不能说明材料支持、反驳还是限定某项主张。最小关系包括：</p>
 
-<div class="codehilite">
-<pre><span></span><code>claim
+<pre><code class="text language-text">claim
 source
 source_version
 location
@@ -693,7 +660,6 @@ derivation_method
 effective_time
 status
 </code></pre>
-</div>
 
 <p>模型可以提出引文、主张和候选关系；Runtime 负责解析来源、版本、坐标和关系类型。垂直 Contract 定义 source authority、precedent hierarchy、freshness 与 admissibility，通用 Runtime 不给不同领域的来源设定统一权重。</p>
 
@@ -739,13 +705,11 @@ status
 
 <p>用户看到的是业务语义：</p>
 
-<div class="codehilite">
-<pre><span></span><code>write_file                  → 接受这项成果修订
+<pre><code class="text language-text">write_file                  → 接受这项成果修订
 run_external_tool           → 把这份工作成果发送给客户
 resume_session              → 返回当前 Matter
 create_subagent             → 委派一项边界明确的运行义务
 </code></pre>
-</div>
 
 <p>技术操作不应自动成为用户心智对象。</p>
 
@@ -761,14 +725,12 @@ create_subagent             → 委派一项边界明确的运行义务
 
 <p>Escalation 是 Runtime 中的正式动作，不是模型失败后的兜底。合格 escalation 至少表达：</p>
 
-<div class="codehilite">
-<pre><span></span><code>issue
+<pre><code class="text language-text">issue
 + evidence
 + alternatives
 + recommendation
 + reason_for_escalation
 </code></pre>
-</div>
 
 <p>系统不迫使模型在信息不足或权限越界时给出答案，而是把不确定性送到具备相应 Authority 或 Accountability 的主体。</p>
 
@@ -790,15 +752,12 @@ create_subagent             → 委派一项边界明确的运行义务
 
 <p>因此，编订不是简单地“采访专家写需求”，而是：</p>
 
-<div class="codehilite">
-<pre><span></span><code>观察 → 抽取 → 分层 → 编订 → 反例验证
+<pre><code class="text language-text">观察 → 抽取 → 分层 → 编订 → 反例验证
 </code></pre>
-</div>
 
 <p>专家做出的模型 prototype 往往由一层未被记录的人工 Runtime 支撑：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Expert selects task and context
+<pre><code class="text language-text">Expert selects task and context
 → Model attempts
 → Expert notices omission or error
 → Expert changes framing, source or search
@@ -806,7 +765,6 @@ create_subagent             → 委派一项边界明确的运行义务
 → Expert judges materiality
 → Expert decides what is deliverable
 </code></pre>
-</div>
 
 <p>Prototype 制作者亲自操作时，这些干预容易被误认为模型能力；prototype 交给其他人后，任务选择、上下文拼装、遗漏识别、失败恢复和完成判断同时消失。产品化需要外部化足以支持委派、验证、恢复和审阅的干预，不需要复制专家全部思维。</p>
 
@@ -863,8 +821,7 @@ create_subagent             → 委派一项边界明确的运行义务
 
 <p>它不限定物理形态，可以实现为 package、plugin、skill、workflow、service、sidecar、embedded module 或其他宿主可加载单元。但 Agent Extension 不等于 prompt + tools + workflow；成熟 Extension 至少包含以下逻辑对象：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Agent Extension
+<pre><code class="text language-text">Agent Extension
 ├── Task family and applicability
 ├── Work Contract
 ├── Context / resource policy
@@ -876,7 +833,6 @@ create_subagent             → 委派一项边界明确的运行义务
 ├── Golden / adversarial / boundary cases
 └── E2E release suite
 </code></pre>
-</div>
 
 <p>Prompt、tool definition 和 workflow 只是可折旧的实现部分，不构成 Extension 的全部身份。</p>
 
@@ -884,8 +840,7 @@ create_subagent             → 委派一项边界明确的运行义务
 
 <p>Agent Extension 表示不依赖具体宿主的逻辑能力身份；当它被封装为可由通用 Harness 加载、替换或组合的运行单元时，本文称其实现形态为 <strong>Work Extension package</strong>。二者不是两套专业 ontology：前者保存可移植的工作语义，后者提供面向某一 Runtime 的编译目标与部署封装。</p>
 
-<div class="codehilite">
-<pre><span></span><code>Work Extension package
+<pre><code class="text language-text">Work Extension package
 ├── Semantic core
 │   └── Work Contract / State / Artifact / Evidence / Completion / Authority / Review
 ├── Runtime adapter
@@ -897,7 +852,6 @@ create_subagent             → 委派一项边界明确的运行义务
 └── Evaluation and release
     └── Validators / Work benchmark / boundary cases / E2E suite
 </code></pre>
-</div>
 
 <p>插件原生的 Harness 可以提供 mount / unmount、dependency resolution、event、tool、permission、session、trace 与 UI slot 等通用机制；Work Extension 决定这些机制在具体工作中意味着什么。Harness 可以提供“一次性允许、拒绝或询问”的 approval primitive，Extension 必须把它编译为“接受这一版成果”“批准这项风险”“要求补充证据”或“把决定升级给谁”，并规定该操作改变哪项正式状态。HITL 因而不是通用确认弹窗的同义词，而是 Work Contract 的人类裁决面。</p>
 
@@ -911,8 +865,7 @@ create_subagent             → 委派一项边界明确的运行义务
 
 <p>一种非规范性的实现形态是 <strong>Sparse Work Harness</strong>：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Shared Core
+<pre><code class="text language-text">Shared Core
   agent loop / tool protocol / event / permission / artifact IO / compiler
 + Work Primitive Packs
   schema / instructions / tools / verifier / transition / surface / policy
@@ -921,7 +874,6 @@ create_subagent             → 委派一项边界明确的运行义务
 + Context Compiler
   activate capabilities + project Matter state + mount gates + exclude noise
 </code></pre>
-</div>
 
 <p>Work Primitive Pack 不是人格化 Agent，Matter 也不是可执行 expert。Compiler 输出的不是单一 expert ID，而是一份 executable context plan：本次 Run 允许装载哪些 schema、tools、verifiers 与 Human surfaces，投影哪些 Matter slices，明确排除哪些旧版本、其他 Matter 与越权 capability。Model 可以提出“我认为需要什么”；Harness 必须根据 Contract、role、stage 与 policy 决定“允许装载什么”。由于 capability activation 会改变数据访问、Tool Authority 和现实行动范围，routing 必须采用 learned proposal 与 deterministic permission / commitment gate 的组合。</p>
 
@@ -933,8 +885,7 @@ create_subagent             → 委派一项边界明确的运行义务
 
 <p>逻辑对象应当分开：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Work Primitive
+<pre><code class="text language-text">Work Primitive
 → 原子 schema / tool / verifier / renderer / permission capability
 
 Work Extension
@@ -946,7 +897,6 @@ Compiled Work Expert
 Run Plan
 → Compiled Expert + current Matter State + role + stage 的本次执行计划
 </code></pre>
-</div>
 
 <p>成熟 Runtime 可以采用三层 activation：</p>
 
@@ -960,8 +910,7 @@ Run Plan
 
 <p>“从动态组合编译成 Expert”本身是一项治理过程，而不是成功 trace 的自动缓存：</p>
 
-<div class="codehilite">
-<pre><span></span><code>frontier composition / expert intervention
+<pre><code class="text language-text">frontier composition / expert intervention
 → Candidate Expert Profile
 → applicability and exclusions
 → provenance and source demonstrations
@@ -972,7 +921,6 @@ Run Plan
 → production monitoring
 → revalidate / recompile / suspend / deprecate
 </code></pre>
-</div>
 
 <p>Candidate Expert 至少应记录 <code>expert_id / version</code>、semantic owner、适用与排除范围、来源示范和 correction、依赖的 Contract / Tool / model / Harness version、评测样本与 Reviewer 分布、已知限制、最后验证时间、freshness trigger、abstention / fallback、rollback 与 deprecation path。不同领域不必共享一个“成功次数”阈值；法律、咨询、医疗等慢反馈场景可以使用 accepted-work-product、Reviewer disagreement、后续 reversal、风险分层和观察窗口共同裁决是否足以发布。</p>
 
@@ -980,8 +928,7 @@ Run Plan
 
 <p>因此，fast path / slow path 只能作有限产品类比。Compiled Expert 是经过治理的默认路径，primitive composition 是受限的探索路径；二者不保证产生相同结果。产品化不是单向瀑布，而是：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Compiled Expert execution
+<pre><code class="text language-text">Compiled Expert execution
 → uncovered case / drift / disagreement
 → abstain or escalate
 → Human expert / bounded primitive composition
@@ -989,7 +936,6 @@ Run Plan
 → Candidate Expert revision or new Expert
 → E2E revalidation and release
 </code></pre>
-</div>
 
 <p>这条回路把 Expert frontier 与 productized work 保持连接，同时防止 active Expert 被 improver 或模型静默改写。</p>
 
@@ -1014,8 +960,7 @@ Run Plan
 
 <p>E2E 不是页面点击完成、Agent 停止生成或文件成功写入。它测试一套 Extension 能否在声明范围内稳定完成工作：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Representative Matter / Task
+<pre><code class="text language-text">Representative Matter / Task
 → authorized resources and context
 → Agent execution
 → candidate artifacts and state changes
@@ -1024,7 +969,6 @@ Run Plan
 → accepted work product
 → downstream handoff or recoverable continuation
 </code></pre>
-</div>
 
 <p>完整 suite 可以混合 deterministic checks、schema / evidence / completion / authority validators、evaluator rubric、expert review、accepted-work-product outcome、recovery and replay tests 与 equivalent-interface perturbation tests。E2E 不要求所有专业正确性被自动化，也不能因全绿就宣称整个领域已被形式化。它需要同时观察执行是否成功、状态是否正确提交以及成果是否构成可接受的工作，不能把三者压成一个不透明总分。</p>
 
@@ -1065,10 +1009,8 @@ Run Plan
 
 <p>例如，一个法律 Agent 顺利完成：</p>
 
-<div class="codehilite">
-<pre><span></span><code>读取材料 → 搜索法规 → 起草 memo → 写入文档
+<pre><code class="text language-text">读取材料 → 搜索法规 → 起草 memo → 写入文档
 </code></pre>
-</div>
 
 <p>所有 tool call 都可能成功，任务也可能正常停止，但工作仍然失败：</p>
 
@@ -1083,14 +1025,12 @@ Run Plan
 
 <p>这些失败不能仅靠“更好的 planner”或“更多 tool coverage”定义。Work Contract 需要先声明：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Context / Work State
+<pre><code class="text language-text">Context / Work State
 → Required Judgment
 → Intermediate Artifacts and State Transitions
 → Evidence / Authority / Completion / Review
 → Acceptance Criteria
 </code></pre>
-</div>
 
 <p>然后从同一 Contract 派生 deterministic validators、Evaluator rubric、adversarial cases、expert review points 与 accepted-work-product outcome。Benchmark 是 Work Contract 的测试投影，不是后来另造的一套 QA，也不是系统设计的起点。</p>
 
@@ -1169,8 +1109,7 @@ Run Plan
 
 <p>一项合同审查 Matter 的目标是形成可以交给业务负责人的风险清单和修订稿。法务负责人是 Accountable Principal；主 Operator 承担审查、恢复、交付和升级义务；Authority Contract 允许它读取合同、提出 finding 和修改 draft，不允许批准或对外发送。</p>
 
-<div class="codehilite">
-<pre><span></span><code>1. Matter 创建
+<pre><code class="text language-text">1. Matter 创建
    → 建立原合同、标准条款库、参与人和权限边界
 
 2. Assignment 接受
@@ -1222,7 +1161,6 @@ Run Plan
     → 读取 active Artifact v3 与未完成义务
     → 生成新的 Context Projection，不重放完整 transcript
 </code></pre>
-</div>
 
 <p>这条 trace 同时约束 Lane 与 Operator、Candidate 与 Committed、Evidence 与 Completion、Authority 与 Accountability，以及 Event、State、Artifact 和 Context Projection 的写入顺序。任何一步都不能由模型自述“已经完成”替代。</p>
 
@@ -1301,8 +1239,7 @@ Run Plan
 
 <p>每项生产失败至少应允许落入下列一种或多种类型：</p>
 
-<div class="codehilite">
-<pre><span></span><code>contract gap
+<pre><code class="text language-text">contract gap
 validator gap
 evaluator disagreement
 expert profile / routing / staleness gap
@@ -1313,7 +1250,6 @@ model capability gap
 institutional disagreement
 rights / data limitation
 </code></pre>
-</div>
 
 <p>失败归因本身可以是带不确定性的推断，不能自动改变正式规则。规则提升仍遵循 capture first、infer later、promote selectively。Work Contract 为这一归因提供任务边界、目标成果、accepted-work-product 标准、可验证义务、failure taxonomy、Eval rubric、Environment seed 以及权限与数据 rights 边界。它不只是 Runtime guard，也是训练目标的治理层。</p>
 
@@ -1332,15 +1268,13 @@ rights / data limitation
 
 <p>Synthetic Environment 走另一条路径：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Expert defines task family / rubric ontology
+<pre><code class="text language-text">Expert defines task family / rubric ontology
 → Synthetic Environment generation
 → oracle or multi-agent solve
 → deterministic checks
 → expert audits disagreements and high-value cases
 → accepted Eval / training environments
 </code></pre>
-</div>
 
 <p>两条路线承担不同作用：</p>
 
@@ -1412,8 +1346,7 @@ rights / data limitation
 
 <p>顺序是：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Expert Demonstration
+<pre><code class="text language-text">Expert Demonstration
 → Work Contract
 → Agent Extension
 → E2E Acceptance
@@ -1423,12 +1356,10 @@ rights / data limitation
 → Post-agentic Refinement
 → Selective Model Post-training, if residual gains justify it
 </code></pre>
-</div>
 
 <p>模型权重本身不是显性知识库，而是对训练分布的隐式表示。从训练信号看，可以区分三项连续但不互相替代的积累：</p>
 
-<div class="codehilite">
-<pre><span></span><code>codified human knowledge
+<pre><code class="text language-text">codified human knowledge
 → foundation pretraining
 
 software-grounded interaction trajectories
@@ -1437,7 +1368,6 @@ software-grounded interaction trajectories
 situated expert judgment in governed Work State
 → next Eval / Environment / training candidate
 </code></pre>
-</div>
 
 <p>Foundation model 大规模吸收了人类曾经文本化、编码化和公开表达出来的知识与行为；Agentic post-training 又强化了模型在计算机和软件环境中观察状态、调用工具、读取反馈、恢复失败和继续执行的程序性 policy。下一层更稀缺的信号，是专业共同体会做却很少完整写下来的情境化判断，包括何时证据不足、何时切换路径、什么变化可以进入 canonical state、哪类例外必须升级，以及什么才算能够交付。这一分层不表示当前 Agent 只有程序性外壳，也不表示数据规模会自动产生新的判断能力。</p>
 
@@ -1447,8 +1377,7 @@ situated expert judgment in governed Work State
 
 <p>Coding 提供了一个有限类比：repository、diff、test 与 CI 先是软件生产的基础设施，后来也成为 code model 可利用的训练上游。Coding Agent 又可以帮助构建 AI 进入更多专业场景的交互面和产品；进入这些场景后，专家与模型共同编订新的 Work Contract 和 Extension，进而形成新的 Eval、Environment 与训练候选：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Coding Agent / product engineering
+<pre><code class="text language-text">Coding Agent / product engineering
 → domain interaction surface
 → Expert + frontier model compile hidden practice
 → Work Contract / Agent Extension / Work Eval
@@ -1456,7 +1385,6 @@ situated expert judgment in governed Work State
 → validated training candidate
 → broader professional behavior capability
 </code></pre>
-</div>
 
 <p>这里需要扩大的不是抽象“用户量”，而是 <strong>work penetration surface</strong> 的有效覆盖：更多任务族的横向广度、更深的可委派 lifecycle、跨时间连续性、更接近现实后果的 commitment depth，以及能够观察 later validation / reversal 的反馈深度。只有在这些维度上形成多样、可比较、可归因的 Work State 与 judgment trajectory，规模才可能转化为模型学习信号。</p>
 
@@ -1542,8 +1470,7 @@ situated expert judgment in governed Work State
 
 <p>Coding 的表现反而说明了其他工作为何更需要这层结构。代码仓库已经天然拥有一套长期工作基础设施：</p>
 
-<div class="codehilite">
-<pre><span></span><code>file system → state
+<pre><code class="text language-text">file system → state
 git → version history
 type system → schema
 compiler → verifier
@@ -1551,7 +1478,6 @@ tests → eval
 diff → change representation
 CI → acceptance gate
 </code></pre>
-</div>
 
 <p>Coding Agent 可以显得高度自由，是因为它背后站着几十年积累的结构、状态和验证系统。法律意见、投资判断、咨询建议、研究结论和客户管理通常没有天然的 <code>git + compiler + test suite</code>。Schema Engineering 可以被理解为给非 Coding 工作补上一套弱化、可增量建设的状态、来源、承诺与验证基础设施，而不是把专业判断伪装成可完全编译的程序。</p>
 
@@ -1563,8 +1489,7 @@ CI → acceptance gate
 
 <p>在当前范式下，能力抵达现实工作可以被理解为两个方向的持续对接：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Upstream expansion
+<pre><code class="text language-text">Upstream expansion
 Model scaling / attention / post-training
 → Agentic Runtime / coding infrastructure
 → broader candidate capability
@@ -1574,7 +1499,6 @@ Work Contract / Work Extension / HITL UX
 → Commitment Boundary / System of Record
 → accepted work for a concrete person or organization
 </code></pre>
-</div>
 
 <p>上游负责拓展模型与 Agentic execution 的能力前沿；下游负责把开放能力收敛为任务族、证据、权限、完成、Review 与用户工作面。Provider 到具体的人之间不是一次 API call，而是一条从 model interface、Harness service、Work Extension、正式状态到组织承担的编译路径。随着 Work Extension 覆盖的场景增多、每个场景中可可靠委派的深度增加，系统获得的是不断扩张的 <strong>work penetration surface</strong>。</p>
 
@@ -1645,8 +1569,7 @@ Work Contract / Work Extension / HITL UX
 
 <p>第一版不从完整领域 ontology 或全量 Contract 开始，而从四个最低问题选择对象：什么必须留下、什么会失效、什么阻止提交、下一次首先看什么。最小切片可以压缩为：</p>
 
-<div class="codehilite">
-<pre><span></span><code>1 Matter
+<pre><code class="text language-text">1 Matter
 + 1 Artifact type
 + 1 Reviewer role
 + 1 formal commit transition
@@ -1654,7 +1577,6 @@ Work Contract / Work Extension / HITL UX
 + 1 unresolved-obligation list
 + 1 next-context projection
 </code></pre>
-</div>
 
 <p>对应实现只需要一个稳定 Matter identity、一个边界明确的 Assignment、Candidate Artifact 与 active Artifact 的区分、一个 Accountable Principal、propose 与 approve 两级 Authority、可见的未完义务、带版本的 commit / reject / revise 记录，以及能够从当前状态恢复的结构化工作包。</p>
 
@@ -1662,8 +1584,7 @@ Work Contract / Work Extension / HITL UX
 
 <p>只要产品能够回答哪一版已经生效、谁接受了它、什么还没有完成、哪些信息已经失效、下一次执行首先应看什么，它就已经越过 Session-first 产品的边界。后续扩展可以沿着以下路径发生：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Chat + invisible human gate
+<pre><code class="text language-text">Chat + invisible human gate
 → explicit Candidate / Accepted Artifact
 → persistent Matter State
 → task-specific Context Projection
@@ -1671,7 +1592,6 @@ Work Contract / Work Extension / HITL UX
 → reusable institution configuration
 → Work Eval and selective learning
 </code></pre>
-</div>
 
 <p>这条路径不是强制成熟度模型。高风险场景可能先建设 Authority，研究场景可能先建设 Evidence，长程任务可能先建设 Completion、Context Projection 与 Recovery。第一项 Matter 宜具备清楚的交付物、已经存在的 Review、明确的 Reviewer 或 Accountable Principal、可重复任务，以及状态丢失、版本混乱、重复注入或漏项造成的可见成本；第一版不宜要求模型执行不可逆的外部行动。</p>
 
@@ -1679,8 +1599,7 @@ Work Contract / Work Extension / HITL UX
 
 <p>Schema Engineering 不要求拥有新的 Agent Harness 或 system of record，也不要求形成独立物理平台。逻辑上的调用与承诺链可以表示为：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Model Capability Layer
+<pre><code class="text language-text">Model Capability Layer
         ↓ generates candidate reasoning / action intent
 Agentic Runtime / Harness
         ↓ executes through service, plugin, permission and trace contracts
@@ -1692,7 +1611,6 @@ Existing System of Record / Downstream Work
         ↓ acquires organizational effect
 Person / Organization
 </code></pre>
-</div>
 
 <p>通用 Harness 负责 model adapter、tool execution、session、event、plugin lifecycle、sandbox、approval seam、trace 与 recovery；Work Extension 负责具体 Task family、Work State、Artifact、Evidence、Completion、Authority、Review 与 HITL 语义。二者之间应通过稳定 service、event、permission、UI slot 和 state interface 连接。宿主可以替换，领域语义不应被迫重写；领域 Contract 可以修订，也不应要求重新训练模型或 fork Harness core。</p>
 
@@ -2149,15 +2067,13 @@ Person / Organization
 
 <p>本文记录一套当下可执行的实践构造，不编辑产品案例、个人工作法或新闻式趋势。每次增量按以下顺序处理：</p>
 
-<div class="codehilite">
-<pre><span></span><code>observe an instance or failure
+<pre><code class="text language-text">observe an instance or failure
 → state the smallest mechanism it may expose
 → separate observation from inference
 → test against existing Canonical and Practice text
 → adjudicate: no change / index only / practice revision / canonical revision
 → record the decision and disconfirming condition
 </code></pre>
-</div>
 
 <p>正文只接受同时满足三个条件的增量：</p>
 
@@ -2192,14 +2108,12 @@ Person / Organization
 
 <p>执行层回答“此次运行能做什么”；治理层回答“什么可以取得什么效力”。</p>
 
-<div class="codehilite">
-<pre><span></span><code>Capability surface
+<pre><code class="text language-text">Capability surface
   tools / files / network / models / sessions / UI
 
 Governance surface
   scope / evidence / completion / authority / review / commitment / recovery
 </code></pre>
-</div>
 
 <p>两者可以实现在同一系统中，但不能用工具调用成功替代工作接受，也不能用宿主已经保存 Session 替代 Matter continuity。</p>
 
@@ -2213,14 +2127,12 @@ Governance surface
 
 <p>一次修正只能说明某个结果在某个 Matter 和时点下被改变。要进入后续执行，必须区分：</p>
 
-<div class="codehilite">
-<pre><span></span><code>artifact-local edit
+<pre><code class="text language-text">artifact-local edit
 matter-specific decision
 institution convention
 domain invariant
 candidate evaluator or training signal
 </code></pre>
-</div>
 
 <p>只有声明 provenance、scope、owner、review、version、rollback 和后续检验的修改，才能从 Candidate feedback 晋升为可复用规则。可读、可版本化的 instruction 能够成为 policy memory，但只有绑定工作对象、状态、Evidence、Authority 与 outcome 后，才能成为 Work Contract 的一部分。</p>
 
@@ -2228,13 +2140,11 @@ candidate evaluator or training signal
 
 <p>当下实践已经足以采用以下分层：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Raw Evidence / History
+<pre><code class="text language-text">Raw Evidence / History
 → Governed Repository and Current Semantic State
 → Retrieval Candidate Set
 → Model-facing Context or Human-facing Work Surface
 </code></pre>
-</div>
 
 <p>工作域隔离、历史检索和持久资源可以缓解 chronology 持续膨胀，但 retrieval 仍然只回答“可能相关的对象是什么”。哪项陈述已被确认、驳回、覆盖或批准，仍由 Govern layer 与 commit protocol 决定。</p>
 
@@ -2246,8 +2156,7 @@ candidate evaluator or training signal
 
 <p>可恢复的 mutation 至少记录：</p>
 
-<div class="codehilite">
-<pre><span></span><code>source object or span
+<pre><code class="text language-text">source object or span
 + previous projection
 + proposed mutation and reason
 + scope and lifetime
@@ -2255,7 +2164,6 @@ candidate evaluator or training signal
 + recovery path
 + downstream outcome
 </code></pre>
-</div>
 
 <p>对 Context 操作给予更细的 credit 可以产生 Eval 或训练候选，但局部任务得分不能回答被保留的内容是否具有正式效力。</p>
 
@@ -2263,15 +2171,13 @@ candidate evaluator or training signal
 
 <p>多个 Agent instance 表示存在多个执行位置，它们可以并行、委派、竞争、审阅或汇总。Compiled Expert 则表示对某个任务族已声明、验证并收窄权限的能力配置。</p>
 
-<div class="codehilite">
-<pre><span></span><code>Run Plan
+<pre><code class="text language-text">Run Plan
 = Compiled Expert Profile
 + Current Matter State
 + role and stage
 + current Authority
 + Context Projection
 </code></pre>
-</div>
 
 <p>多个 Agent 可以共用同一 Expert，一个流程也可以在不同阶段绑定不同 Expert。模型数量、Session 数量、终端数量或角色名称都不能代替 Expert 的 applicability、permission、Eval、fallback 和 release evidence。多个实例的意见一致也不等于独立证据或 Authority。</p>
 
@@ -2336,8 +2242,7 @@ candidate evaluator or training signal
 
 <h3 id="31-分层">3.1 分层</h3>
 
-<div class="codehilite">
-<pre><span></span><code>Model Providers
+<pre><code class="text language-text">Model Providers
         ↓
 Generic Agent Runtime
         model / loop / tools / sandbox / session / event / permission / UI
@@ -2353,7 +2258,6 @@ Matter Sidecar or Existing System of Record
         ↓
 Person / Organization / Downstream Work
 </code></pre>
-</div>
 
 <p>Host Adapter 是唯一可以依赖具体宿主 service、event、package name 与 UI channel 的层。Semantic Core、Compiled Expert manifest 和 Matter State 不得依赖宿主内部命名。</p>
 
@@ -2400,8 +2304,7 @@ Person / Organization / Downstream Work
 
 <p>Expert 不是人格化 Agent，也不是一组工具。它的最小单元是：</p>
 
-<div class="codehilite">
-<pre><span></span><code>schema
+<pre><code class="text language-text">schema
 + tools
 + retrieval policy
 + validators and evaluators
@@ -2411,7 +2314,6 @@ Person / Organization / Downstream Work
 + applicability and exclusions
 + E2E release evidence
 </code></pre>
-</div>
 
 <h3 id="33-五个承重组件">3.3 五个承重组件</h3>
 
@@ -2427,12 +2329,10 @@ Person / Organization / Downstream Work
 
 <h3 id="34-三层-activation">3.4 三层 activation</h3>
 
-<div class="codehilite">
-<pre><span></span><code>Preset binding
+<pre><code class="text language-text">Preset binding
 → Expert routing
 → bounded Primitive composition
 </code></pre>
-</div>
 
 <p>Matter type、role 和 stage 已能确定的工作使用 Preset；常规歧义只在少量 approved Experts 中选择；没有适用 Expert、跨域或低置信度时，才进入 primitive composition。最后一层默认 least-privilege 且 Candidate-only，不自动取得 approve、publish、external transmit 或 irreversible authority。</p>
 
@@ -2440,8 +2340,7 @@ Person / Organization / Downstream Work
 
 <h3 id="35-compiled-expert-的发布与折旧">3.5 Compiled Expert 的发布与折旧</h3>
 
-<div class="codehilite">
-<pre><span></span><code>frontier execution or expert intervention
+<pre><code class="text language-text">frontier execution or expert intervention
 → Candidate Expert Profile
 → applicability / exclusions / provenance
 → Contract and dependency versions
@@ -2451,14 +2350,12 @@ Person / Organization / Downstream Work
 → outcome / disagreement / reversal / drift monitoring
 → revalidate / narrow / rollback / deprecate
 </code></pre>
-</div>
 
 <p>成功 trace 不是 Expert。每个版本至少具有 owner、applicability、exclusions、provenance、dependency versions、risk-stratified E2E、freshness trigger、abstention、fallback、rollback 和 deprecation path。法规、来源、机构政策、工具、模型、任务分布或 Reviewer outcome 变化都可以触发重验证。</p>
 
 <p>未覆盖事项必须安全退出：</p>
 
-<div class="codehilite">
-<pre><span></span><code>unsupported case
+<pre><code class="text language-text">unsupported case
 → abstain or request Review
 → Human expert or bounded composition
 → preserve Candidate-only boundary
@@ -2466,7 +2363,6 @@ Person / Organization / Downstream Work
 → Candidate revision
 → E2E revalidation and release
 </code></pre>
-</div>
 
 <hr />
 
@@ -2476,8 +2372,7 @@ Person / Organization / Downstream Work
 
 <p>Matter 可以首先实现为现有 Session 和 system of record 之外的薄层，不必一开始就替换它们。</p>
 
-<div class="codehilite">
-<pre><span></span><code>Canonical Semantic Layer
+<pre><code class="text language-text">Canonical Semantic Layer
   committed events
   current semantic state
   active artifact references
@@ -2490,32 +2385,28 @@ Rebuildable Index Layer
   graph and projection caches
   retrieval ranking
 </code></pre>
-</div>
 
 <p>索引可以重建；哪个成果已被接受、哪项候选被驳回、谁作出何种裁决以及什么仍未完成，不能靠重新摘要 Transcript 猜回。</p>
 
 <h3 id="42-最小-matter-声明">4.2 最小 Matter 声明</h3>
 
-<div class="codehilite">
-<pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;matter_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;matter-001&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;extension_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evidence-memo&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;contract_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;awaiting_review&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;active_artifact&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;memo:v3&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;session_refs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;session-a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;session-b&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;open_obligations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;verify-source-7&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;pending_reviews&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;review-12&quot;</span><span class="p">]</span>
-<span class="p">}</span>
+<pre><code class="json language-json">{
+  "matter_id": "matter-001",
+  "extension_id": "evidence-memo",
+  "contract_version": "0.1.0",
+  "status": "awaiting_review",
+  "active_artifact": "memo:v3",
+  "session_refs": ["session-a", "session-b"],
+  "open_obligations": ["verify-source-7"],
+  "pending_reviews": ["review-12"]
+}
 </code></pre>
-</div>
 
 <p>一个 Matter 可以关联多个 Session。删除 Session、替换模型或宿主升级不应同时删除 active Artifact、Committed State 和未完义务。</p>
 
 <h3 id="43-store-govern-retrieve-compile">4.3 Store → Govern → Retrieve → Compile</h3>
 
-<div class="codehilite">
-<pre><span></span><code>Store
+<pre><code class="text language-text">Store
   Sources / Events / Artifacts / Raw History / Committed State
 → Govern
   identity / status / version / provenance / authority / scope / expiry
@@ -2524,20 +2415,17 @@ Rebuildable Index Layer
 → Compile
   model working set / human work surface / executable run plan
 </code></pre>
-</div>
 
 <p>Store 解决总容量，Govern 使对象可被区分，Retrieve 缩小候选集，Compile 决定谁占用当前 Attention。Govern 是承重层：每个规则和状态需要 owner、scope、version、review path、disagreement representation、expiry 与 rollback。</p>
 
 <p>对边界稳定的 procedural task，每步可进一步收窄为：</p>
 
-<div class="codehilite">
-<pre><span></span><code>Stable Procedure + Current State + Latest Observation
+<pre><code class="text language-text">Stable Procedure + Current State + Latest Observation
 → transient reasoning + Candidate State Patch + action
 → deterministic validation
 → Committed State Change + executed action
 → next Context Projection
 </code></pre>
-</div>
 
 <p>中间 reasoning 可以从下一步 prompt 移除，但“不再进入热 Context”不等于“从存储删除”。当工作需要 provenance、audit、debugging、recovery 或对历史行动的解释时，Event / Evidence Ledger 仍保留原始对象与坐标；Current State 只是默认执行基底，不是全部历史的替代品。</p>
 
@@ -2559,14 +2447,12 @@ Rebuildable Index Layer
 
 <h3 id="51-两种投影">5.1 两种投影</h3>
 
-<div class="codehilite">
-<pre><span></span><code>Canonical Matter State
+<pre><code class="text language-text">Canonical Matter State
 ├── Model-facing Context Projection
 │   compact / normalized / executable
 └── Human-facing Work Surface
     inspect / compare / trace / revise / decide
 </code></pre>
-</div>
 
 <p>人需要看到原文锨点、来源关系、版本差异、未解冲突、覆盖缺口与裁决后果。模型需要紧凑、规范化、符合当前权限和任务阶段的工作集。两者来自同一正式状态，不必共用同一表示。</p>
 
@@ -2623,8 +2509,7 @@ Rebuildable Index Layer
 
 <h3 id="53-review-grammar">5.3 Review grammar</h3>
 
-<div class="codehilite">
-<pre><span></span><code>Review Item
+<pre><code class="text language-text">Review Item
 = Target
 + Anchors
 + Candidate Assertion or Change
@@ -2634,12 +2519,10 @@ Rebuildable Index Layer
 + Authority
 + State Consequence
 </code></pre>
-</div>
 
 <p>可复用的动作族包括 accept、reject、revise、request further work、request evidence、qualify、defer、waive、escalate、approve、publish、supersede 和 withdraw。动作名称不产生复用性；只有以下链路可复用：</p>
 
-<div class="codehilite">
-<pre><span></span><code>decision
+<pre><code class="text language-text">decision
 → authority requirement
 → validation
 → committed event type
@@ -2647,14 +2530,12 @@ Rebuildable Index Layer
 → artifact-version effect
 → next-context effect
 </code></pre>
-</div>
 
 <h3 id="54-文档与界面的晋升边界">5.4 文档与界面的晋升边界</h3>
 
 <p>HTML、Markdown、表格或图形只是 Work Surface 的表示。界面中的按钮、评论或勾选只有在生成 typed Candidate Decision，并经 Authority 与 validation 写入 Committed Event 时，才改变 Matter State 和 active Artifact。</p>
 
-<div class="codehilite">
-<pre><span></span><code>Model proposes Candidate
+<pre><code class="text language-text">Model proposes Candidate
 → deterministic Renderer builds surface
 → Human reviews or revises
 → typed Candidate Decision
@@ -2662,7 +2543,6 @@ Rebuildable Index Layer
 → Committed Event
 → State and active Artifact update
 </code></pre>
-</div>
 
 <hr />
 
@@ -2713,15 +2593,13 @@ Rebuildable Index Layer
 
 <h3 id="62-从观察到-contract">6.2 从观察到 Contract</h3>
 
-<div class="codehilite">
-<pre><span></span><code>expert demonstration
+<pre><code class="text language-text">expert demonstration
 → intervention and correction capture
 → separate invariant / institution / matter / habit / judgment
 → compile Contract / validator / surface / escalation
 → E2E without the original author
 → production review and revision
 </code></pre>
-</div>
 
 <p>隐性知识首先表现为对任务、来源、Context、工具、失败、重试、完成和交付的手动控制。编订只抽取跨时间必须保留、会改变后续行动、支持 Review 或能被验证的部分，不序列化专家的全部认知过程。</p>
 
@@ -2768,12 +2646,10 @@ Rebuildable Index Layer
 
 <h3 id="65-从产品信号到训练候选">6.5 从产品信号到训练候选</h3>
 
-<div class="codehilite">
-<pre><span></span><code>codified artifacts
+<pre><code class="text language-text">codified artifacts
 → software-grounded interaction trajectories
 → governed situated judgment trajectories
 </code></pre>
-</div>
 
 <p>第三类信号至少需要 Matter、State、Evidence、Candidate / Committed、Review、Authority、Outcome 与 later reversal。这些对象首先服务运行、恢复和 Eval；只有在 rights、failure attribution、held-out Work Eval 和外部现实反馈成立时，才成为 selective post-training 候选。产品成立不以训练飞轮成立为前提。</p>
 
@@ -2927,8 +2803,7 @@ Rebuildable Index Layer
 
 <p>当下实践的最小结构是：</p>
 
-<div class="codehilite">
-<pre><span></span><code>thin shared runtime
+<pre><code class="text language-text">thin shared runtime
 + host adapter
 + Preset / Expert / Primitive activation
 + Matter State
@@ -2937,7 +2812,6 @@ Rebuildable Index Layer
 + typed commitment boundary
 + E2E and lifecycle governance
 </code></pre>
-</div>
 
 <p>这一结构把总能力、总知识与单次 Attention 分离，把执行拓扑与 Expert 语义分离，把原始记录、索引、当前状态与正式成果分离，并使 Context 的每次重写和 Output 的每次写回都可被检查。</p>
 
@@ -2973,8 +2847,7 @@ Rebuildable Index Layer
 
 <p>每个条目至少包含：</p>
 
-<div class="codehilite">
-<pre><span></span><code>id / observed_at / source_class
+<pre><code class="text language-text">id / observed_at / source_class
 source / version or access date
 observable mechanism
 smallest supported claim
@@ -2983,7 +2856,6 @@ verification or falsification
 text disposition
 status
 </code></pre>
-</div>
 
 <p>状态只使用：</p>
 
