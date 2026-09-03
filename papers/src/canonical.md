@@ -440,7 +440,9 @@ Compile
 → assemble the minimal sufficient working set for this role, task and stage
 ```
 
-四者不能互相替代。Store 很大不表示 Context 应当很大；Retrieve 相关不表示对象仍然有效；Compile 不是把全部 Schema 序列化给模型，而是根据 Current Semantic State、Assignment、role、Authority、task stage 与 disclosure policy 生成可执行投影。同一份 Canonical State 也可以分别编译为 Model-facing Context 与 Human-facing Work Surface。
+四者不能互相替代。Store 很大不表示 Context 应当很大；Retrieve 相关不表示对象仍然有效；Compile 不是把全部 Schema 序列化给模型，而是根据 Current Semantic State、Assignment、role、Authority、task stage 与 disclosure policy 生成可执行投影。同一份 Canonical State 可以分别编译为 Model-facing Context、Human-facing Work Surface 与面向未来 Run 的 Retrieval / Memory Index：模型获得当前可执行工作集，人获得当前必须判断的差异与证据，后续 Runtime 获得可以按 Matter、状态、版本和适用范围重新披露的索引。
+
+这三种 Projection 可以具有不同结构、颗粒度和生命周期，却不能各自拥有独立的事实状态。Canonical State 才是持久 source of truth；Context、Review Surface 与 Memory Index 都应可从它和受 retention policy 保护的 Evidence 重新生成。若三条消费路径产生不同事实、版本或效力，差异应被检测为 Projection 或同步错误，而不是由下一位模型或 Reviewer 在自然语言中猜测哪一份更真。
 
 Govern 是这条管线中最难被工具化的环节。它必须回答谁有资格定义和修改状态、来源等级、Completion、Authority、Review 与 supersession；每项治理规则需要 owner、scope、version、review path、disagreement representation、deprecation 与 rollback。若 Govern layer 只能依赖少数专家永久手工维护，或其结构化成本与使用量同比增长，Runtime 只是把隐形 Human Harness 改写成配置劳动。
 
@@ -614,6 +616,10 @@ Artifact Contract 定义成果类型、结构、版本、状态、引用关系�
 #### 6.6 Review Contract
 
 Review Contract 定义谁在哪种状态下可以接受、驳回、修订、要求补充、批准和提升规则。Review 产生 Candidate Decision；只有通过 Authority Check 并写入 Committed Event 后，它才改变 Semantic State 或 active Artifact reference。
+
+人在 loop 中只是一种执行拓扑，不足以证明监督有效。Review Contract 还必须使具备 Authority 的人能在有限 attention 下形成独立判断：明确当前事实与旧版本、Candidate 改变了什么、Evidence 支持和限定什么、机器已经检查什么、仍有哪些不确定性、提交会产生什么后果，以及此刻真正需要人的哪项裁决。对每个 tool call 反复索取低语义确认，或在长程执行结束后把完整 trace 交给人重建 mental model，都可能产生形式 approval 而非有效 Review。
+
+因此 Human-facing Work Surface 应按 decision unit 编译，而不是按 execution chronology 倾倒。Raw Trace 仍可按需披露和审计；默认 Review packet 应保存 anchors、delta、自动检查、未决问题、可逆性、Authority requirement 与 state consequence。Review latency、override、evidence-seeking、later reversal 和 canary failure 可以作为监督质量信号，但不能单独把一次 approve 推断成高质量 judgment 或训练标签。
 
 #### 6.7 Escalation Contract
 
@@ -892,6 +898,8 @@ Context / Work State
 
 Coding 同时跨越后两层。它是 Agentic Runtime 最成熟的构建和验证环境，repository、toolchain、test、CI 与 PR lifecycle 也定义了软件工程 Contract 的一部分；但产品意图、Architecture、Compatibility、Release Authority 与运营后果仍属于更高层的 Work Contract。上游 Coding / Harness 团队可以提供稳定 service、permission、trace 和通用 review primitives，不能替下游定义所有工作的完成与接受。
 
+当 autonomous coding 从一次 bounded issue 跨入多日、跨迭代的软件开发时，它开始显露一般长期工作的共同结构：长期 Specification、持续变化的 Artifact State、关于已验证行为与未解失败的 Evidence State、每轮受限目标、role-specific Context 与 Authority，以及独立于实现者自评的 Acceptance。代码和测试使这一领域拥有较强的 machine-readable、versionable、replayable substrate；这使它适合作为 Work Runtime 的上游实验场，却不证明同一 Acceptance 机制可以直接平移到来源、专业判断和制度承诺更难机械验证的领域。
+
 > **P21 — Layered contracts, local evidence：Model、Agentic Runtime 与 Work Extension 各自拥有 Contract、Eval、长期资产和演化周期；上游能力不能代替下游成果接受，下游失败也不能未经归因就归咎于模型。**
 
 三层 benchmark 可以共同进入 E2E，但不能互相冒充。Model 分数提高不自动证明 Harness 有效；Agentic benchmark 全绿不自动证明工作正确；Work benchmark 也不能反向声称所有专业判断已经被形式化。真正稳定的顺序是：先定义 work-state contract，再从 contract 派生 benchmark，并以真实 Review 和 downstream adoption 校验其外部效度。
@@ -1117,6 +1125,10 @@ Schema 保存意义，Harness 负责执行。Harness 越强，Work Contract 中�
 单个 Eval item 会因模型普遍通过、任务分布变化、制度变化或法规变化而失去区分力。Eval infrastructure 仍可积累任务生成、执行、评分、回归、分层和复核能力。
 
 Eval item 需要分别标记 stable regression value、frontier discriminative value、distribution relevance 与 legal or institutional validity。
+
+Evaluator、rubric 与 labeling guideline 本身也是 governed artifacts，而不是附着在 Runtime 外面的静态 benchmark。它们需要 owner、source criteria、version、适用范围、disagreement、monitoring、Candidate revision、Review、deployment gate 与 rollback；生产失败既可能表示执行者偏离现有判据，也可能表示判据遗漏、过时或把机构偏好误写成领域事实。被提议的 rubric revision 不因提高一次离线分数就自动取得生产效力。
+
+当 Evaluator 的 reason 会进入下一轮生成、状态迁移、拒收、升级或训练信号时，evaluation trace 具有执行后果。此时 label agreement 不足以证明 Eval 正确；“结论相同但理由错误”仍可能把错误归因写入后续 Context。Schema 与 Eval 因而不是单向的 `Schema → test`：它们是同一 governed criterion 的执行与测量投影，必须共享版本与变更边界，同时保留人类分歧和外部 outcome 作为校正来源。
 
 > **P14 — Eval infrastructure compounds; individual Eval items saturate：Eval 基础设施会复利，单个条目会饱和并折旧。**
 
@@ -1523,6 +1535,9 @@ Canonical 只保留不随产品版本折旧的命题和证据责任。每项待�
 29. Compiled Expert 的发布门应如何组合 accepted-work-product、Reviewer disagreement、风险分层、观察窗口与 later reversal，才能在慢反馈专业领域判断“足以部署”而不制造虚假确定性？
 30. 哪些变化应触发 Expert 的自动重验证、暂停或重新编译；怎样区分 source / regulation / institution drift、model / Harness drift 与真实工作分布变化？
 31. 当 Compiled Expert 遇到未覆盖事项时，abstention、Human escalation、bounded primitive composition 与 Candidate Expert revision 如何形成低摩擦闭环，而不把 ordinary user 重新推回开放 orchestration？
+32. Review packet 至少需要哪些 Evidence、delta、uncertainty、consequence 与 Authority 信息，才能证明人在有限 attention 下形成了独立判断，而不是只完成形式 approval？
+33. Model Context、Human Work Surface 与 Retrieval / Memory Index 从同一 Canonical State 投影时，如何检测 omission、staleness 与 cross-projection inconsistency，又不把三种视图物理锁死为同一表示？
+34. Evaluator reason 被下游执行消费时，怎样分别版本化 criterion、verdict、rationale 与 state consequence，并检测“标签正确但归因错误”的闭环污染？
 
 ### 17. 分层原则索引
 

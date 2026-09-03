@@ -106,12 +106,14 @@ candidate evaluator or training signal
 Raw Evidence / History
 → Governed Repository and Current Semantic State
 → Retrieval Candidate Set
-→ Model-facing Context or Human-facing Work Surface
+→ Model-facing Context / Human-facing Work Surface / Future Retrieval Index
 ```
 
 工作域隔离、历史检索和持久资源可以缓解 chronology 持续膨胀，但 retrieval 仍然只回答“可能相关的对象是什么”。哪项陈述已被确认、驳回、覆盖或批准，仍由 Govern layer 与 commit protocol 决定。
 
 Memory 保存与召回信息；State 表达当前 execution semantics；Schema 规定什么具有跨步骤持续存在的资格。因此 Schema 不是压缩格式，而是 persistence policy。只有当 Current State 足以支持后续执行时，它才可以成为默认 execution substrate；未被及时编入 State 的旧 Observation、需要动态发现的 Schema，以及本身就是工作对象的历史 trajectory，仍需要 Raw History / Evidence 与按需检索。
+
+三种消费路径应共享同一 canonical state，而不是维护三份彼此同步的摘要。Model Context 决定当前 Run 注意什么，Human Work Surface 决定 Reviewer 此刻必须判断什么，Retrieval Index 决定未来 Run 能按何种 identity、status、version 与 provenance 重新找到什么。它们可以独立重建和优化；任何一条 projection 都不能反向成为第二套事实源。
 
 ### 2.6 Context Mutation 是有效果的运行动作
 
@@ -168,7 +170,8 @@ Run Plan
 2. Completion 外置、feedback 编订、工作域隔离、持久资源和 Context 管理是互补机制，不是完整架构的替代品。
 3. Sparse capability activation 与 sparse state projection 需要共同接受 omission、pollution、permission 和 accepted-work-product 检验。
 4. Context Mutation、multi-agent topology 和 documentation workflow 都必须回到同一 Candidate / Committed 边界。
-5. 上述命题是当前实现方向，并非已完成的普遍验证。
+5. Model Context、Human Review 与 future retrieval 是同一 governed state 的不同 attention projection，不是三套独立 memory。
+6. 上述命题是当前实现方向，并非已完成的普遍验证。
 
 ---
 
@@ -324,7 +327,7 @@ Store
 → Retrieve
   potentially relevant governed objects
 → Compile
-  model working set / human work surface / executable run plan
+  model working set / human work surface / future retrieval index / executable run plan
 ```
 
 Store 解决总容量，Govern 使对象可被区分，Retrieve 缩小候选集，Compile 决定谁占用当前 Attention。Govern 是承重层：每个规则和状态需要 owner、scope、version、review path、disagreement representation、expiry 与 rollback。
@@ -341,6 +344,8 @@ Stable Procedure + Current State + Latest Observation
 
 中间 reasoning 可以从下一步 prompt 移除，但“不再进入热 Context”不等于“从存储删除”。当工作需要 provenance、audit、debugging、recovery 或对历史行动的解释时，Event / Evidence Ledger 仍保留原始对象与坐标；Current State 只是默认执行基底，不是全部历史的替代品。
 
+对跨多轮开发或其他可版本化工作，Artifact State 与 Evidence State 应分别持久化。前者回答“当前对象是什么”，后者回答“哪些行为已经验证、哪些主张仍无支持、哪些失败尚未解决”。只携带最新 Artifact 会迫使下一轮从成果反推工作史；只携带报告又无法提供可继续修改的对象。每轮目标应从 Stable Contract、当前 Artifact 与 Evidence 共同裁定，并把验证记录绑定到具体 Candidate version。
+
 ### 4.4 Context Mutation Preservation
 
 在相同任务和资源下，对删除、摘要、压缩和重载分别检查：
@@ -355,17 +360,19 @@ Stable Procedure + Current State + Latest Observation
 
 ## 五、Human Work Surface
 
-### 5.1 两种投影
+### 5.1 三种投影
 
 ```text
 Canonical Matter State
 ├── Model-facing Context Projection
 │   compact / normalized / executable
-└── Human-facing Work Surface
-    inspect / compare / trace / revise / decide
+├── Human-facing Work Surface
+│   inspect / compare / trace / revise / decide
+└── Retrieval / Memory Index Projection
+    identify / version / locate / disclose later
 ```
 
-人需要看到原文锨点、来源关系、版本差异、未解冲突、覆盖缺口与裁决后果。模型需要紧凑、规范化、符合当前权限和任务阶段的工作集。两者来自同一正式状态，不必共用同一表示。
+人需要看到原文锚点、来源关系、版本差异、未解冲突、覆盖缺口与裁决后果。模型需要紧凑、规范化、符合当前权限和任务阶段的工作集。未来 Runtime 需要按 Matter、状态、版本、适用范围和 provenance 重新定位对象。三者来自同一正式状态，不必共用同一表示，也不能各自拥有独立的权威事实。
 
 ### 5.2 表示原语
 
@@ -389,13 +396,18 @@ Canonical Matter State
 Review Item
 = Target
 + Anchors
-+ Candidate Assertion or Change
++ Current State and Candidate Delta
 + Judgment Dimensions
 + Evidence
++ Automated Checks
++ Uncertainty and Open Questions
++ Commit Consequence and Reversibility
 + Decision
 + Authority
 + State Consequence
 ```
+
+Review 应围绕有状态后果的 decision unit 分批编译，而不是让人逐项确认 tool call 或在末尾重放完整 chronology。默认表面只放形成独立判断所需的最小充分对象；Raw Trace、旧版本和补充 Evidence 保持可检索并按需展开。HITL 是否有效，需要同时观察 critical omission、Review time、evidence-seeking、override、later reversal 与 canary failure，而不能把点击 approve 直接当作正确监督。
 
 可复用的动作族包括 accept、reject、revise、request further work、request evidence、qualify、defer、waive、escalate、approve、publish、supersede 和 withdraw。动作名称不产生复用性；只有以下链路可复用：
 
@@ -537,6 +549,9 @@ codified artifacts
 - **Completion Independence**：完成条件不由执行者临时降低。
 - **UI Representation Equivalence**：不同 renderer 对同一裁决产生相同状态后果。
 - **Review Bandwidth**：在成果质量不降低时，专家 Review 时间或恢复成本下降。
+- **Review Sufficiency**：去除完整 execution trace 后，结构化 Review packet 仍使 Reviewer 发现关键错误、请求必要证据并形成可解释的独立判断。
+- **Projection Consistency**：从同一 State 重建 Model Context、Human Surface 与 Retrieval Index，检查三者不产生冲突的事实、版本或效力。
+- **Evaluator Lifecycle**：criterion、rubric、reason 与 deployment version 可追踪；错误归因不会因 label 碰巧正确而进入下游 revision 或训练信号。
 - **Correlated Review Failure**：注入共享错误前提、共同缺失来源和相同 Evaluator 偏差，检查多实例共识是否被误当独立验证。
 - **Accepted Work Product**：结果由具备 Authority 的 Reviewer 在预定节点接受，可进入下游且无需实质性修改。
 
@@ -563,6 +578,9 @@ codified artifacts
 | Retrieval mistaken for governance | 语义相近的旧内容被当作当前有效状态 |
 | Context optimization destroys evidence | 压缩降低 token，同时丢失限定、否定、冲突或坐标 |
 | Surface theater | 界面更结构化，动作却没有 Authority 和状态后果 |
+| Formal HITL | 人被放进 loop，却没有足够 Evidence、时间或状态差异形成独立判断 |
+| Projection split-brain | Model Context、Human Surface 与 Retrieval Index 对同一 Matter 持有不同事实或版本 |
+| Evaluator drift without governance | rubric 或 reason 改变生产行为，却没有版本、Review、monitoring 与 rollback |
 | Correlated consensus | 多个实例共享错误前提和 Evaluator，共识被误当独立校验 |
 | Dense activation regression | 能力与数据总量增长时，每次 Run 的 Context 和权限表面同比增长 |
 | Expert ossification | 旧来源、规则、工具或偏好因快速路径而持续生效 |
