@@ -1,6 +1,6 @@
 # Schema Engineering
 
-Schema Engineering 是一组持续修订的工作论文，讨论概率性执行者如何参与可提交、可恢复、可审阅的正式工作。
+Schema Engineering 是一组持续修订的工作论文，讨论 Agent 如何参与可提交、可恢复、可审阅的正式工作。
 
 当前版本为 **9.2（2026-09-04）**。可从 [GitHub Pages](https://lesprivilege.github.io/Schema-Engineering/) 阅读；带日期的发布文件保留在 [`papers/dist/`](papers/dist/) 中。
 
