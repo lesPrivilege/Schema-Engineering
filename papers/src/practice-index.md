@@ -230,7 +230,7 @@ status
 | 生产 Evaluator 的 criterion、reason 与 rubric 会变化并产生下游后果 | Evaluator 是 governed artifact；正确 label 不能掩盖错误 attribution | §11.2 增加 lifecycle 与 commitment boundary | §7.3 增加测试 | PI-14 保留生产案例与外部效度限制 |
 | 本轮由 repository state、revision protocol 与渐进披露续行 | 只构成单次方法自观察，不构成因果证据 | 不修订 | 不修订 | PI-15 / V-13 登记对照设计 |
 | 正文修订仍可从新增段落和版本摘要辨认材料加入顺序 | 接受后的命题必须重写进最小完整章节；逐项记录与校验只留 Index | 重写 §5.4、6.6、8.5、11.2，删除补丁式解释 | 重写 §2.5、5.3，删除版本摘要 | 修订合成纪律写入 CONTRIBUTING 与 papers/README |
-| 同一概念在中英文和近义表述之间漂移；“概率性执行者”把 Agent 机械翻译为不自然的中文词组 | 中文为主但以自然、精确和稳定为先；固定 Agent / Model / Operator 的区别，并统一 Current Semantic State、Context Projection、Human Work Surface 与 Retrieval Index | 统一定义、状态转换和 Projection 名称，不改变 ontology 或原则 | 统一实现与测试表述，修正 Memory 及 Agent / Operator 的映射 | 双语与术语纪律并入既有治理文件；本行保存裁决与 repo-wide 校验范围 |
+| 同一 SE 对象曾出现无意别名和机械翻译；反过来，固定词形会把自然多义误作治理问题 | 用词按语境自然达意并保持全篇体例；治理同一指代与概念边界，不治理单词本身；SE 抽象优先对接共识，自撰概念保持最少 | 统一没有语义差别的定义、状态转换和 Projection 名称；不要求单词一义，不改变 ontology 或原则 | 统一同一对象的实现与测试表述，保留不同语境所需的自然用词 | 写作凡例并入既有治理文件；本行保存裁决与 repo-wide 校验范围 |
 
 本轮没有新增 Canonical ontology、Contract 类型或原则编号。
 
