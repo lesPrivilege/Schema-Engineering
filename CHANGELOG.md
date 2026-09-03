@@ -10,7 +10,7 @@
 
 ### Canonical
 
-- 将 Model Context、Human Work Surface 与 Retrieval / Memory Index 明确为同一 Canonical State 的三类可重建 Projection，禁止它们各自形成事实源。
+- 将 Context Projection、Human Work Surface 与 Retrieval Index 明确为同一 Current Semantic State 的三类可重建 Projection，禁止它们各自形成事实源。
 - 将有效 Review 收紧为有限 attention 下可形成独立判断的 decision unit，而不只是人在 loop 中或点击 approval。
 - 明确长程软件工作中的 Artifact / Evidence 双连续性及其跨专业领域的外推边界。
 - 将 criterion、rubric 与 reason 纳入 Evaluator 的版本、监测、Review、部署与回滚生命周期。
