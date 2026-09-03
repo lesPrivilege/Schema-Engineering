@@ -62,7 +62,7 @@ body { margin: 0; background: #fff; color: var(--text); font-family: "Times New 
 
 <p>这一方法同时治理 Run 的两端。输入侧把 Stable Contract、Current Semantic State、相关资源与可检索历史投影为 task-specific Context；输出侧把 Model / Human Proposal 视为 Candidate Change，只有经过验证、授权和适用的 Review 才能进入 Committed Work State。单次输出质量因此不等于跨时间工作的质量；只要 output 会成为后续工作的 input，运行之后“留下什么、失效什么、下一次优先看什么”就是系统能力的一部分。</p>
 
-<p>在 Continuity Profile 中，输入侧还可以被压缩为一条运行管线：<code>Store → Govern → Retrieve → Compile</code>。Store 保存 Sources、Events、Artifact versions、Raw History 与正式状态；Govern 通过 Work Contract、commit protocol、status、version、Authority 与 applicability 使这些对象具有可选择的语义；Retrieve 返回潜在相关对象；Compile 才为当前 Assignment、role 与 task stage 生成最小充分的 Model-facing Context 或 Human-facing Work Surface。这是既有 ontology 的运行投影，不是新增四类基础对象。Matter repository 不是 Prompt，Work Contract 也不是一份更大的 system prompt；存在于用户工作空间中的信息，不等于必须存在于当前模型 Context。</p>
+<p>在 Continuity Profile 中，输入侧还可以被压缩为一条运行管线：<code>Store → Govern → Retrieve → Compile</code>。Store 保存 Sources、Events、Artifact versions、Raw History 与正式状态；Govern 通过 Work Contract、commit protocol、status、version、Authority 与 applicability 使这些对象具有可选择的语义；Retrieve 返回潜在相关对象；Compile 才为当前 Assignment、role 与 task stage 生成最小充分的 Model-facing Context、Human-facing Work Surface 与 Retrieval / Memory Index。这是既有 ontology 的运行投影。Matter repository 不是 Prompt，Work Contract 也不是一份更大的 system prompt；存在于用户工作空间中的信息，不等于必须存在于当前模型 Context。</p>
 
 <p>这条管线同时解耦总工作容量与单次 Attention 成本。Matter、历史、机构知识和可用能力可以持续增长，一次 Run 激活的 working set 不应随总存量线性增长。通用 Agent 的含义因而不是 <code>everything loaded</code>，而是 <code>anything governed is addressable</code>：它能够进入不同工作空间，并可靠取得当前任务所需的最小充分 Projection。</p>
 
@@ -541,9 +541,7 @@ Compile
 → assemble the minimal sufficient working set for this role, task and stage
 </code></pre>
 
-<p>四者不能互相替代。Store 很大不表示 Context 应当很大；Retrieve 相关不表示对象仍然有效；Compile 不是把全部 Schema 序列化给模型，而是根据 Current Semantic State、Assignment、role、Authority、task stage 与 disclosure policy 生成可执行投影。同一份 Canonical State 可以分别编译为 Model-facing Context、Human-facing Work Surface 与面向未来 Run 的 Retrieval / Memory Index：模型获得当前可执行工作集，人获得当前必须判断的差异与证据，后续 Runtime 获得可以按 Matter、状态、版本和适用范围重新披露的索引。</p>
-
-<p>这三种 Projection 可以具有不同结构、颗粒度和生命周期，却不能各自拥有独立的事实状态。Canonical State 才是持久 source of truth；Context、Review Surface 与 Memory Index 都应可从它和受 retention policy 保护的 Evidence 重新生成。若三条消费路径产生不同事实、版本或效力，差异应被检测为 Projection 或同步错误，而不是由下一位模型或 Reviewer 在自然语言中猜测哪一份更真。</p>
+<p>四者不能互相替代。Store 很大不表示 Context 应当很大；Retrieve 相关不表示对象仍然有效；Compile 也不是把全部 Schema 序列化给模型。它根据 Current Semantic State、Assignment、role、Authority、task stage 与 disclosure policy，分别生成当前可执行工作集、当前必须判断的差异与证据，以及未来 Run 可以按 Matter、状态、版本和适用范围重新披露的索引。三种 Projection 可以具有不同结构、颗粒度和生命周期，但都由 Canonical State 与受 retention policy 保护的 Evidence 重建；事实、版本或效力不一致属于 Projection 错误。</p>
 
 <p>Govern 是这条管线中最难被工具化的环节。它必须回答谁有资格定义和修改状态、来源等级、Completion、Authority、Review 与 supersession；每项治理规则需要 owner、scope、version、review path、disagreement representation、deprecation 与 rollback。若 Govern layer 只能依赖少数专家永久手工维护，或其结构化成本与使用量同比增长，Runtime 只是把隐形 Human Harness 改写成配置劳动。</p>
 
@@ -721,11 +719,7 @@ create_subagent             → 委派一项边界明确的运行义务
 
 <h4 id="66-review-contract">6.6 Review Contract</h4>
 
-<p>Review Contract 定义谁在哪种状态下可以接受、驳回、修订、要求补充、批准和提升规则。Review 产生 Candidate Decision；只有通过 Authority Check 并写入 Committed Event 后，它才改变 Semantic State 或 active Artifact reference。</p>
-
-<p>人在 loop 中只是一种执行拓扑，不足以证明监督有效。Review Contract 还必须使具备 Authority 的人能在有限 attention 下形成独立判断：明确当前事实与旧版本、Candidate 改变了什么、Evidence 支持和限定什么、机器已经检查什么、仍有哪些不确定性、提交会产生什么后果，以及此刻真正需要人的哪项裁决。对每个 tool call 反复索取低语义确认，或在长程执行结束后把完整 trace 交给人重建 mental model，都可能产生形式 approval 而非有效 Review。</p>
-
-<p>因此 Human-facing Work Surface 应按 decision unit 编译，而不是按 execution chronology 倾倒。Raw Trace 仍可按需披露和审计；默认 Review packet 应保存 anchors、delta、自动检查、未决问题、可逆性、Authority requirement 与 state consequence。Review latency、override、evidence-seeking、later reversal 和 canary failure 可以作为监督质量信号，但不能单独把一次 approve 推断成高质量 judgment 或训练标签。</p>
+<p>Review Contract 定义谁在哪种状态下可以接受、驳回、修订、要求补充、批准和提升规则。有效 Review 还要求具备 Authority 的人能在有限 attention 下形成独立判断。Human-facing Work Surface 因此按 decision unit 编译当前状态、Candidate delta、Evidence、自动检查、未决问题、可逆性、Authority requirement 与 state consequence；Raw Trace 保持可检索，而不成为默认审阅对象。Review 产生 Candidate Decision，只有通过 Authority Check 并写入 Committed Event 后，才改变 Semantic State 或 active Artifact reference。</p>
 
 <h4 id="67-escalation-contract">6.7 Escalation Contract</h4>
 
@@ -1081,9 +1075,7 @@ Run Plan
 </tbody>
 </table>
 
-<p>Coding 同时跨越后两层。它是 Agentic Runtime 最成熟的构建和验证环境，repository、toolchain、test、CI 与 PR lifecycle 也定义了软件工程 Contract 的一部分；但产品意图、Architecture、Compatibility、Release Authority 与运营后果仍属于更高层的 Work Contract。上游 Coding / Harness 团队可以提供稳定 service、permission、trace 和通用 review primitives，不能替下游定义所有工作的完成与接受。</p>
-
-<p>当 autonomous coding 从一次 bounded issue 跨入多日、跨迭代的软件开发时，它开始显露一般长期工作的共同结构：长期 Specification、持续变化的 Artifact State、关于已验证行为与未解失败的 Evidence State、每轮受限目标、role-specific Context 与 Authority，以及独立于实现者自评的 Acceptance。代码和测试使这一领域拥有较强的 machine-readable、versionable、replayable substrate；这使它适合作为 Work Runtime 的上游实验场，却不证明同一 Acceptance 机制可以直接平移到来源、专业判断和制度承诺更难机械验证的领域。</p>
+<p>Coding 同时跨越后两层。一次 bounded issue 主要检验 Harness 执行；多日、跨迭代的软件开发还需要长期 Specification、持续变化的 Artifact State、关于已验证行为与未解失败的 Evidence State、每轮受限目标、role-specific Context 与 Authority，以及独立于实现者自评的 Acceptance。Repository、toolchain、test、CI 与 PR lifecycle 提供 machine-readable、versionable、replayable substrate，定义软件工程 Contract 的一部分；产品意图、Architecture、Compatibility、Release Authority 与运营后果仍由 Work Contract 承担。其他专业领域沿用这组状态与责任关系时，需要以各自的 Evidence 与 Acceptance 语义替换软件测试提供的低成本 verifier。</p>
 
 <blockquote>
   <p><strong>P21 — Layered contracts, local evidence：Model、Agentic Runtime 与 Work Extension 各自拥有 Contract、Eval、长期资产和演化周期；上游能力不能代替下游成果接受，下游失败也不能未经归因就归咎于模型。</strong></p>
@@ -1330,13 +1322,9 @@ rights / data limitation
 
 <h4 id="112-eval-基础设施与条目折旧">11.2 Eval 基础设施与条目折旧</h4>
 
-<p>单个 Eval item 会因模型普遍通过、任务分布变化、制度变化或法规变化而失去区分力。Eval infrastructure 仍可积累任务生成、执行、评分、回归、分层和复核能力。</p>
+<p>Eval infrastructure 管理 task generation、execution、scoring、regression、分层和复核；Evaluator、rubric、labeling guideline 与 Eval item 都是其中的 governed artifacts。它们需要 owner、source criteria、version、适用范围、disagreement、monitoring、Candidate revision、Review、deployment gate 与 rollback。单个 Eval item 会因模型普遍通过、任务分布或制度变化而失去区分力，因而分别标记 stable regression value、frontier discriminative value、distribution relevance 与 legal or institutional validity。</p>
 
-<p>Eval item 需要分别标记 stable regression value、frontier discriminative value、distribution relevance 与 legal or institutional validity。</p>
-
-<p>Evaluator、rubric 与 labeling guideline 本身也是 governed artifacts，而不是附着在 Runtime 外面的静态 benchmark。它们需要 owner、source criteria、version、适用范围、disagreement、monitoring、Candidate revision、Review、deployment gate 与 rollback；生产失败既可能表示执行者偏离现有判据，也可能表示判据遗漏、过时或把机构偏好误写成领域事实。被提议的 rubric revision 不因提高一次离线分数就自动取得生产效力。</p>
-
-<p>当 Evaluator 的 reason 会进入下一轮生成、状态迁移、拒收、升级或训练信号时，evaluation trace 具有执行后果。此时 label agreement 不足以证明 Eval 正确；“结论相同但理由错误”仍可能把错误归因写入后续 Context。Schema 与 Eval 因而不是单向的 <code>Schema → test</code>：它们是同一 governed criterion 的执行与测量投影，必须共享版本与变更边界，同时保留人类分歧和外部 outcome 作为校正来源。</p>
+<p>Schema 与 Eval 是同一 governed criterion 的执行与测量投影。生产失败既可能表示执行者偏离判据，也可能表示判据已经遗漏或过时；rubric revision 必须经过自己的 commitment boundary。当 Evaluator reason 会进入下一轮生成、状态迁移、拒收、升级或训练信号时，evaluation trace 已经取得执行后果，label agreement 也必须同时接受 attribution 检查。人类分歧与外部 outcome 为 criterion、verdict 和 reason 提供共同的校正来源。</p>
 
 <blockquote>
   <p><strong>P14 — Eval infrastructure compounds; individual Eval items saturate：Eval 基础设施会复利，单个条目会饱和并折旧。</strong></p>
@@ -2163,9 +2151,7 @@ candidate evaluator or training signal
 
 <p>工作域隔离、历史检索和持久资源可以缓解 chronology 持续膨胀，但 retrieval 仍然只回答“可能相关的对象是什么”。哪项陈述已被确认、驳回、覆盖或批准，仍由 Govern layer 与 commit protocol 决定。</p>
 
-<p>Memory 保存与召回信息；State 表达当前 execution semantics；Schema 规定什么具有跨步骤持续存在的资格。因此 Schema 不是压缩格式，而是 persistence policy。只有当 Current State 足以支持后续执行时，它才可以成为默认 execution substrate；未被及时编入 State 的旧 Observation、需要动态发现的 Schema，以及本身就是工作对象的历史 trajectory，仍需要 Raw History / Evidence 与按需检索。</p>
-
-<p>三种消费路径应共享同一 canonical state，而不是维护三份彼此同步的摘要。Model Context 决定当前 Run 注意什么，Human Work Surface 决定 Reviewer 此刻必须判断什么，Retrieval Index 决定未来 Run 能按何种 identity、status、version 与 provenance 重新找到什么。它们可以独立重建和优化；任何一条 projection 都不能反向成为第二套事实源。</p>
+<p>Memory 保存与召回信息；State 表达当前 execution semantics；Schema 规定什么具有跨步骤持续存在的资格。因此 Schema 不是压缩格式，而是 persistence policy。Model Context 决定当前 Run 注意什么，Human Work Surface 决定 Reviewer 此刻必须判断什么，Retrieval Index 决定未来 Run 能按何种 identity、status、version 与 provenance 重新找到什么；三者从同一 canonical state 重建，不各自维护事实。只有当 Current State 足以支持后续执行时，它才可以成为默认 execution substrate；未被及时编入 State 的旧 Observation、需要动态发现的 Schema，以及本身就是工作对象的历史 trajectory，仍需要 Raw History / Evidence 与按需检索。</p>
 
 <h3 id="26-context-mutation-是有效果的运行动作">2.6 Context Mutation 是有效果的运行动作</h3>
 
@@ -2545,7 +2531,7 @@ Rebuildable Index Layer
 + State Consequence
 </code></pre>
 
-<p>Review 应围绕有状态后果的 decision unit 分批编译，而不是让人逐项确认 tool call 或在末尾重放完整 chronology。默认表面只放形成独立判断所需的最小充分对象；Raw Trace、旧版本和补充 Evidence 保持可检索并按需展开。HITL 是否有效，需要同时观察 critical omission、Review time、evidence-seeking、override、later reversal 与 canary failure，而不能把点击 approve 直接当作正确监督。</p>
+<p>Review 围绕有状态后果的 decision unit 分批编译。默认表面只放形成独立判断所需的最小充分对象；Raw Trace、旧版本和补充 Evidence 保持可检索并按需展开。逐项 tool-call confirmation 和事后 chronology replay 都不能替代对 Candidate delta 的专业裁决。</p>
 
 <p>可复用的动作族包括 accept、reject、revise、request further work、request evidence、qualify、defer、waive、escalate、approve、publish、supersede 和 withdraw。动作名称不产生复用性；只有以下链路可复用：</p>
 
@@ -2858,12 +2844,6 @@ Rebuildable Index Layer
 <p>这一结构把总能力、总知识与单次 Attention 分离，把执行拓扑与 Expert 语义分离，把原始记录、索引、当前状态与正式成果分离，并使 Context 的每次重写和 Output 的每次写回都可被检查。</p>
 
 <p>是否成立不由宿主能力、界面完整度、Agent 数量、社区采用或库内 Expert 数量证明。裁决条件是：原作者离场后其他合格用户能否产生可采用成果，替换 Session、模型或宿主后工作能否恢复，候选与正式状态是否始终分离，专家 Review 或恢复成本是否下降，以及新形成的信号是否在 rights、归因和 held-out Work Eval 下具有增量价值。</p>
-
-<hr />
-
-<h2 id="92-快照说明">9.2 快照说明</h2>
-
-<p>本版在不改变 Canonical ontology 的前提下，完成四项增量：将 Model Context、Human Work Surface 与 future Retrieval Index 明确为同一 governed state 的三类 Projection；把 Review 从 approval topology 收紧为有限 attention 下的独立判断；在长程可版本化工作中分离 Artifact continuity 与 Evidence continuity；把 criterion、rubric 与 reason 纳入 Evaluator lifecycle 测试。宿主专属接口、论文实现、产品数字和本轮 handoff 自观察仍由 Practice Index 保留，不作为本文成立的前提。</p>
 </article>
     <article class="paper" id="paper-index" hidden><h1 id="schema-engineering-practice-index">Schema Engineering · Practice Index</h1>
 
@@ -3281,6 +3261,13 @@ status
   <td>不修订</td>
   <td>不修订</td>
   <td>PI-15 / V-13 登记对照设计</td>
+</tr>
+<tr>
+  <td>正文修订仍可从新增段落和版本摘要辨认材料加入顺序</td>
+  <td>接受后的命题必须重写进最小完整章节；逐项记录与校验只留 Index</td>
+  <td>重写 §5.4、6.6、8.5、11.2，删除补丁式解释</td>
+  <td>重写 §2.5、5.3，删除版本摘要</td>
+  <td>修订合成纪律写入 CONTRIBUTING 与 papers/README</td>
 </tr>
 </tbody>
 </table>
