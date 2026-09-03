@@ -1,8 +1,8 @@
 ---
 Status: Companion Paper · Practice Snapshot
-Edition: 2026-09-01
-Revision: 9.1 · Generalized Practice Snapshot
-Canonical base: 2026-09-01 Canonical Edition
+Edition: 2026-09-04
+Revision: 9.2 · Generalized Practice Snapshot
+Canonical base: 2026-09-04 Canonical Edition
 Scope: Sparse Work Harness、Compiled Work Expert、Matter Sidecar、Context governance、Human Work Surface、Work Extension 编订与验证。
 Closure posture: 本文是带日期的实践快照，只保留当下可执行的最小、泛化结论。产品、论文、社区个例、来源、检验状态与增量裁决统一编入 Practice Index，不作为本文成立的前提。
 ---
@@ -612,6 +612,6 @@ thin shared runtime
 
 ---
 
-## 9.1 快照说明
+## 9.2 快照说明
 
-本版在不改变 Canonical ontology 的前提下，完成四项增量：将 Context Mutation 纳入 Projection 治理；在 State 足以支持后续执行时把 Current State 而非累积 Transcript 作为默认 execution substrate；区分 multi-agent 执行拓扑与 Compiled Expert 能力语义；区分原始轨迹、索引、当前状态、裁决记录与已接受文档成果。快照中不再保留宿主专属 API、产品故事、个人帖子或供应方数字；它们的来源、局部命题、不支持的外推、检验状态与本轮裁决改由 Practice Index 保留。
+本版在不改变 Canonical ontology 的前提下，完成四项增量：将 Model Context、Human Work Surface 与 future Retrieval Index 明确为同一 governed state 的三类 Projection；把 Review 从 approval topology 收紧为有限 attention 下的独立判断；在长程可版本化工作中分离 Artifact continuity 与 Evidence continuity；把 criterion、rubric 与 reason 纳入 Evaluator lifecycle 测试。宿主专属接口、论文实现、产品数字和本轮 handoff 自观察仍由 Practice Index 保留，不作为本文成立的前提。

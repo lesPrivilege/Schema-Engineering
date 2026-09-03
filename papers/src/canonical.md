@@ -1,9 +1,9 @@
 ---
 Status: WorkPaper · Canonical
-Edition: 2026-09-01
-Revision: Canonical Edition · 9.1 Minimal Revision
+Edition: 2026-09-04
+Revision: Canonical Edition · 9.2 Minimal Revision
 Scope: 从通用模型与 Agentic Runtime 的能力边界，到 Work Extension、正式工作、Context / Output 治理、Work Eval 与 Post-agentic Refinement 的分层方法、架构边界与证据纪律。
-Finalization posture: Kernel 保持稳定：Matter、Candidate / Committed、Evidence、Completion、Authority、Review、Artifact、Context Projection 与分层 Contract 的 ontology 未改变。本轮仅将 Context 的删除、摘要、压缩与重载明确为已有 Projection 边界内的运行动作，在 State 足以支持后续执行时明确 Current Semantic State 而非累积 Transcript 是规范执行基底，并把会折旧的实例与来源移出正文。不新增对象、Contract 类型、原则编号或产品承诺；其他当下变化进入 Practice Snapshot 与 Practice Index。
+Finalization posture: Kernel 保持稳定：Matter、Candidate / Committed、Evidence、Completion、Authority、Review、Artifact、Context Projection 与分层 Contract 的 ontology 未改变。本轮仅明确同一 Canonical State 面向模型、人和未来 Run 的三类 Projection，补充 Human Review 的认知充分性、长程软件工作的 Artifact / Evidence 双连续性边界，以及 Evaluator criterion / reason 的治理生命周期。不新增对象、Contract 类型、原则编号或产品承诺；产品接口、论文实现、数字和单次自观察进入 Practice Index。
 ---
 
 # Schema Engineering：让工作存在于模型之外

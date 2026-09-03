@@ -20,7 +20,7 @@ import markdown2
 SCRIPT_DIR = Path(__file__).resolve().parent
 SRC_DIR = SCRIPT_DIR / "src"
 DIST_DIR = SCRIPT_DIR / "dist"
-EDITION = "2026-09-01"
+EDITION = "2026-09-04"
 OUT_FILE = DIST_DIR / f"schema-engineering-{EDITION}.html"
 INDEX_FILE = DIST_DIR / "index.html"
 
@@ -112,7 +112,7 @@ TEMPLATE = """\
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schema Engineering Working Papers · 2026-09-01</title>
+  <title>Schema Engineering Working Papers · 2026-09-04</title>
   <style>{css}</style>
 </head>
 <body>

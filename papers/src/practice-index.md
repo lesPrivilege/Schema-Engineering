@@ -1,8 +1,8 @@
 ---
 Status: Practice Index · Evidence and Revision Ledger
-Edition: 2026-09-01
-Canonical base: 2026-09-01 Canonical Edition
-Practice base: 2026-09-01 Generalized Practice Snapshot
+Edition: 2026-09-04
+Canonical base: 2026-09-04 Canonical Edition
+Practice base: 2026-09-04 Generalized Practice Snapshot
 Scope: 来源、局部命题、证据边界、检验状态与增量修订记录。
 ---
 
@@ -219,7 +219,7 @@ status
 
 ## 五、增量修订记录
 
-### Unreleased · 9.2 candidate
+### 2026-09-04 · 9.2
 
 | 观察 / 讨论 | 裁决 | Canonical | Practice | Index |
 |---|---|---|---|---|

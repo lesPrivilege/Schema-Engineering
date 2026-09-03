@@ -17,7 +17,8 @@ papers/
 └── dist/
     ├── index.html                       # 当前 Pages 入口，不纳入版本控制
     ├── schema-engineering-2026-08-29.html
-    └── schema-engineering-2026-09-01.html
+    ├── schema-engineering-2026-09-01.html
+    └── schema-engineering-2026-09-04.html
 ```
 
 ## 三份文本的责任
@@ -66,7 +67,7 @@ papers/
 python3 -m pip install -r papers/requirements.txt
 python3 papers/build.py
 python3 papers/validate.py
-# → papers/dist/schema-engineering-2026-09-01.html
+# → papers/dist/schema-engineering-2026-09-04.html
 # → papers/dist/index.html
 ```
 
