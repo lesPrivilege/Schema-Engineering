@@ -111,9 +111,7 @@ Raw Evidence / History
 
 工作域隔离、历史检索和持久资源可以缓解 chronology 持续膨胀，但 retrieval 仍然只回答“可能相关的对象是什么”。哪项陈述已被确认、驳回、覆盖或批准，仍由 Govern layer 与 commit protocol 决定。
 
-Memory 保存与召回信息；State 表达当前 execution semantics；Schema 规定什么具有跨步骤持续存在的资格。因此 Schema 不是压缩格式，而是 persistence policy。只有当 Current State 足以支持后续执行时，它才可以成为默认 execution substrate；未被及时编入 State 的旧 Observation、需要动态发现的 Schema，以及本身就是工作对象的历史 trajectory，仍需要 Raw History / Evidence 与按需检索。
-
-三种消费路径应共享同一 canonical state，而不是维护三份彼此同步的摘要。Model Context 决定当前 Run 注意什么，Human Work Surface 决定 Reviewer 此刻必须判断什么，Retrieval Index 决定未来 Run 能按何种 identity、status、version 与 provenance 重新找到什么。它们可以独立重建和优化；任何一条 projection 都不能反向成为第二套事实源。
+Memory 保存与召回信息；State 表达当前 execution semantics；Schema 规定什么具有跨步骤持续存在的资格。因此 Schema 不是压缩格式，而是 persistence policy。Model Context 决定当前 Run 注意什么，Human Work Surface 决定 Reviewer 此刻必须判断什么，Retrieval Index 决定未来 Run 能按何种 identity、status、version 与 provenance 重新找到什么；三者从同一 canonical state 重建，不各自维护事实。只有当 Current State 足以支持后续执行时，它才可以成为默认 execution substrate；未被及时编入 State 的旧 Observation、需要动态发现的 Schema，以及本身就是工作对象的历史 trajectory，仍需要 Raw History / Evidence 与按需检索。
 
 ### 2.6 Context Mutation 是有效果的运行动作
 
@@ -407,7 +405,7 @@ Review Item
 + State Consequence
 ```
 
-Review 应围绕有状态后果的 decision unit 分批编译，而不是让人逐项确认 tool call 或在末尾重放完整 chronology。默认表面只放形成独立判断所需的最小充分对象；Raw Trace、旧版本和补充 Evidence 保持可检索并按需展开。HITL 是否有效，需要同时观察 critical omission、Review time、evidence-seeking、override、later reversal 与 canary failure，而不能把点击 approve 直接当作正确监督。
+Review 围绕有状态后果的 decision unit 分批编译。默认表面只放形成独立判断所需的最小充分对象；Raw Trace、旧版本和补充 Evidence 保持可检索并按需展开。逐项 tool-call confirmation 和事后 chronology replay 都不能替代对 Candidate delta 的专业裁决。
 
 可复用的动作族包括 accept、reject、revise、request further work、request evidence、qualify、defer、waive、escalate、approve、publish、supersede 和 withdraw。动作名称不产生复用性；只有以下链路可复用：
 
@@ -609,9 +607,3 @@ thin shared runtime
 这一结构把总能力、总知识与单次 Attention 分离，把执行拓扑与 Expert 语义分离，把原始记录、索引、当前状态与正式成果分离，并使 Context 的每次重写和 Output 的每次写回都可被检查。
 
 是否成立不由宿主能力、界面完整度、Agent 数量、社区采用或库内 Expert 数量证明。裁决条件是：原作者离场后其他合格用户能否产生可采用成果，替换 Session、模型或宿主后工作能否恢复，候选与正式状态是否始终分离，专家 Review 或恢复成本是否下降，以及新形成的信号是否在 rights、归因和 held-out Work Eval 下具有增量价值。
-
----
-
-## 9.2 快照说明
-
-本版在不改变 Canonical ontology 的前提下，完成四项增量：将 Model Context、Human Work Surface 与 future Retrieval Index 明确为同一 governed state 的三类 Projection；把 Review 从 approval topology 收紧为有限 attention 下的独立判断；在长程可版本化工作中分离 Artifact continuity 与 Evidence continuity；把 criterion、rubric 与 reason 纳入 Evaluator lifecycle 测试。宿主专属接口、论文实现、产品数字和本轮 handoff 自观察仍由 Practice Index 保留，不作为本文成立的前提。
