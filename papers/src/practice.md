@@ -1,9 +1,9 @@
 ---
 Status: Companion Paper · Practice Snapshot
-Edition: 2026-09-04
-Revision: 9.2 · Generalized Practice Snapshot
-Canonical base: 2026-09-04 Canonical Edition
-Scope: Sparse Work Harness、Compiled Work Expert、Matter Sidecar、Context governance、Human Work Surface、Work Extension 编订与验证。
+Edition: 2026-09-05
+Revision: 9.3 · Generalized Practice Snapshot
+Canonical base: 2026-09-05 Canonical Edition
+Scope: Sparse Work Harness、Compiled Work Expert、Matter Sidecar、Context governance、Human Work Surface、Work Extension 编订、离线 Eval 与验证。
 Closure posture: 本文是带日期的实践快照，只保留当下可执行的最小、泛化结论。产品、论文、社区个例、来源、检验状态与增量裁决统一编入 Practice Index，不作为本文成立的前提。
 ---
 
@@ -296,7 +296,7 @@ Rebuildable Index Layer
   retrieval ranking
 ```
 
-索引可以重建；哪个成果已被接受、哪项候选被驳回、谁作出何种裁决以及什么仍未完成，不能靠重新摘要 Transcript 猜回。
+索引可以重建；哪个成果已被接受、哪项候选被驳回、谁作出何种裁决以及什么仍未完成，不能靠重新摘要 Transcript 猜回。语义层可以由事件溯源实现，也可以沿用既有 system of record 的事务状态、版本与提交记录；恢复读取指定的权威状态。
 
 ### 4.2 最小 Matter 声明
 
@@ -482,7 +482,25 @@ Review Contract 限定什么可以被接受；Search Contract 限定 Agent 应�
 
 Search Contract 不能把候选空间收窄到只能复制旧答案。它的作用是保留专业搜索中稳定且可审阅的约束，并为超出声明边界的问题保留 frontier path。
 
-### 6.5 从产品信号到训练候选
+### 6.5 Runtime 外的评测与改进
+
+Runtime 内的检查决定本次候选能否继续或提交；Runtime 外的 Eval 比较不同版本如何完成同类工作，为下一次修订提供证据。两者可以共用执行设施与判据，但评测分数不授予工作效力。离线评测的产物是关于系统行为的证据与修订候选，正式成果和新版本仍分别经过自己的接受与发布边界。
+
+```text
+产品问题与工作要求
+→ 可解释的局部信号
+→ 跨任务、跨版本的评测
+→ 沿 Evidence / State / Projection / Artifact 定位失败
+→ Contract / Evaluator / Harness / Context / Tool / Model 修订候选
+→ 重新评测与版本裁决
+→ 后续工作中的反馈
+```
+
+局部信号把笼统的质量感受变成可以追查的问题。Work Contract 则为追查提供坐标：哪些义务尚未处理，来源支持什么，哪些关系进入了持久状态，又在何处未被披露或被错误使用。Schema 使缺口能够被指认，不保证未记录的信息已经被发现，也不把可观测位置自动变成失败原因。
+
+符合既有 Contract 与 Contract 足以表达工作要求，是两个不同判断。前者检查执行与成果，后者允许真实工作中的遗漏、分歧和后果反过来修订判据。Eval 因而既约束系统如何执行，也帮助团队判断系统原本要求它做的事是否恰当。
+
+### 6.6 从产品信号到训练候选
 
 ```text
 codified artifacts

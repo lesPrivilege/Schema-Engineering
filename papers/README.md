@@ -18,7 +18,8 @@ papers/
     ├── index.html                       # 当前 Pages 入口，不纳入版本控制
     ├── schema-engineering-2026-08-29.html
     ├── schema-engineering-2026-09-01.html
-    └── schema-engineering-2026-09-04.html
+    ├── schema-engineering-2026-09-04.html
+    └── schema-engineering-2026-09-05.html
 ```
 
 ## 三份文本的责任
@@ -72,7 +73,7 @@ Canonical 与 Practice 只呈现当前成立的完整文本。材料通过裁决
 python3 -m pip install -r papers/requirements.txt
 python3 papers/build.py
 python3 papers/validate.py
-# → papers/dist/schema-engineering-2026-09-04.html
+# → papers/dist/schema-engineering-2026-09-05.html
 # → papers/dist/index.html
 ```
 

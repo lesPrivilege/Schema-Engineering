@@ -9,7 +9,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 SRC_DIR = SCRIPT_DIR / "src"
 DIST_DIR = SCRIPT_DIR / "dist"
-EDITION = "2026-09-04"
+EDITION = "2026-09-05"
 RELEASE_FILE = DIST_DIR / f"schema-engineering-{EDITION}.html"
 INDEX_FILE = DIST_DIR / "index.html"
 SOURCE_FILES = {
@@ -63,13 +63,13 @@ def main() -> None:
     }
 
     expected_bases = {
-        "practice": "Canonical base: 2026-09-04 Canonical Edition",
-        "index": "Canonical base: 2026-09-04 Canonical Edition",
+        "practice": "Canonical base: 2026-09-05 Canonical Edition",
+        "index": "Canonical base: 2026-09-05 Canonical Edition",
     }
     for name, marker in expected_bases.items():
         if marker not in sources[name]:
             fail(f"{name} does not declare the expected Canonical base")
-    if "Practice base: 2026-09-04 Generalized Practice Snapshot" not in sources["index"]:
+    if "Practice base: 2026-09-05 Generalized Practice Snapshot" not in sources["index"]:
         fail("index does not declare the expected Practice base")
 
     for path in (RELEASE_FILE, INDEX_FILE):
@@ -93,7 +93,7 @@ def main() -> None:
         "responsive metadata": 'name="viewport"' in release,
         "self-contained runtime": "<script src=" not in release and "<link rel=" not in release,
         "environment-independent fences": '<div class="codehilite">' not in release,
-        "9.2 index record": "### 2026-09-04 · 9.2" in sources["index"],
+        "9.3 index record": "### 2026-09-05 · 9.3" in sources["index"],
     }
     failed = [name for name, passed in checks.items() if not passed]
     if failed:

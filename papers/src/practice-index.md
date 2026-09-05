@@ -1,8 +1,8 @@
 ---
 Status: Practice Index · Evidence and Revision Ledger
-Edition: 2026-09-04
-Canonical base: 2026-09-04 Canonical Edition
-Practice base: 2026-09-04 Generalized Practice Snapshot
+Edition: 2026-09-05
+Canonical base: 2026-09-05 Canonical Edition
+Practice base: 2026-09-05 Generalized Practice Snapshot
 Scope: 来源、局部命题、证据边界、检验状态与增量修订记录。
 ---
 
@@ -197,6 +197,41 @@ status
 
 ---
 
+### PI-16 · Product signals motivate offline attribution
+
+- **日期 / 来源类别**：2026-09-05 访问；作者发布、由从业者补充的实践分享。用户提供的微信链接无法直接读取；已核对同作者 Substack 全文，聊天转述仅作查找线索。[^manus-research-bench]
+- **观察**：文章以事实点数量和隐喻率描述 Research Bench 的局部指标；报告 GPT 搜索调用较多但最终信息量较低，检查中间笔记后修改写法，并自报信息量改善。文中也承认指标需要线上结果持续校验。
+- **最小支持命题**：输出信号可以引导 trace inspection，并产生针对中间表示和 Harness 的修订假说。这是产品诊断实践的局部观察。
+- **不支持的外推**：Search 次数不等于接触到的相关信息量，不能排除检索质量或覆盖不足；干预自报没有给出足以独立复现的对照与效应区间，不能认定唯一因果；信息点数量不自动度量真实性、相关性或义务覆盖；隐喻率不等于易读性。文章未公开的架构不能据此判定存在或缺失；本文不采用其中关于隐喻必然造成信息损失的数学解释。
+- **检验**：固定来源、任务和资源预算，比较自由摘要、原子笔记与按既有 Work Contract 记录证据关系的表示；以独立核对的任务义务和来源支持为参照，分别测抽取遗漏、持久化遗漏、Projection 遗漏与最终使用错误，同时记录相关性、重复、未获支持的主张、Review 时间和成果接受。端到端检索另设对照；不以同一个抽取器生成并裁决全部参照。
+- **讨论与裁决**：具体案例只入 Index；结合 PI-14、PI-17 与既有 P19、P21，把诊断、受控比较和回归发布合成为 Practice 的离线 Eval 实践。Schema 提供可检查的位置和关系，不自动提供完整观测、正确标签或因果识别。
+- **正文处置**：Practice §6.5 补全 Runtime 外的评测闭环；无需新 ontology、Contract 类型或原则。
+- **状态**：practice-adopted（机制设计已采用；收益与因果待验证）。
+
+### PI-17 · Evaluation harness and agent harness have distinct responsibilities
+
+- **日期 / 来源类别**：2026-09-05 访问；Anthropic 官方工程实践总结，2026-01-09 发布。[^agent-evals]
+- **观察**：文章区分 task、trial、grader、trace、outcome 和 evaluation harness；区分能力探索与回归检查，并要求校准 grader、读取轨迹、隔离试验环境、重复运行及结合生产观察。
+- **最小支持命题**：执行 Agent 的 Harness 与组织试验、记录、评分和比较的评测设施可以分担不同职责；一次试验的最终外部状态不能只从 Agent 自述推断。
+- **不支持的外推**：工程建议不是通用收益的受控实验；离线通过不等于专业工作已被接受；重复调用同一家族模型不形成独立专业判断；Trace 可读不等于失败原因已被识别。
+- **检验**：固定同一候选版本，对比单次总分与重复、按风险分层的指标及盲审；注入环境残留、评分顺序变化和 grader 漂移，检查结论是否变化；用未参与调优的任务和后续成果复核判断。
+- **讨论与裁决 / 正文处置**：与 PI-16 合并支持 Practice §6.5 的评测理念；沿用 Canonical §8.5、10、11.2 的分层与归因边界。
+- **状态**：practice-adopted（工程方法；SE 的增量效度未完成验证）。
+
+---
+
+### PI-18 · Existing foundations and the scope of the contribution
+
+- **日期 / 来源类别**：2026-09-05；概念定位与独立审稿裁决。核对原作者 Event Sourcing 说明、W3C PROV-DM 与 OMG CMMN 1.1 的正式来源。[^event-sourcing][^prov-dm][^cmmn]
+- **观察与承接关系**：Event Sourcing 用事件序列保存状态变化并支持重建，对应本文的 Ledger / reducer 参考实现；PROV-DM 提供 entity、activity、agent 与 derivation 等来源表达，对应 provenance 的既有建模基础；CMMN 提供 case、case file 与 case plan 的建模标准，对应工作对象和非固定流程的既有基础。
+- **最小支持命题**：这些原语已有明确先例。本文提出的是面向 Agent 的实践编订、候选提交、状态投影与评测修订的组合框架，不是状态、案件管理或来源建模的首次发明。
+- **不支持的外推**：术语相近不表示模型完全等价；PROV 的 derivation 不自动等于 Evidence Contract 的语义支持；CMMN 不自动包含本文全部模型权限与 Context 语义；事件溯源不是治理成立的唯一实现。这组定位不构成穷尽相关工作的综述。
+- **检验 / 反例**：以既有案件或流程系统加来源记录与模型接口为基线；只有在相同工作要求下出现可归于编订、提交或连续性边界的增量，才主张组合收益。不能以“基线不叫 SE”排除已经实现同等机制的系统。
+- **讨论与裁决 / 正文处置**：Canonical §2 交代贡献与承接关系；§4 把事件溯源限定为参考实现，保留既有 SoR 路径。
+- **状态**：canonical-adopted（定位与边界澄清；组合收益待验证）。
+
+---
+
 ## 四、验证队列
 
 | ID | 待验证命题 | 最小对照 | 主要结果 | 当前状态 |
@@ -214,10 +249,43 @@ status
 | V-11 | Artifact / Evidence dual state 改善跨轮 work continuity | 仅 Artifact vs Artifact + governed Evidence | regression、repeat work、unsupported completion、recovery | software benchmark 局部实证，待跨域验证 |
 | V-12 | Governed Evaluator lifecycle 防止 rubric 与 attribution drift | static rubric vs versioned monitoring / review / rollback | wrong-reason contamination、drift detection、rollback、outcome | 单一生产案例，跨域与因果待验证 |
 | V-13 | Repository-governed handoff 支持自主续行 | repository state vs chat summary vs no governance files | duplication、source mismatch、revision scope、validation、Review | 单次自观察，待独立对照 |
+| V-14 | 按工作义务和状态边界记录信号改善失败定位 | 自由摘要 vs 原子笔记 vs Contract 证据记录；固定来源后另做端到端对照 | 独立参照下的遗漏、归因准确度、相关性、支持、Review 成本、接受与 reversal | 方法已定义，实验未运行 |
+| V-15 | 离线 signal 的改善预测真实工作改善 | 调优集 vs 按来源 / Matter 隔离的留出集及后续成果 | 指标稳定性、排序偏差、风险分层、成果接受、成本、指标与结果背离 | 方法已定义，实验未运行 |
+
+### V-14 / V-15 · 离线评测快照与查考方法
+
+以下是待执行的评测设计，不是本次实验结果。它使用已有的 Contract、Evidence、Artifact 与 Review 对象，不增设运行时 ontology。
+
+| 环节 | 应保存的快照或记录 | 解释边界与校验 |
+|---|---|---|
+| 定义比较 | 任务与义务版本、来源快照、初始状态、模型、Harness、Context policy、预算、工具环境和评测器版本 | 模型比较与完整系统比较分开命名；环境不能冻结时记录变化，不声称严格可回放 |
+| 构造信号 | 测量对象、单位、分母、去重与相关性规则、原文坐标、grader 判据 | 数量、支持、覆盖与可读性分开报告；重复或无关事实不能靠累积数量获得工作价值；不将局部信号相乘为未经定义的总分 |
+| 留出与校准 | 调优样本、独立留出 Matter / 来源、边界样本、人工分歧与评分器输出 | 同源改写不算独立留出；盲化模型标签、交换输出顺序、重复评分；共享模型家族的结果不当作独立验证 |
+| 定位遗漏 | 来源 → 抽取 → 持久状态 → Projection → Artifact 的对象对应与版本 | 留存率只针对明示且独立核对的应保留集合；没有抽取到的内容不能从分母消失；允许合理归并、舍弃与未解冲突；无法对应时标为不可测 |
+| 归因与重测 | 原配置、候选修改、配对任务、重复 trial、失败样本、成本与延迟 | 固定来源检查表示，再恢复端到端检索；共同变更只能支持组合效果；区分改进 signal 与改善成果；样本量与不确定性不足时不下稳定排序结论 |
+| 接受与后续 | 未参与调优的 Reviewer 判断、声明观察窗口、下游采用、返工、reversal 和风险分层 | 当前 Contract 未覆盖但影响工作的问题必须能进入评测；保留全部尝试与退出，避免只统计成功件；离线结果与真实结果背离时重开指标或判据 |
+
+评测快照可以作为版本发布的 Evidence，但评分器没有部署 Authority。已用于反复调优的留出集应降为开发或回归资料；后续候选使用新的留出材料。这里的校验是研究队列，不能写作已经验证的 SE 性能。
 
 ---
 
 ## 五、增量修订记录
+
+### 2026-09-05 · 9.3
+
+| 观察 / 讨论 | 裁决 | Canonical | Practice | Index |
+|---|---|---|---|---|
+| Manus 实践分享用局部信号追查笔记行为；官方 Agent eval 方法区分执行设施和评测设施 | 抽取 Runtime 外的评测—归因—修订闭环；不将案例自报提升为因果 | §11.2 澄清遵守判据与判据充分，明确归因坐标的边界 | §6.5 写入理念，原训练候选移 §6.6 | PI-16/17；V-14/15；具体校验只留 Index |
+| Fresh Astra 独立通读指出提交语义被写成事件溯源的唯一实现 | 保留 Candidate / Committed 与唯一权威状态；事件重放限定为参考实现 | §2、4、5 明确语义要求与持久化选择 | §4.1 明确既有 SoR 的承载方式 | 记录反例：事务状态表、版本化成果与可审计提交记录可实现同一边界 |
+| 独立审稿发现示例把可解析引用直接晋升为 supported | 证据定位与语义支持分别成立 | §6.2、8.8 补清语义检查责任 | 沿用既有 Evidence / Review 边界 | 反例：引用确实存在，但只限定或反驳目标主张 |
+| 训练的默认检查顺序被写成普遍必要前后关系 | 不以训练替代判据和接受；允许训练参与首次能力形成或降低成本 | §9、11.4、P15 及对应检查统一范围 | §6.6 保留产品不依赖训练飞轮的独立价值 | 反例：基础模型不满足任务门槛，先训练再做首次 E2E；质量相同但训练显著降低成本 |
+| 独立审稿要求交代与既有工作建模、来源与事件溯源方法的关系 | 贡献限定为 Agent 工作生命周期中的组合与边界 | §2 增加最小定位 | 不扩写 | PI-18 登记 primary sources、承接与非等价关系 |
+
+本版以可公开讨论的概念工作论文为目标；文本修订与本地构建不表示完成实证或已经线上发布。独立审稿不继承聊天历史，仍属于模型审稿，不替代作者或专业共同体接受。
+
+**审稿与修后复审**：2026-09-05，使用不继承父任务聊天的 `gpt-6-astra` 实例，以 `xhigh` reasoning 完整通读三份文本，再核对修订 diff 与受影响章节。首轮提出五项必要边界修复，上表均已处置；复审未发现阻断公开概念／立场工作论文发表的承重矛盾。其判断不覆盖全部外部来源的独立复核，不等于实证论文或正式同行评审接受。篇幅收敛、系统实现、跨域结果与训练增益继续作为后续工作，不扩大本轮正文。
+
+**本地候选检查**：三份源文件 Edition / base 已同步到 2026-09-05；构建与 10 项现有发布检查通过，当前入口与带日期 HTML 内容一致，57 个文内链接均有目标，`git diff --check` 通过。浏览器安全策略拒绝本地文件预览，未完成视觉复核；不以结构校验代替视觉校验。未推送、未部署，Pages 工作流尚未执行。
 
 ### 2026-09-04 · 9.2
 
@@ -291,3 +359,13 @@ status
 [^hoh]: Haoyang Yan et al., “Harness-of-Harness: Multi-Day Autonomous Software Development with Continual Improvement,” arXiv:2609.01481v1, 2026, https://arxiv.org/abs/2609.01481 。用于 Artifact / Evidence dual state、bounded increment、role-specific Authority、progressive disclosure、frozen candidate 与 independent QA 的软件域观察；不把其多 Agent topology 或 benchmark 数字外推为一般专业工作结论。
 
 [^judge-lifecycle]: Emma Yanyang Kong et al., “The Lifecycle of LLM-as-a-Judge for Large-Scale Recommendation Explanations,” arXiv:2608.18300, 2026, https://arxiv.org/abs/2608.18300 。用于 criterion / guideline / rubric 的生产 lifecycle、reason-aligned evaluation、bounded revision、drift monitoring、Human review gate 与 rollback；不把单一 recommendation surface 视为通用 Work Eval 的证明。
+
+[^manus-research-bench]: 葬愛咸鱼，邀请胡迪 Hoodie 补充整理，《Manus团队测模型一点微小的经验》，2026-09-04，https://funeralai.substack.com/p/manus 。访问日期：2026-09-05。用户提供的微信入口为 https://mp.weixin.qq.com/s/2CXssAsQMxdPn_5aLcaijw?scene=1 ，本次无法直接读取；以作者 Substack 全文核验，不声称逐字核对两个版本。证据类别为 practitioner account，不是 Manus 完整评测架构规格或独立实验。
+
+[^agent-evals]: Anthropic, “Demystifying evals for AI agents,” 2026-01-09, https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents 。访问日期：2026-09-05。官方工程实践总结，用于离线评测设施、重复 trial、多类 grader、轨迹与 outcome 分离及回归纪律；不视为 Schema Engineering 的效度证明。
+
+[^event-sourcing]: Martin Fowler, “Event Sourcing,” 2005-12-12, https://martinfowler.com/eaaDev/EventSourcing.html 。访问日期：2026-09-05。作者的架构模式说明；用于事件序列、状态重建与 system-of-record 选择的定位，不证明 SE 组合收益。
+
+[^prov-dm]: W3C, “PROV-DM: The PROV Data Model,” Recommendation, 2013-04-30, https://www.w3.org/TR/prov-dm/ 。访问日期：2026-09-05。用于 provenance 对象和关系的既有基础；来源关系本身不判定专业主张为真。
+
+[^cmmn]: OMG, “Case Management Model and Notation,” Version 1.1, December 2016, https://www.omg.org/spec/CMMN/1.1/About-CMMN ，规范正文 https://www.omg.org/spec/CMMN/1.1/PDF ，§4–5。访问日期：2026-09-05。用于 case 工作建模的定位，不把 SE 等同于 CMMN，也不声称穷尽案件管理相关工作。
