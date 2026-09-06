@@ -1,0 +1,972 @@
+---
+Status: WorkPaper
+Edition: 2026-08-25
+Scope: 从专家演示到 Agent Extension、从概率性提议到正式工作、再到 Post-agentic Refinement 的完整方法与产品边界。
+---
+
+# Schema Engineering：让工作存在于模型之外
+
+## 从专家演示到可验收 Agent Extension 的弱编译方法
+
+## 摘要
+
+概率模型已经能够搜索、比较、解释、起草和调用工具，却不能仅凭一次输出取得正式工作所需的事实效力、行动权限、完成状态和责任归属。一次 Run 会结束，模型会替换，上下文会压缩；Matter、Artifact、Review decision 与未完义务仍然必须继续存在。
+
+专业 Agent 的另一项瓶颈也不只是模型能力。行业头部专家可以借助 frontier Agent 亲手跑通高质量 Demo，但 Demo 往往依赖一层未被记录的 Human Harness：专家选择任务和材料、识别遗漏、调整搜索与上下文、修复失败，并判断什么可以交付。原作者离场后，这些能力常常随之消失。
+
+Schema Engineering 是一种面向概率性执行者的弱编译方法。它把专家在真实工作中演示出来的隐性义务、状态、权限、证据、完成标准与裁决边界，编译为可版本化、可执行、可验证、可恢复的 Work Contract。Work Contract 同时承担执行规格、结果校验和 Post-agentic Refinement 目标：它约束模型与工具如何参与工作，规定候选结果如何通过 Evidence、Completion、Authority 与 Review 进入正式状态，并把生产中的 Revision 与 Failure 转化为 Eval、Environment 和后续系统改进的语义基础。
+
+这一方法完整覆盖三条互相嵌套、不能混写的链：
+
+```text
+A. Expert Demonstration
+→ Invisible Human Harness Extraction
+→ Work Contract
+→ Agent Extension
+→ E2E Acceptance
+
+B. Model / Human Proposal
+→ Candidate Change
+→ Validation / Evidence / Authority / Review
+→ Committed Change
+→ Current Work State / Active Artifact
+
+C. Production Use / Review / Revision / Failure
+→ Failure Attribution
+→ Eval / Environment / Regression
+→ Contract / Evaluator / Harness / Context / Tool Refinement
+→ Selective Model Post-training, only when justified
+```
+
+第一条把 Expert Demonstration 编订为自带 Validator、Evaluator、Review boundary 和 E2E release suite 的 Agent Extension；第二条把 Model / Human Proposal 通过 typed commitment interface 提升为 Committed Work State；第三条在 Extension 进入生产后，把失败先归因到 Contract、Evaluator、Context、Tool、Harness、Model 或机构分歧，再决定改进对象。模型提出并执行，确定性系统维护不变量，Evaluator 测量已明确规定的语义，人承担不可约的专业判断。
+
+法律提供了高要求实例，但不构成外延边界。财务、医疗、咨询、研究、工程、合规、审计等工作同样需要来源、权限、版本、审阅和责任。各领域可以共享 Runtime primitives，不能因此省略各自的专业语义。
+
+## 第一部　弱编译与正式工作
+
+Schema Engineering Kernel 同时处理两项不可约转换：专家亲自跑通的 practice 如何成为可转移的 Agent capability，以及概率性 proposal 如何取得可问责的 work commitment。Runtime 对象、Contracts、Agent Extension 和 E2E 都服务于这两项转换，不形成彼此竞争的 ontology。
+
+### 1. 概率性提议与组织承诺
+
+模型输出首先是一项提议。提议可以并列、撤回、试探和互相矛盾；组织承诺必须回答范围、依据、版本、责任与后果。语言再流畅，也不能自动把提议变成组织承诺。
+
+一份合同审查意见可以写得完整，却仍然缺少原文坐标、适用版本、风险接受人和批准状态；一份研究报告可以列出大量来源，却没有说明哪些主张已经被采纳、哪些结论还需要复核；一个工具调用可以在技术上成功，却不一定取得业务权限。输出质量与工作效力属于不同对象。
+
+模型也不能同时充任执行者、事实来源、完成标准和最终裁决者。四个角色合一时，系统无法区分“模型认为已经完成”和“组织已经接受成果”，也无法在模型替换、任务恢复或责任追溯时重建正式状态。
+
+> **P6 — 模型提出；确定性系统执行不变量；Evaluator 测量已经明确规定的语义；人裁决不可约的专业判断。**
+
+专业正确性通常没有一个廉价、完整的布尔判定器（Boolean oracle）。字段结构、权限、版本、引用坐标、算术和明确覆盖范围可以由系统检查；重要性、策略、风险接受、例外和责任仍需专业判断。混合裁决保留了这一区分。
+
+工作的正式状态因此位于模型之外。模型可以进入和退出执行，组织承诺却不能随一次输出出现或消失。
+
+### 2. Schema Engineering 与 Work Contract
+
+> **Schema Engineering 是一种面向概率性执行者的弱编译方法：它把专家在真实工作中演示出来的隐性义务、状态、权限、证据、完成标准与裁决边界，编译为可版本化、可执行、可验证、可恢复的 Work Contract，并据此发布可通过端到端验收、能够在生产 Review 中继续改进的 Agent Extension。**
+
+它完成两项不同的转换：
+
+```text
+Expert practice → transferable Agent capability
+Probabilistic proposal → accountable work commitment
+```
+
+前者解决“专家亲自跑通的 Demo 如何成为其他人可用的能力”；后者解决“模型输出凭什么改变正式状态”。只写后者，Schema Engineering 会退化为 Professional Work Runtime；只写前者，它会退化为专家 workflow 产品化。
+
+它的最小操作不是“给工作加上结构”，而是建立一条 typed commitment interface。模型和人都可以提出变化，但不能直接改写正式状态：
+
+```text
+Model / Human Proposal
+→ Candidate State Change
+→ Candidate Artifact Version, when applicable
+→ Schema Validation
+→ Evidence Check
+→ Authority Check
+→ Completion / Review Routing
+→ Committed Event
+→ Atomic Projection: Current Semantic State + Active Artifact Reference
+→ New Context Projection
+```
+
+输入是隐性的专业工作语义与责任边界；输出是候选变化可以通过的提交协议。Runtime 不执行专家全部思维，只执行一项提议进入正式工作需要满足的条件。没有 Candidate State Change、正式检查和 Committed Event 的提交路径，领域建模、workflow 或结构化输出本身不构成 Schema Engineering。
+
+#### 2.1 Work Contract 的三重角色
+
+Work Contract 是整套方法的枢纽，但不是完整的专业知识库、全部程序或 Boolean oracle。它同时承担三项逻辑责任：
+
+1. **执行规格**：规定任务族、输入资源与目的限制、交付物与受众、工具与 Authority、Evidence、Completion、Review、Escalation，以及中断和恢复所需保留的状态。
+2. **结果校验器**：为 schema validation、deterministic validator、evidence check、completion ledger、authority check、evaluator rubric、review routing 与 accepted-work-product 判据提供语义来源。它决定哪些结果可以被机器拒收，哪些需要人裁决，哪些可以取得正式效力；它不保证专业结论必然正确。
+3. **Post-agentic 学习目标**：为失败归因、regression、Eval 与 Environment 提供稳定参照，使团队能区分“模型错了”与“产品没有定义清楚”，再决定应该修改 Contract、Validator、Evaluator、Context、Tool、Harness 还是模型权重。
+
+Work Contract 不一定是一份单文件。它可以编译或投影为：
+
+```text
+state schema
++ artifact schema
++ evidence requirements
++ completion obligations
++ authority policy
++ review / escalation policy
++ context and resource policy
++ validators
++ evaluators
++ E2E cases
++ version / compatibility metadata
+```
+
+这些对象可以在同一系统中物理合并；逻辑责任必须清楚，物理服务不必拆散。
+
+#### 2.2 为什么是“弱编译”
+
+编译不表示完整形式验证，也不要求把专家知识全部写成规则。它是弱编译器，因为 source 主要来自不完整的 demonstration、revision、accept / reject 与隐形人工补位；专业正确性通常没有廉价且完整的 Boolean oracle；target 是确定性系统、Evaluator、Agent 与人共同组成的混合 Runtime；部分语义只能表示为 Review、Escalation 或 Accountable Decision，不能被自动裁决。
+
+因此，弱编译器只把可靠委派需要的边界变成显式对象，显式化“判断的后果与工作边界”，不显式化“判断的全部心理过程”：
+
+- 正在处理什么事项；
+- 谁承担运行义务，谁承担最终问责；
+- 可以读取、修改、批准和发布什么；
+- 哪些主张需要来源；
+- 当前已经知道、决定和遗漏什么；
+- 什么条件才算完成；
+- 哪些判断可以由系统裁决；
+- 哪些判断必须由人承担；
+- 修改、批准和升级如何改变正式成果。
+
+Schema 不是 JSON 的同义词。JSON Schema 可以验证数据形状，Schema Engineering 处理的是专业工作从概率性探索进入组织性承诺时需要的中间表示和契约纪律。它可以落实为类型、状态机、权限规则、来源坐标、验证器、评测器、审阅界面和事件记录；任何单一表示都不足以覆盖全部语义。
+
+完整编码专业知识既昂贵也脆弱。专家不一定能完整陈述判断过程；可以陈述的规则也可能只适用于某一机构、客户、时点或个人习惯。Schema 不追求完整描述整个领域，只保留可委派、可验证、可恢复和可审阅需要的最小显式语义。
+
+#### 2.3 哪些语义值得显式化
+
+Schema 显式化判断的后果，不显式化判断的完整过程。一个语义对象值得进入 Schema，通常需要满足以下大部分条件：
+
+1. 它会改变正式状态，例如接受、驳回、批准、发布、完成或升级。
+2. 它必须跨时间、模型或人员继续存在。
+3. Operator、Reviewer 与 Accountable Principal 需要对它形成共享理解。
+4. 遗漏或误解会造成错误提交、重复工作、责任不清、版本漂移或高昂 Review。
+5. 它足够稳定，可以用可接受的成本命名和维护。
+6. 显式化会改变 validation、routing、Authority、Completion、Review 或 Context Projection，而不只是增加字段。
+
+低风险且可撤销的判断、只在单次推理中使用的信息、高度依赖整体语境的专业直觉、重新推断成本很低的内容，以及不影响正式状态的描述，可以继续留在 source、context 或 Reviewer judgment 中。显式化如果持续产生大量例外或错误确信，也应退回较弱的表示。
+
+每个字段和对象都需要通过一个删除测试：移除后，恢复、权限、审计、完成、Review 或成果采用是否明显变差？如果长期没有可测影响，它就不应继续占据 Schema。P13 和 F12 因此也是日常产品纪律，不只在模型升级时使用。
+
+## 第二部　Professional Work Runtime
+
+### 3. Matter，而不是 Session
+
+一次 Run 会结束，模型会替换，上下文会压缩，用户会隔日返回。专业工作仍然需要保留材料、事实、版本、未决问题、权限和审阅结果。如果工作只存在于 transcript，连续性就会依赖对历史对话的反复压缩、对旧模型隐含推理的猜测、对一次性 prompt 的复现，以及用户记得“上次说到哪里”。
+
+Professional Work 产品的首要用户对象是 **Matter**：具有可识别责任边界、状态连续性和成果或决定历史的最小工作承诺单元。Matter 可以是一宗案件、一项交易、一次审计、一个研究任务、一个客户项目，也可以是持续运营中产生的一项需要独立处理和追踪的工作。
+
+Session 是一次技术交互；Matter 是工作本身。
+
+> **P1 — Matter over Session：Session 是基础设施对象，Matter 才是用户对象。**
+
+Matter 持有 identity、resources、participants、permissions、Assignments、Artifacts、Semantic State、evidence、Events、Reviews 与 outcomes。Conversation 仍然存在，但只是一种交互表面。
+
+> **P2 — Conversation is an interaction surface, not the product ontology：Conversation 是交互表面，不是工作本体。**
+
+用户返回一项 Matter，不是寻找某个自动生成标题的 Session；用户审阅一版 Artifact，不是从消息流中猜测哪段回答已经生效；用户恢复工作时读取当前状态，不必重放完整聊天。
+
+Portfolio、Queue、Program 或 Practice 位于 Matter 之上，用来组织多个 Matter。持续监控、周期性合规、长期账户管理和工单队列通常由这些上层对象管理，并在出现独立责任、状态或成果时创建 Matter。把整项长期职责塞进一个 Matter，会使 Matter 退化为无边界 workspace；把每条微小事件都建成 Matter，又会造成过度建模。
+
+普通聊天、角色陪伴和开放探索可以共享持久化 Runtime primitives，却不必共享专业工作的 Evidence、Completion、Authority、Operational Responsibility 和 Accountability 语义。Matter-first 是专业工作对象的选择，不是把所有长期对话改名为 Work。
+
+### 4. Professional Work Runtime
+
+Runtime objects 表示逻辑责任、状态和权威边界，不表示必须拆成独立物理服务。Matter、Event Ledger、Semantic State 与 Artifact Store 可以共用同一数据库、workflow engine 或现有专业系统；只要正式写入关系和 canonical owner 清楚，物理实现可以合并。
+
+这里需要区分两种“最小”：
+
+- **Semantic Minimum** 是完整描述 Professional Work 需要的逻辑闭环，也就是本节的 Runtime Kernel；
+- **Deployable Minimum** 是让用户第一次感受到工作不再只存在于 Chat 的最小产品切片，通常只实现一条真实的 commitment boundary。
+
+Semantic Minimum 定义扩展方向，不是产品采用的前置建设清单。Deployable Minimum 可以把多个逻辑对象压在一套现有系统或单体实现中。完整 Kernel 由以下对象构成：
+
+```text
+Matter
+├── Resources / Context
+├── Assignment / Work Contract
+├── Operator
+│   ├── Lane
+│   │   └── Run
+│   └── Delegated Operator
+├── Accountable Principal
+├── Event Ledger
+├── Semantic State
+│   └── Evidence Graph
+├── Artifacts
+└── Review
+    └── Revision / Outcome
+```
+
+#### 4.1 Matter
+
+Matter 是最小工作承诺单元，定义责任边界、资源、参与者、权限、当前事实、正式成果和决定历史。它跨模型、跨 Conversation、跨人员继续存在，可以容纳多个 Assignment 和同一 Artifact 的多个版本；Portfolio、Queue、Program 和 Practice 只负责组织多个 Matter。
+
+#### 4.2 Assignment 与 Work Contract
+
+Assignment 是 Matter 内一项有边界的委派，不是自然语言 prompt 的别名。它至少说明 objective、deliverable、audience、constraints、deadline、authority、completion requirements 与 Review requirements。
+
+Assignment 的状态可以包括 not started、in progress、blocked、awaiting review、completed、superseded 与 cancelled。状态由 Runtime 维护，不能只存在于执行者的自然语言自述。
+
+Work Contract 是约束 Assignment 并支撑同一任务族复用的契约集合。它在此处作为执行规格和提交校验的语义来源，并在生产后成为失败归因与改进的参照。Matter 是工作对象，Assignment 是一次有边界的委派，Work Contract 是可版本化的规范；三者不需要合并成新的上位名词。
+
+#### 4.3 Operator 与 Accountable Principal
+
+Operator 对某一范围承担稳定的 **Operational Responsibility**，可以是人、主 Agent 或被委派的专门执行者。这种责任只表示谁必须执行、恢复、交付或升级工作，不表示谁最终承担专业、组织或法律后果。
+
+**Authority** 说明谁被允许读取、提出、修改、批准、发布或委派。**Accountability** 说明谁最终接受专业判断和组织后果。Accountable Principal 必须是能够承担这项问责的人或组织角色；Agent 可以取得部分 Operational Responsibility 和 Authority，不能自行取得不可约的 Accountability。
+
+新的 Operator 只有在 Operational Responsibility、scope、tools、Authority、completion obligation 与 escalation path 相对独立时才成立。每个 Assignment 需要明确 Operator、授权范围和 Accountable Principal，三个字段不能互相代替。
+
+并行调用、检索线程或后台任务不自动形成 Multi-agent。运行义务和最终问责都不能从计算拓扑反推。
+
+#### 4.4 Lane
+
+Lane 是同一 Operator 内的一条独立工作线或 execution cursor。不同 Lane 可以并行检查问题、搜集材料或起草不同部分，同时共享 Operational Responsibility 与 Authority。
+
+> **P9 — Lane is parallelism; Operator carries operational responsibility; the Accountable Principal carries ultimate accountability：Lane 表示并行，Operator 承担运行义务，Accountable Principal 承担最终问责。**
+
+Lane 在取得独立 Operational Responsibility、Authority、完成义务和升级路径后，才被提升为新的 Operator。
+
+#### 4.5 Run
+
+Run 是某条 Lane 的一次 activation。它接收输入、调用工具、读取或更新状态、创建或修改 Artifact、产生 Event、请求 Review，并可能停止、失败或恢复。
+
+Run 只承载一次暂时执行。它的结束不证明 Assignment 已经完成，Assignment 完成也不等于 Matter 结束。
+
+#### 4.6 Event
+
+Event 记录“What happened”，但候选变化和已经生效的变化必须分开：
+
+- **Candidate Event** 记录待提交的状态变化，没有正式效力；
+- **Committed Event** 已经通过 Schema Validation、Evidence Check、Authority Check 和适用的 Review Policy，可以改变 Current Semantic State。
+
+模型和人都可以提出 Candidate Event，只有 Runtime 可以按提交协议写入 Committed Event Ledger。在适用 retention policy 内，Committed Event 不被静默改写；纠正由新的 Committed Event 表达，删除、匿名化和归档由明确的权利与保留政策处理。
+
+典型 Event 包括 assignment accepted、resource accessed、tool called、artifact proposed、review requested、revision committed、approval granted 与 failure occurred。Committed Event Ledger 是正式状态转换的权威记录；执行 trace 和未提交候选可以另行保存，但不能混入正式账本。
+
+#### 4.7 Artifact
+
+Artifact 是可以进入真实工作流的正式成果，具有 identity、type、version、provenance、status 和下游用途。文档、表格、redline、workpaper、finding、decision、plan 与结构化 issue set 均可成为 Artifact。Artifact 内容保存在版本化 Artifact Store 中；Committed Event 引用不可变的 Artifact version，Current Semantic State 只保存当前权威版本的引用和状态。
+
+Candidate Artifact Version 可以在提交前暂存，没有正式效力。只有引用该版本的 Committed Event 写入账本后，它才成为正式 Artifact。Chat 回答也只有经过这条路径，或形成其他已经提交的状态变化，才进入正式工作。
+
+#### 4.8 Semantic State
+
+Semantic State 表示“What is happening now”。每项 claim、finding 或 decision 至少携带两个互相独立的状态轴：
+
+| 状态轴 | 可用状态 | 回答的问题 |
+|---|---|---|
+| Epistemic Status | proposed、supported、contradicted、uncertain、working assumption、resolved | 证据和认识处于什么状态 |
+| Institutional Status | draft、under review、approved、published、superseded、withdrawn | 组织赋予了什么效力 |
+
+证据充分不等于已经批准；已经作为业务决定接受，也不等于它被证明为客观事实。Current Semantic State 还保存 open issues、Evidence relations 与 gaps、coverage、completion status、pending decisions、active Artifact references 和 Review state。
+
+> **P3 — Transcript is evidence of execution, not canonical work state：Transcript 是执行证据，不是权威工作状态。**
+
+Committed Event Ledger 是状态转换的权威记录，Current Semantic State 是这些事件的确定性投影。投影可以 checkpoint，但必须能够从账本和引用的 Artifact versions 重建。Artifact Store 是成果内容的权威存储，Semantic State 保存权威版本引用；引用与实际版本不一致时，Runtime 阻止继续提交并进入修复流程。这样可以避免 Event、State 和 Artifact 各自形成一套“真相”。
+
+#### 4.9 Review
+
+Review 是工作生命周期中的裁决动作，包括 accept、reject、revise、request further work、escalate、approve 与 promote policy。Reviewer 先提出 Candidate Decision；Runtime 检查 Authority 与 Review Policy 后写入 Committed Event，再由 reducer 更新 Current Semantic State 和 active Artifact reference。Review 不直接改写 State。
+
+专业系统不以“一路点击 Yes”为目标。Review 只应出现在具有专业意义、权限意义或学习治理意义的节点，并且必须改变正式状态，而不只是留下评论。
+
+#### 4.10 生命周期
+
+这些对象共同形成一条可恢复的工作链：
+
+```text
+Matter created
+→ Resources, Accountable Principal and permissions established
+→ Assignment accepted
+→ Operator and Work Contract selected
+→ one or more Lanes execute through Runs
+→ Candidate State Changes and Candidate Artifact Versions proposed
+→ Schema, Evidence and Authority checks executed
+→ Completion / Review Policy routes the candidate
+→ Committed Event appended
+→ Current Semantic State and active Artifact reference projected atomically
+→ Outcome and reusable signals recorded
+```
+
+这条链不要求线性推进。Review 可以把成果退回执行，Assignment 可以拆给新的 Operator，新证据可以重开已经关闭的问题，新 Artifact 也可以取代旧版本。每次回转都通过 Committed Event 改变 Current Semantic State 和 active Artifact reference；历史记录与当前状态因此保持一致。
+
+### 5. 历史、状态与上下文不能混为一体
+
+持久工作需要分别回答三个问题：
+
+| 问题 | 承载对象 | 作用 |
+|---|---|---|
+| 发生过什么？ | Committed Event Ledger 与 Raw History | 正式状态转换、执行追溯 |
+| 现在是什么？ | Current Semantic State | 当前事实、决定、覆盖、未决义务 |
+| 下一次执行应看见什么？ | Context Projection | 面向特定 Operator、Lane、Run 的临时视图 |
+
+Transcript 不能同时承担三项职责。历史越长，完整注入的成本越高；反复 summary 又会把暂时解释写成事实，并在多轮压缩中积累漂移。
+
+连续性由三层内容组成：
+
+#### 5.1 Stable Contract
+
+Stable Contract 保存长期稳定的 role、institution policy、Assignment semantics、professional schema、permissions 与 tool authority。
+
+#### 5.2 Current Semantic State
+
+Current Semantic State 是 Committed Events 的当前投影，保存双轴 claim status、开放问题、Evidence Relations、coverage、active Artifact reference、completion、decision 与 pending Review。
+
+#### 5.3 Raw History / Evidence
+
+Raw History / Evidence 保存完整 transcript、原始材料、工具轨迹、Candidate Events、执行 trace 与旧版本成果。它们默认可检索，不默认全量注入，也不能直接改变 Current Semantic State。
+
+> **P4 — Continuity comes from stable contracts, current Semantic State and retrievable history：连续性来自稳定契约、当前语义状态与可检索历史，不依赖不断压缩 chronology。**
+
+Context Projection 根据当前 Operator、Lane、Assignment 和任务阶段生成：
+
+```text
+Stable Contract
++ relevant Current Semantic State
++ selected Resources
++ retrievable Raw History
++ current Assignment
+= Context Projection
+```
+
+Projection 可以随模型、上下文窗口和执行策略变化而重建，正式状态不随投影变化而丢失。Recovery 因此是重建有效的 Current Semantic State 并生成新的 Context Projection，不是让模型总结此前发生的一切。
+
+Memory 也不再是一个不断增长的“模型记忆罐”。需要持久保存的是专业对象、正式状态与检索权；模型每次只获得与当前执行有关的投影。
+
+### 6. Contract Discipline
+
+专业工作由一组互补契约约束。单一 schema 无法同时表达来源、权限、完成、成果和裁决。
+
+#### 6.1 授权范围内广泛探索，正式边界上窄化提交
+
+模型只能在 Assignment 的授权资源、目的限制和数据最小化规则内阅读、搜索、比较、试探和撤回。进入正式成果的内容必须通过更窄的类型化承诺边界（typed commitment boundary）。
+
+> **P5 — Explore broadly within authorized scope; commit narrowly across the formal boundary：在授权资源范围内广泛探索；只有通过带有明确类型、证据、权限和问责主体的窄化边界，才能改变正式状态。**
+
+“写窄”不限制问题发现，也不要求模型只填固定表格。它限制的是哪些内容可以改变正式状态，以及改变时必须携带什么证据、权限和版本信息。
+
+#### 6.2 Evidence Contract
+
+需要事实依据的正式主张必须关联机器可读的 Evidence Relation。来源坐标只说明材料在哪里，不能说明材料支持、反驳还是限定某项主张。最小关系包括：
+
+```text
+claim
+source
+source_version
+location
+relation: supports / contradicts / qualifies / derives-from
+extraction_actor
+derivation_method
+effective_time
+status
+```
+
+模型可以提出引文、主张和候选关系；Runtime 负责解析来源、版本、坐标和关系类型。垂直 Contract 定义 source authority、precedent hierarchy、freshness 与 admissibility，通用 Runtime 不给不同领域的来源设定统一权重。
+
+> **P7 — Provenance is state, not prose：来源关系属于工作状态，不能只写在说明文字里。**
+
+无来源关系的事实主张不能进入要求事实承诺的正式状态。可用来源不只包括文档和数据库，也包括用户或专业人士的明确陈述、系统观察和工具返回、可以复算的推导结果。没有足够依据的主张可以保留为 proposed、uncertain 或 working assumption，但不能伪装成已经确认的事实。
+
+Evidence Contract 必须区分事实、推论、偏好、策略与人类裁决。一个来源可以支持事实前提，却不能替 Reviewer 承担风险接受或策略选择。
+
+#### 6.3 Completion Contract
+
+Run 可能因 token、工具失败、不确定性或局部成功而停止，这些都不构成专业完成。Assignment 只有在 Completion Contract 满足，或授权人明确豁免、修改该 Contract 后，才进入 completed state。
+
+Completion ledger 可以包括：
+
+- required Artifacts；
+- required issue families 与 coverage；
+- unresolved questions；
+- evidence gaps；
+- mandatory checks；
+- dependency state；
+- pending external input；
+- required approvals；
+- known exceptions。
+
+> **P8 — Completion must exist outside the model’s self-assessment：完成条件必须存在于模型自评之外。**
+
+系统应使“不完整”可见，但不能假装所有完成条件都能机械裁决。机器可验证义务和人类裁决点需要分别表示。
+
+#### 6.4 Authority Contract
+
+Tool capability 与业务 authority 不是同一个对象。模型可能技术上能够创建文件，却没有权力发布；可以生成邮件，却没有权力发送；可以提出修改，却不能改变 approved state。
+
+Runtime 至少应区分 read、propose、modify draft、modify approved state、approve、publish、transmit externally、execute irreversible action、delegate 与 promote policy。取得 Authority 不等于取得 Accountability；自动化可以准备材料、提出建议和执行可撤销步骤，不能替 Accountable Principal 作出最终问责决定。
+
+用户看到的是业务语义：
+
+```text
+write_file                  → 接受这项成果修订
+run_external_tool           → 把这份工作成果发送给客户
+resume_session              → 返回当前 Matter
+create_subagent             → 委派一项边界明确的运行义务
+```
+
+技术操作不应自动成为用户心智对象。
+
+#### 6.5 Artifact Contract
+
+Artifact Contract 定义成果类型、结构、版本、状态、引用关系、审批条件和下游可用性。Committed Event 必须引用具体 Artifact version，Current Semantic State 只能把已经提交的版本设为 active。产品价值以可采用的 work product 计量，不以聊天回答的长度或流畅度计量。
+
+#### 6.6 Review Contract
+
+Review Contract 定义谁在哪种状态下可以接受、驳回、修订、要求补充、批准和提升规则。Review 产生 Candidate Decision；只有通过 Authority Check 并写入 Committed Event 后，它才改变 Semantic State 或 active Artifact reference。
+
+#### 6.7 Escalation Contract
+
+Escalation 是 Runtime 中的正式动作，不是模型失败后的兜底。合格 escalation 至少表达：
+
+```text
+issue
++ evidence
++ alternatives
++ recommendation
++ reason_for_escalation
+```
+
+系统不迫使模型在信息不足或权限越界时给出答案，而是把不确定性送到具备相应 Authority 或 Accountability 的主体。
+
+## 第三部　从专家演示到 Agent Extension
+
+### 7. Expert Demonstration 与隐形 Human Harness
+
+专家 Demo 不是产品能力，却是比静态 SOP 更接近真实工作的可运行 source material。专家不必先写出完整 SOP、Schema 或 rubric；Schema Engineering 团队可以从以下材料抽取可转移的工作语义：
+
+- 真实或合成 Matter 上的完整示范；
+- prompt、context、tool 和 source 的选择；
+- 反复重试、失败恢复和执行路径变化；
+- before / after revision；
+- accept、reject、request further work 与 escalation；
+- 对 materiality、coverage 与 deliverability 的判断；
+- 哪些结果进入下游流程，哪些被推翻。
+
+因此，编订不是简单地“采访专家写需求”，而是：
+
+```text
+观察 → 抽取 → 分层 → 编订 → 反例验证
+```
+
+专家做出的模型 prototype 往往由一层未被记录的人工 Runtime 支撑：
+
+```text
+Expert selects task and context
+→ Model attempts
+→ Expert notices omission or error
+→ Expert changes framing, source or search
+→ Model retries
+→ Expert judges materiality
+→ Expert decides what is deliverable
+```
+
+Prototype 制作者亲自操作时，这些干预容易被误认为模型能力；prototype 交给其他人后，任务选择、上下文拼装、遗漏识别、失败恢复和完成判断同时消失。产品化需要外部化足以支持委派、验证、恢复和审阅的干预，不需要复制专家全部思维。
+
+编订时必须按责任、适用范围与稳定性分层：
+
+| 层级 | 例子 | 编译目标 |
+|---|---|---|
+| Domain invariant | 稳定的专业义务、来源层级、必查事项 | Product Contract / Evaluator |
+| Institution convention | 团队审批、格式、风险偏好 | Versioned institution configuration |
+| Client / Matter context | 特定客户、交易、时点要求 | Client / Matter context |
+| Individual habit | 个人表达、捷径、工具偏好 | User preference，默认不推广 |
+| Irreducible judgment | 风险接受、策略、重大例外 | Expert Review / Accountable Decision |
+
+可重复、低争议且可机械验证的动作可以落为 Validator 或 deterministic policy；可委派但仍需判断的步骤落在 Assignment、Review 或 Escalation。这是对上述语义分层的实现选择，不是第二套分类。
+
+同一 prototype 往往混合 domain invariant、institution convention、client or Matter context 与 individual habit。出现频率不能自动把个人习惯提升为机构规则，也不能把机构规则写成领域真理。
+
+产品化的完成判据是：prototype 作者离开后，其他合格用户能否依靠显式对象和状态委派同类工作，专家 Review 时间是否下降，accepted-work-product rate 是否提高。如果专家仍然需要以接近原来的频率介入，产品只能支持 expert augmentation，还没有形成可委派的 Agent Extension。
+
+### 8. Agent Extension 与 E2E 发布
+
+> **Agent Extension 是由 Work Contract 约束、能够在特定任务族中产生可采用成果，并自带执行边界、结果校验、Review / Escalation 语义和 E2E 发布门的可版本化专业能力包。**
+
+它不限定物理形态，可以实现为 package、plugin、skill、workflow、service、sidecar、embedded module 或其他宿主可加载单元。但 Agent Extension 不等于 prompt + tools + workflow；成熟 Extension 至少包含以下逻辑对象：
+
+```text
+Agent Extension
+├── Task family and applicability
+├── Work Contract
+├── Context / resource policy
+├── Artifact / evidence / completion contracts
+├── Authority contract
+├── Review / escalation policy
+├── Validators / Evaluators
+├── Recovery behavior
+├── Golden / adversarial / boundary cases
+└── E2E release suite
+```
+
+Prompt、tool definition 和 workflow 只是可折旧的实现部分，不构成 Extension 的全部身份。
+
+#### 8.1 Extension 的发布判据
+
+Demo 只有同时满足以下条件，才被提升为 Agent Extension：
+
+1. 原作者不再承担逐步驾驶；
+2. 其他合格用户能够启动并完成同类工作；
+3. 输入、适用范围和不适用边界清楚；
+4. required artifacts、evidence、completion 与 review requirements 可以被查询；
+5. failure、interrupt、return-for-revision 和 recovery 有可验证行为；
+6. 结果能被 Reviewer 作为 accepted work product 接受并进入下一步流程；
+7. E2E suite 覆盖正常路径、关键反例、权限边界、恢复和模型替换；
+8. 专家 Review 时间、成果接受率或恢复成本至少一项得到可测改善，且高风险指标不恶化。
+
+#### 8.2 E2E 的测试对象
+
+E2E 不是页面点击完成、Agent 停止生成或文件成功写入。它测试一套 Extension 能否在声明范围内稳定完成工作：
+
+```text
+Representative Matter / Task
+→ authorized resources and context
+→ Agent execution
+→ candidate artifacts and state changes
+→ contract validation
+→ review / revision / escalation
+→ accepted work product
+→ downstream handoff or recoverable continuation
+```
+
+完整 suite 可以混合 deterministic checks、schema / evidence / completion / authority validators、evaluator rubric、expert review、accepted-work-product outcome、recovery and replay tests 与 equivalent-interface perturbation tests。E2E 不要求所有专业正确性被自动化，也不能因全绿就宣称整个领域已被形式化。
+
+#### 8.3 Accepted work product
+
+Accepted work product 指由具备相应 Authority 的 Reviewer 在预定流程节点接受、可以进入下一步业务流程、不需要实质性修改的 Artifact version。Accepted-work-product rate 是 Extension 发布和迭代的核心指标，不是单一模型 benchmark 的替代名；它必须按任务族、风险、机构和 Reviewer 分层，并记录 reversal。
+
+> **P17 — A demo becomes an Extension only when its hidden human harness is compiled and it passes E2E without its author：只有当隐形 Human Harness 被编译，并且原作者离场后仍能端到端交付可采用成果，Demo 才成为 Extension。**
+
+#### 8.4 产品吸收 Agent 复杂度
+
+Frontier Agent 的能力越广，可配置对象越多。Session、Memory、context window、compaction、handoff、tool call、MCP、plugin、subagent、system prompt 和 model-specific recovery logic 属于构建执行系统的概念，不是专业用户完成工作的概念。
+
+用户需要管理的是 Matter、Assignment、resources、issue、evidence、Artifact、revision、approval 与 outcome。
+
+> **P10 — Agent complexity should be absorbed by the product：用户面对专业对象和业务裁决，产品吸收 Session、Memory、Tool、Subagent 与 Context mechanics。**
+
+复杂度没有消失。产品把它从用户的逐次配置移入可复用的契约、默认值、路由、恢复与审阅设计。一次产品判断可以服务多次任务，用户无需每次重新发明工作方法。
+
+完全隐藏技术层并非无条件成立。部分专业用户可能需要诊断 Context Projection、工具失败或委派拓扑。产品可以采用 progressive disclosure：默认呈现领域对象，在诊断需要出现时暴露技术证据，但不把技术对象设为主工作面。
+
+#### 8.5 一个完整的提交、退回与恢复过程
+
+一项合同审查 Matter 的目标是形成可以交给业务负责人的风险清单和修订稿。法务负责人是 Accountable Principal；主 Operator 承担审查、恢复、交付和升级义务；Authority Contract 允许它读取合同、提出 finding 和修改 draft，不允许批准或对外发送。
+
+```text
+1. Matter 创建
+   → 建立原合同、标准条款库、参与人和权限边界
+
+2. Assignment 接受
+   → Work Contract 要求覆盖责任、付款、终止和数据义务
+   → Completion ledger 登记四类义务与两个交付物
+
+3. 主 Operator 建立两个 Lane
+   → Lane A 检查责任与终止
+   → Lane B 检查付款与数据义务
+
+4. Lane A 提出 Finding F-17
+   → Epistemic Status = proposed
+   → Institutional Status = draft
+   → Candidate Event 还没有进入 Committed Event Ledger
+
+5. Evidence Check 失败
+   → Finding 只有原文摘录，没有 source version 和 location
+   → F-17 保留为 proposed，不能进入 accepted state
+
+6. Lane B 定位合同版本与条款坐标
+   → Evidence Relation = source supports claim
+   → Candidate State Change 再次提交
+
+7. Schema、Evidence 与 Authority checks 通过
+   → Runtime 写入 Committed Event
+   → reducer 把 F-17 投影为 supported / under review
+
+8. Completion ledger 仍显示数据义务未覆盖
+   → Operator 不能宣布 Assignment 完成
+   → Context Projection 为下一次 Run 加入缺口和相关材料
+
+9. Reviewer 处理候选成果
+   → 接受 F-17 的事实基础
+   → 退回风险等级判断
+   → Candidate Decision 通过 Authority Check 后写入 Committed Event
+
+10. Revision 生成 Artifact v3
+    → Artifact Store 保存不可变版本
+    → Committed Event 引用 v3
+    → 同一次投影把 Current Semantic State 与 active Artifact reference 更新到 v3
+
+11. 法务负责人批准发布
+    → Authority 允许 approve，不允许 Operator external transmit
+    → Accountable Principal 的批准写入 Committed Event
+    → 发布动作由具备 transmit Authority 的角色执行
+
+12. 新 Run 恢复
+    → Runtime 从 Committed Event Ledger 重建 Current Semantic State
+    → 读取 active Artifact v3 与未完成义务
+    → 生成新的 Context Projection，不重放完整 transcript
+```
+
+这条 trace 同时约束 Lane 与 Operator、Candidate 与 Committed、Evidence 与 Completion、Authority 与 Accountability，以及 Event、State、Artifact 和 Context Projection 的写入顺序。任何一步都不能由模型自述“已经完成”替代。
+
+## 第四部　Post-agentic Refinement
+
+Post-agentic Refinement 从 Kernel 推导产品运行、学习与模型策略，但不把任何生产 trace 自动当作训练数据，也不把任何系统改进都称为 Training。本部的命题需要分别接受成本、数据权利和产品结果检验。
+
+### 9. Post-agentic Refinement 与 Review 治理
+
+> **Post-agentic Refinement 是 Agent Extension 已经能够端到端运行之后，基于生产使用、Review、Revision、Failure 与 E2E 结果，对整个 Agentic System 进行的后续改进。**
+
+改进对象按默认检查顺序包括：
+
+1. Work Contract 是否遗漏或错误表达专业义务；
+2. Validator / Evaluator 是否过弱、过强，或把机构偏好当成事实；
+3. Context Projection 和资源选择是否缺失、过时或冗余；
+4. Tool / interface 是否制造 interface accident；
+5. Harness / routing / recovery 是否造成系统性失败；
+6. Base model 是否存在可测、可泛化的剩余能力缺口；
+7. 只有第 6 类稳定成立时，才考虑 Selective Model Post-training。
+
+专业工作本来就通过 Review 与 Revision 推进。产品应捕获实际发生的修订，不应要求专业人士为了未来训练，在每次修改时额外填写 reason code、materiality、scope 和 judgment type。
+
+> **P11 — Capture first, infer later, promote selectively：先捕获事实，再推断语义，只把少数经过确认的候选提升为规则。**
+
+#### 9.1 自动捕获的事实
+
+系统自动记录 before / after、Artifact path 与 version、actor 与 role、Matter 与 Assignment、evidence、surrounding context、trajectory、outcome 与 learning rights。这些对象首先服务审计、恢复和当前产品运行。
+
+#### 9.2 机器推断的语义
+
+系统可以带不确定性地推断 correction type、likely scope、materiality、failure family、applicability 与 Reviewer disagreement。推断结果不是正式规则，可以通过跨 Matter、跨 Reviewer 和跨版本比较校正。
+
+#### 9.3 人工确认的规则提升
+
+系统准备改变未来行为时，才要求明确裁决：
+
+- Matter 规则是否成为 client preference；
+- 重复 client preference 是否成为 institution configuration candidate；
+- 重复 institution correction 是否成为 product 或 domain rule candidate；
+- 某类失败是否进入正式 Eval；
+- 某类数据是否允许 aggregate、evaluation 或 training。
+
+低频的规则提升决定未来行为，适合承担治理成本；高频 Review 只处理当前工作，不应退化为数据标注界面。
+
+生产中的 revision 不一定能可靠区分 correctness、client preference、strategy 与 style。如果自动语义长期不准，Revision Event 仍然保留审计价值，学习语义需要另行采集。
+
+### 10. Failure Attribution、Production Learning 与 Synthetic Environment
+
+每项生产失败至少应允许落入下列一种或多种类型：
+
+```text
+contract gap
+validator gap
+evaluator disagreement
+context / resource gap
+tool / interface accident
+harness / recovery failure
+model capability gap
+institutional disagreement
+rights / data limitation
+```
+
+失败归因本身可以是带不确定性的推断，不能自动改变正式规则。规则提升仍遵循 capture first、infer later、promote selectively。Work Contract 为这一归因提供任务边界、目标成果、accepted-work-product 标准、可验证义务、failure taxonomy、Eval rubric、Environment seed 以及权限与数据 rights 边界。它不只是 Runtime guard，也是训练目标的治理层。
+
+结构化产品界面可以产生学习信号，不会自动形成数据飞轮。生产 trace 首先揭示由当前产品、客户选择、权限条件和使用方式共同塑造的 observed production distribution：
+
+- task distribution；
+- failure distribution；
+- preference distribution；
+- escalation distribution；
+- environment seeds；
+- accepted-work-product standard。
+
+这些 trace 可能受客户机密、权限、上下文依赖、Reviewer 分歧和选择偏差限制，不一定适合直接训练。Documents 是内容资产；带有具体情境的 task、state、trajectory、judgment 与 outcome 才可能成为学习资产。两类资产都不能自动取得聚合、评测或训练权。
+
+Synthetic Environment 走另一条路径：
+
+```text
+Expert defines task family / rubric ontology
+→ Synthetic Environment generation
+→ oracle or multi-agent solve
+→ deterministic checks
+→ expert audits disagreements and high-value cases
+→ accepted Eval / training environments
+```
+
+两条路线承担不同作用：
+
+- Production Learning 揭示系统在哪里工作、在哪里失败、哪种偏好和升级具有现实权重；
+- Synthetic Environment 以较低边际成本扩展任务族和失败模式；
+- held-out production Matters 检查 synthetic system 是否只优化自己的世界。
+
+> **P12 — Production traces reveal observed production distributions; synthetic environments expand them：生产记录揭示当前产品条件下可观察到的分布并提供环境种子；合成环境扩展规模，但不能自行证明它代表完整任务分布。**
+
+如果 synthetic-only 路线在 held-out real Matters 上持续达到同等效果且成本更低，生产 instrumentation 仍然服务运行和 failure discovery，不再构成学习壁垒。如果生产失败不能形成可复用 task family，trace 只保留局部审计价值。
+
+### 11. Eval、Environment、折旧与 Selective Model Post-training
+
+Schema 中面向模型的 scaffold 与面向人和系统的工作语义具有不同寿命。
+
+#### 11.1 随模型折旧的脚手架，不随模型消失的工作语义
+
+Explicit reasoning recipe、model-specific prompt trick、过细 workflow instruction、checkpoint tool workaround 与补偿当前模型缺陷的 context orchestration，会随模型能力提高而折旧。
+
+Artifact semantics、provenance、authority、permissions、Semantic State、completion、Review、audit、institution policy 与 rights 属于组织承诺结构。模型更强不会自动决定谁有权批准、哪种来源可以采用，或者组织什么时候愿意承担结果。
+
+> **P13 — Delete scaffolding aggressively; preserve semantics deliberately：主动删除会随模型折旧的脚手架，谨慎保留工作语义。**
+
+如果模型能从 raw context 稳定推断某项契约，并在责任承担、审计、恢复、多角色协作和 accepted work product 上不劣于显式契约，该契约可以降为 model-facing scaffold 或审计投影。单纯 benchmark 分数提高不足以得出这一结论。
+
+#### 11.2 Eval 基础设施与条目折旧
+
+单个 Eval item 会因模型普遍通过、任务分布变化、制度变化或法规变化而失去区分力。Eval infrastructure 仍可积累任务生成、执行、评分、回归、分层和复核能力。
+
+Eval item 需要分别标记 stable regression value、frontier discriminative value、distribution relevance 与 legal or institutional validity。
+
+> **P14 — Eval infrastructure compounds; individual Eval items saturate：Eval 基础设施会复利，单个条目会饱和并折旧。**
+
+Environment generation capability 也会复利；单个 environment instance 同样会饱和。
+
+#### 11.3 Harness Specialization 与 Interface Accident
+
+有价值的 Harness specialization 使模型适应 state、evidence、authority、completion 与 escalation 等工作语义。脆弱的 specialization 只适应固定 prefix、tool name、field order、wrapper 或 protocol。
+
+两者需要通过等价语义下的 tool rename、protocol substitution、field-order randomization、Context Projection 变化和环境迁移区分。收益在这些变化后消失，表示系统学到的是 interface accident，portability 低且折旧快。
+
+#### 11.4 Selective Model Post-training 的位置
+
+> **P15 — Selective model post-training is optional and downstream of a working product：模型权重训练是可选项，位于已经成立的 Agent Extension 之后。**
+
+顺序是：
+
+```text
+Expert Demonstration
+→ Work Contract
+→ Agent Extension
+→ E2E Acceptance
+→ Production Use
+→ Failure Attribution
+→ Eval / Environment
+→ Post-agentic Refinement
+→ Selective Model Post-training, if residual gains justify it
+```
+
+这里的上位词是 Post-agentic Refinement，只有模型权重更新称为 Selective Model Post-training。只有当后者能够改善 accepted work product、completeness、grounding、escalation calibration、institutional adherence、cost、latency 或 tool efficiency，并且改善幅度可以测量时，它才有采用依据。如果新的 frontier model 在 accepted-work-product Eval 上超过旧 specialized model，应直接迁移，不因旧 checkpoint 的 sunk cost 延迟替换。
+
+> **P16 — Do not use training as a substitute for reliable validation; do not globalize local preference; do not let automation substitute for the accountable decision：训练不能取代可靠验证；局部偏好不能直接推广；自动化不能取代最终问责决定。**
+
+可以训练已经能够验证的行为，以提高首次通过率、降低成本或减少重试；Validator 仍然保留判定权。自动化也可以准备材料、提出建议和执行可撤销步骤；Accountable Principal 仍然保留最终裁决资格。
+
+没有自有模型、专有 checkpoint 或 post-training，Professional Work 产品仍然需要依靠 Matter、state、evidence、authority、Artifact 与 Review 产生真实价值。
+
+#### 11.5 系统组合不能替单个组件证明因果
+
+系统表现由 model、Runtime、environment、context、Contracts 与 Evaluator 共同产生。这些组件存在交互：同一项 Harness 改动可能在不同 base model 上改善结果，也可能方向相反。组合系统在自有 benchmark 上表现更好，只能证明这套组合在相应设置下有效，不能据此把主要贡献分配给某个组件。
+
+因此，组件判断需要独立消融、跨模型复现、接口扰动和 held-out environment。把组件写成相乘公式，会预设它们可分解、独立、单调且同号；这些前提未得到一般性支持。
+
+## 第五部　产品边界与证据纪律
+
+Kernel 可以定义产品边界，不能单独证明市场规模、学习壁垒或横向平台机会。本部把架构测试、产品价值和市场证据分开处理。
+
+### 12. 产品边界与长期资产
+
+Professional Work Runtime 是一种以长期工作事项和正式成果为中心的系统：模型在可执行契约下完成工作，系统在对话之外维护状态、证据、权限、完成条件与可恢复历史，Accountable Principal 在需要最终问责的节点裁决。
+
+这一定义形成一类产品范式，但还不能单凭概念完整性证明一个天然成立的横向市场品类。不同领域的 Artifact、Evidence、Authority、Completion 与 Review 语义并不相同。共享 Runtime primitives 可以降低重复建设，不能替代垂直产品对专业工作的定义。
+
+需要分别评估的长期资产包括：
+
+| 资产 | 可检查问题 |
+|---|---|
+| Distribution | 产品是否进入真实高价值工作 |
+| Work semantics | 领域和机构契约是否可靠 |
+| Production failure distribution | 系统是否持续知道真实失败 |
+| Expert access | 高质量判断能否以可承受成本取得 |
+| Environment generation | 少量专家工作能否形成有效任务与 Eval |
+| Rights | 聚合、评测、训练与跨 Matter 使用是否合法且获授权 |
+| Runtime integration | 是否进入文档、通信、审批和交付系统 |
+| Refinement capability | 新模型能否适配机构工作分布 |
+
+不存在自动成立的单一 moat。这些资产可能组合后产生采购价值，也可能分别被 frontier provider、平台商或垂直软件商品化。
+
+机构能够沉淀的对象是 Work Contracts、precedent hierarchy、institution policy、client preference、completion standards、Review patterns、escalation rules、Eval infrastructure、environment generators 与 trained policies。只有当这些对象使专业判断超越原始个体而稳定复现时，它们才构成组织能力。
+
+如果上游平台提供通用 Matter persistence、Artifact state、permissions、Evidence、Completion 与 Review primitives，并使垂直产品无法在专业语义、成果接受率、集成留存或支付意愿上形成改进，Schema Engineering 仍然可以作为设计纪律，但不再构成独立产品机会。
+
+### 13. 采用路径与既有系统
+
+Deployable Minimum 从一条真实 commitment boundary 开始：模型提出某项结果，某位具备 Authority 和 Accountability 的人判断它能否进入正式工作。第一版只需要把这次转换从专家脑中移到产品中，不需要先建设全部 Runtime primitives。
+
+#### 13.1 Minimal Viable Matter
+
+最小切片可以压缩为：
+
+```text
+1 Matter
++ 1 Artifact type
++ 1 Reviewer role
++ 1 formal commit transition
++ 1 active version pointer
++ 1 unresolved-obligation list
+```
+
+对应实现只需要一个稳定 Matter identity、一个边界明确的 Assignment、Candidate Artifact 与 active Artifact 的区分、一个 Accountable Principal、propose 与 approve 两级 Authority、可见的未完义务，以及带版本的 commit / reject / revise 记录。
+
+Evidence Contract 可以先覆盖最承重的事实主张；Completion 可以由少量 checklist 和人工裁决共同完成；Context Projection 可以只是由 active Artifact、开放问题和 Assignment 组成的结构化工作包。这些逻辑对象可以存在于同一应用和数据库中，不需要先拆成独立服务。
+
+只要产品能够回答哪一版已经生效、谁接受了它、什么还没有完成、用户下次从哪里继续，它就已经越过 Session-first 产品的边界。后续扩展可以沿着以下路径发生：
+
+```text
+Chat + invisible human gate
+→ explicit Candidate / Accepted Artifact
+→ persistent Matter State
+→ typed Evidence / Authority / Completion Contracts
+→ reusable institution configuration
+→ Eval and selective learning
+```
+
+这条路径不是强制成熟度模型。高风险场景可能先建设 Authority，研究场景可能先建设 Evidence，长程任务可能先建设 Completion 与 Recovery。第一项 Matter 宜具备清楚的交付物、已经存在的 Review、明确的 Reviewer 或 Accountable Principal、可重复任务，以及状态丢失、版本混乱或漏项造成的可见成本；第一版不宜要求模型执行不可逆的外部行动。
+
+#### 13.2 逻辑层与 System of Record
+
+Schema Engineering 是逻辑上的 commitment layer，不要求成为新的 system of record，也不要求形成独立物理平台：
+
+```text
+Model / Tool Execution Layer
+        ↓ proposes
+Schema and Commitment Layer
+        ↓ commits through Authority
+Existing System of Record
+```
+
+Case Management、EHR、BPM、审计平台和垂直 SaaS 可能已经持有 Matter identity、客户或患者资料、Artifact、用户角色、审批流程、正式状态和 retention policy。Schema and Commitment Layer 不应无条件复制这些对象，而应补充模型 proposal 与 committed state 的区分、Candidate State Change、model-facing Authority、Evidence Relation、Completion obligation、Context Projection，以及跨模型 Run 的恢复和升级语义。
+
+每一类正式对象必须只有一个 **canonical owner**。AI sidecar 可以持有 Candidate、Context Projection 和执行 trace，但不能与原系统各保存一份互相独立的“已批准 Artifact”。最终批准状态必须提交到指定的 system of record，或者由 Schema Runtime 明确成为该对象的 canonical owner。Event Ledger 也可以引用外部系统的 immutable event ID、审批记录和 Artifact version，不需要复制所有既有事件。
+
+#### 13.3 三种部署形态
+
+| 形态 | Canonical owner | Schema Engineering 的位置 |
+|---|---|---|
+| Overlay / Sidecar | 既有专业系统 | 读取正式状态，生成 Candidate Change，通过原系统 API 提交 |
+| Embedded Runtime | Case Management、EHR、BPM 或垂直 SaaS | Proposal、Evidence、Completion 与 Context Projection 成为原产品内部能力 |
+| Greenfield Vertical System | 新的 Professional Work 产品 | 同时拥有 Matter、Artifact Store、Committed Event Ledger、Review 与模型执行层，并允许外部系统拥有部分对象 |
+
+既有系统实现了部分 Runtime primitives，不表示 F14 已经成立。只有当这些平台进一步商品化 model-facing commitment interface，并且垂直产品也无法在专业语义、成果接受率、集成留存或支付意愿上形成差异，F14 才成立。既有系统在此之前是底座、分发渠道和 incumbent boundary。
+
+### 14. Boundary Tests
+
+Boundary Tests 分别检查架构、连续性与治理、产品价值。三组结果不能合并为一个总分。
+
+#### 14.1 Architecture
+
+1. Candidate State Change 只有经过 Schema、Evidence、Authority 与适用的 Review Policy 检查，才能写入 Committed Event。
+2. Committed Event Ledger、Current Semantic State 和 Artifact Store 之间只有一条明确的权威关系，不会各自形成相互冲突的状态。
+3. Evidence Relation、Authority、Operational Responsibility 与 Accountability 存在于 prose 之外，并且可以分别查询。
+4. Assignment completion 不由执行者单方面宣布。
+5. 并行执行不会模糊 Operator 的运行义务，也不会改变 Accountable Principal 的最终问责。
+
+#### 14.2 Continuity / Governance
+
+1. 用户返回的是 Matter，不是重建一段 Chat。
+2. 不阅读完整 transcript 也能理解当前工作状态。
+3. Artifact、approved decision 和未完成义务能跨模型、跨 Session 存在。
+4. Human Review 通过 Committed Event 改变正式状态，不只留下评论。
+5. 系统能够分别回答：发生过什么、现在是什么、模型下一次应看什么。
+
+#### 14.3 Product Value
+
+1. 普通专业用户不必学习 Agent engineering 才能完成主要工作。
+2. 完全依赖外部 frontier model 且不做 proprietary post-training 时，产品仍然产生可采用成果。
+3. 移除 prototype 作者后，合格用户的成果接受率、恢复成本或专家 Review 时间至少有一项得到可测改善，且其他高风险指标没有恶化。
+4. 一个边界明确的 Matter 能够在不替换既有 system of record、不部署完整 Runtime 的条件下，分开 Candidate 与 Committed，并可测地降低 Review、恢复或版本协调成本。
+
+**Accepted work product** 指由具备相应 Authority 的 Reviewer 在预定流程节点接受、可以进入下一步业务流程，并且不需要实质性修改的 Artifact version。格式和措辞调整可以单独记录；改变结论、风险等级、事实基础或行动建议属于实质性修改。评估期内被推翻的成果需要记录 reversal，结果按风险等级、任务族、机构和 Reviewer 分层报告，不能只给一个总接受率。
+
+这些条件只规定产品边界，不证明具体实现已经满足。测试需要覆盖真实 Matter、任务恢复、模型替换、权限边界、Review 状态转换和 accepted work product。
+
+### 15. 可证伪边界
+
+Schema Engineering 的产品命题、学习命题与市场命题具有不同证据强度。Matter-first、external Semantic State、Evidence、Authority、Completion、Review、Operational Responsibility、Accountability 与 Lane parallelism 属于产品结构判断；Production Learning、institution-level generalization、synthetic economics、refinement capability 与横向市场品类仍需实证。
+
+证据来源也不能合并为“已验证”。独立复现、独立 benchmark、包含负面结果的 vendor technical report、vendor self-benchmark、community observation 与产品推论分别回答不同问题。Vendor self-benchmark 只能证明供应方在自定设置中的结果；community observation 可以暴露现象，不能单独确认因果；产品推论需要另行检验用户行为、成果质量和经济性。
+
+下列结果会使相应命题失效或缩窄：
+
+| 编号 | 证伪结果 | 直接后果 |
+|---|---|---|
+| F1 | 仅用 Conversation History 的 Agent 在长期专业 Matter 中持续等于或优于外部 Semantic State | P3、P4 与外部状态复杂度下修 |
+| F2 | Session-first 在恢复、审阅、版本和搜索成本上不劣于 Matter-first | Matter-first 降为特定信息架构选项 |
+| F3 | Runtime ontology 在多个领域反复退化为大量例外 | 跨领域范式退回少数垂直架构 |
+| F4 | 外部化专家干预后，专家介入频率和成果接受率没有改善 | 定位退回 expert augmentation |
+| F5 | Structured Contract 持续漏掉开放问题或制造错误确信 | Contract 缩到 accountability fields，部分任务放弃结构化 |
+| F6 | 专业质量依赖持续细粒度人工干预 | Human Review 不能只集中在里程碑或终态 |
+| F7 | 自动捕获 Revision 无法低成本形成可靠语义 | Revision Event 只保留审计价值 |
+| F8 | Synthetic-only 在真实 Matter 上同效且成本显著更低 | Production trace 不再构成学习壁垒 |
+| F9 | 生产失败无法形成可复用 Environment Seeds | Trace 只保留局部审计价值 |
+| F10 | 机构内分歧不低于机构间，机构规则降低成果接受率 | 配置停留在 Reviewer 或 team scope |
+| F11 | Rights 使合法可复用信号不足以支撑学习 | 学习分支失效，产品结构不受影响 |
+| F12 | Raw-context inference 在问责、审计、恢复上不劣于显式 Contract | 相应 Contract 降为 scaffold 或审计投影 |
+| F13 | 等价接口变化使 specialization 收益持续消失 | Harness 只学到 interface accident |
+| F14 | Frontier provider 商品化通用 Runtime primitives，且垂直产品无法在专业语义、成果接受率、集成留存或支付意愿上形成改进 | 设计纪律保留，独立产品机会消失；如果垂直差异仍然成立，只消除 Runtime primitives 本身的差异化 |
+| F15 | 共享 Runtime 没有独立采用、复用或支付价值 | 横向市场类别不成立 |
+| F16 | 只有暴露技术对象才能取得显著更好结果 | 采用 progressive disclosure，不彻底隐藏技术层 |
+| F17 | 任何有价值的使用都必须先完成全套领域契约和 Runtime 建设，且前置编码、集成与维护成本持续高于节省的 Review、恢复和版本协调成本 | 增量采用路径失败；Schema Engineering 保留为架构纪律，但不构成可独立启动的产品 wedge |
+
+每项证伪条件都需要配套测试设计。长期连续性比较应包含中断、跨周工作与模型替换；Ontology 比较应覆盖责任结构不同的至少三个领域；Contract 比较应同时测开放问题发现、锚定、错误确信与成果接受率；学习路线比较应固定 expert-hour、计算和数据预算；Harness 测试应在语义等价的接口变化下进行；产品边界应以真实采购、替换、留存和支付行为验证；增量采用测试应固定 Matter 范围，完整计入编码、集成、迁移和持续维护成本，再与 Review、恢复和版本协调收益比较。
+
+### 16. 待回答的问题
+
+1. 最小 Semantic State 应包含哪些内容，才能改善连续性而不成为第二份过时 transcript？
+2. 哪些 Completion obligation 足够稳定，可以编码；哪些只能作为 Reviewer prompt？
+3. Runtime 如何表示同等授权 Reviewer 之间的真实分歧？
+4. Lane 在什么条件下应被提升为独立 Operator？
+5. 哪些 Event 对审计必要，哪些只是应当过期的噪声？
+6. Context Projection 如何暴露状态可能过时、冲突或置信不足？
+7. 一项重复 correction 从 Matter 提升到 client、institution 或 product scope，需要什么阈值？
+8. Accepted-work-product Eval 如何同时抵抗 benchmark saturation 与 institution overfit？
+9. Training rights 不存在时，aggregation 与 evaluation 至少需要哪些权利？
+10. 法律实现中的哪些对象必须保留为领域专属，不能进入通用 Runtime？
+11. 从 Expert Demonstration 抽取稳定义务时，多少个 Matter、多少位 Reviewer 才足以区分 domain invariant 与 individual habit？
+12. Extension 的 E2E suite 如何覆盖任务族边界，又不把全绿误当成整个领域的专业正确？
+13. Failure attribution 如何表示多因一果、归因不确定性与机构间真实分歧？
+
+### 17. 分层原则索引
+
+#### Compilation Principles
+
+- **P17 — A demo becomes an Extension only when its hidden human harness is compiled and it passes E2E without its author.** 只有当隐形 Human Harness 被编译，并且原作者离场后仍能端到端交付可采用成果，Demo 才成为 Extension。
+
+#### Ontology Principles
+
+- **P1 — Matter over Session.** Matter 是用户对象，Session 是基础设施对象。
+- **P2 — Conversation is an interaction surface, not the product ontology.** Conversation 提供交互，不承载工作本体。
+- **P3 — Transcript is evidence of execution, not canonical work state.** Transcript 记录执行，不代表当前正式状态。
+- **P4 — Continuity comes from Stable Contracts, Current Semantic State and retrievable history.** 连续性来自稳定契约、当前状态和可检索历史。
+- **P9 — Lane is parallelism; Operator carries operational responsibility; the Accountable Principal carries ultimate accountability.** Lane 表示并行，Operator 承担运行义务，Accountable Principal 承担最终问责。
+
+#### Commitment Principles
+
+- **P5 — Explore broadly within authorized scope; commit narrowly across the formal boundary.** 在授权资源范围内广泛探索；只有通过带有明确类型、证据、权限和问责主体的窄化边界，才能改变正式状态。
+- **P6 — Model proposes; systems enforce invariants; Evaluators measure specified semantics; humans adjudicate irreducible judgment.** 模型、系统、Evaluator 和人分别承担提议、约束、测量和裁决。
+- **P7 — Provenance is state, not prose.** 来源关系属于工作状态，不能只写在说明文字里。
+- **P8 — Completion must exist outside the model’s self-assessment.** 完成条件必须由模型之外的对象维护。
+
+#### Product Governance
+
+- **P10 — Agent complexity should be absorbed by the product.** 产品吸收 Agent 的技术复杂度，用户处理专业对象。
+- **P11 — Capture first, infer later, promote selectively.** 先捕获事实，再推断语义，最后选择少数候选提升为规则。
+- **P12 — Production traces reveal observed production distributions; Synthetic Environments expand them.** 生产记录揭示当前产品条件下可观察到的分布，合成环境扩展覆盖。
+
+#### Evolution Strategy
+
+- **P13 — Delete scaffolding aggressively; preserve semantics deliberately.** 删除会随模型折旧的脚手架，保留工作语义。
+- **P14 — Eval infrastructure compounds; individual Eval items saturate.** Eval 基础设施可以积累，单个条目会饱和和折旧。
+- **P15 — Selective model post-training is optional and downstream of a working product.** 模型权重训练是已经成立的 Agent Extension 下游的可选环节。
+- **P16 — Do not use training as a substitute for reliable validation; do not globalize local preference; do not let automation substitute for the accountable decision.** 训练不能取代可靠验证，局部偏好不能直接推广，自动化不能取代最终问责决定。
+
+Compilation、Ontology 与 Commitment 三组共同定义 Schema Engineering Kernel；Product Governance 和 Evolution Strategy 是从 Kernel 推导出的运行纪律，需要单独验证。P17 描述专业能力编译的发布门，不改写 Matter、Event、Semantic State、Artifact 与 Review 的 Runtime ontology。
