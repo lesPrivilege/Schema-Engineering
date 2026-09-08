@@ -1,8 +1,8 @@
 ---
 Status: Companion Paper · Practice Snapshot
-Edition: 2026-09-05
-Revision: 9.3 · Generalized Practice Snapshot
-Canonical base: 2026-09-05 Canonical Edition
+Edition: 2026-09-07
+Revision: 9.6 · Generalized Practice Snapshot
+Canonical base: 2026-09-07 Canonical Edition
 Scope: Sparse Work Harness、Compiled Work Expert、Matter Sidecar、Context governance、Human Work Surface、Work Extension 编订、离线 Eval 与验证。
 Closure posture: 本文是带日期的实践快照，只保留当下可执行的最小、泛化结论。产品、论文、社区个例、来源、检验状态与增量裁决统一编入 Practice Index，不作为本文成立的前提。
 ---
@@ -78,6 +78,8 @@ Governance surface
 
 两者可以实现在同一系统中，但不能用工具调用成功替代工作接受，也不能用宿主已经保存 Session 替代 Matter continuity。
 
+实现应把高折旧的 model protocol、reasoning loop、streaming、generic tool calling 与内部 planner topology 留在可替换执行层，把低折旧的 Matter State、Evidence、Authority、side-effect boundary、validation、commitment、checkpoint 与 recovery 留在治理层。模型变强可以减少 imperative orchestration；它不改变哪些状态有权生效。Work Contract 应优先声明目标状态、不变量、充分 Evidence、禁止转换和 commitment condition，只在执行顺序本身承载专业语义时固定步骤。
+
 ### 2.3 完成条件必须外置
 
 长程执行不能以当前 Agent 的自评作为唯一终止条件。最小 Completion Contract 需要把目标分解为可查询义务，为每项义务绑定 evidence procedure、validator 或 Reviewer，并把 continue、stop、return-for-revision 与 escalate 写成独立于 Agent 的 gate。
@@ -100,18 +102,11 @@ candidate evaluator or training signal
 
 ### 2.5 持久化、检索与正式状态分层
 
-当下实践已经足以采用以下分层：
+持久内容分别承担原始记录、当前状态和工作规则的责任。Memory 支持保存与召回；Current Semantic State 表达目前有效的事实、决定和开放义务；Schema 规定对象关系、状态含义与可接受的转换，并约束什么应跨 Run 保留。
 
-```text
-Raw Evidence / History
-→ Governed Repository and Current Semantic State
-→ Retrieval Candidate Set
-→ Context Projection / Human Work Surface / Retrieval Index
-```
+稳定语义使不同执行实例能够比较同一工作中的变化。Candidate 应引用对象和依据版本，声明拟改变的内容及前置条件；提交时对当前状态重新验证。Schema 版本变化则先建立明确映射，再解释旧状态与新候选的关系。
 
-工作域隔离、历史检索和持久资源可以缓解 chronology 持续膨胀，但 retrieval 仍然只回答“可能相关的对象是什么”。哪项陈述已被确认、驳回、覆盖或批准，仍由 Govern layer 与 commit protocol 决定。
-
-Memory 保存与召回信息；Semantic State 表达当前 execution semantics；Schema 规定什么具有跨步骤持续存在的资格。因此 Schema 不是压缩格式，而是 persistence policy。Context Projection 决定当前 Run 注意什么，Human Work Surface 决定 Reviewer 此刻必须判断什么，Retrieval Index 决定未来 Run 能按何种 identity、status、version 与 provenance 重新找到什么；三者从同一 Current Semantic State 重建，不各自维护事实。只有当 Current Semantic State 足以支持后续执行时，它才可以成为默认 execution substrate；未被及时编入 State 的旧 Observation、需要动态发现的 Schema，以及本身就是工作对象的历史 trajectory，仍需要 Raw History / Evidence 与按需检索。
+Context Projection、Human Work Surface 与 Retrieval Index 是执行、裁决和定位所需的不同视图。它们共同引用正式状态与原始来源，不各自维护事实。Current Semantic State 能承载后续决策所需信息时，可以成为默认执行基底；未编入的 Observation、尚待发现的工作关系及作为研究对象的历史过程，通过 Raw History / Evidence 按需补充。
 
 ### 2.6 Context Mutation 是有效果的运行动作
 
@@ -146,6 +141,8 @@ Run Plan
 
 多个 Agent 可以共用同一 Expert，一个流程也可以在不同阶段绑定不同 Expert。模型数量、Session 数量、终端数量或角色名称都不能代替 Expert 的 applicability、permission、Eval、fallback 和 release evidence。多个实例的意见一致也不等于独立证据或 Authority。
 
+默认 coordination surface 应是带 identity、version、status、provenance 与写入规则的 governed artifact，而不是高频 Agent-to-Agent conversation。可独立拆分的执行在隔离 branch 中产生 bounded Candidate，再由明确的 comparison、merge、discard 或 Review transition 汇合；只有沟通本身会产生必要信息时才增加消息边。状态介导不能消除并发冲突，因此 shared writes 仍需 owner、base version、conflict handling 与 commitment gate。
+
 ### 2.8 文档是工作表面，不是自动成立的记忆
 
 文档可以同时承载执行规格、来源与理由、Review surface、recovery index 和 accepted artifact。这些职责不得因共用同一文件形式而混同：
@@ -168,7 +165,7 @@ Run Plan
 2. Completion 外置、feedback 编订、工作域隔离、持久资源和 Context 管理是互补机制，不是完整架构的替代品。
 3. Sparse capability activation 与 sparse state projection 需要共同接受 omission、pollution、permission 和 accepted-work-product 检验。
 4. Context Mutation、multi-agent topology 和 documentation workflow 都必须回到同一 Candidate / Committed 边界。
-5. Context Projection、Human Work Surface 与 Retrieval Index 是同一 Current Semantic State 的不同 attention projection，不是三套独立 memory。
+5. Context Projection、Human Work Surface 与 Retrieval Index 共享同一权威状态及带来源和效力标记的材料、候选，不各自维护事实源。
 6. 上述命题是当前实现方向，并非已完成的普遍验证。
 
 ---
@@ -178,24 +175,33 @@ Run Plan
 ### 3.1 分层
 
 ```text
-Model Providers
-        ↓
-Generic Agent Runtime
-        model / loop / tools / sandbox / session / event / permission / UI
-        ↓
-Host Adapter
-        context / capability / session reference / HITL / trace / compatibility
-        ↓
-Sparse Work Harness
-        Expert Registry / Primitive Registry / Activation Planner / Context Compiler
-        ↓
-Matter Sidecar or Existing System of Record
-        Committed Events / Current Semantic State / Candidates / Artifact Versions / Obligations
-        ↓
 Person / Organization / Downstream Work
+        ↕
+Human Work Surface
+        review / revision / decision / work-state projection
+        ↕
+Sparse Work Harness ↔ Matter Sidecar or Existing System of Record
+        Expert / Primitive Registry / Activation Planner / Context Compiler
+        Work Contract / Candidates / Evidence / Authority / Committed State
+        ↕
+Host Adapter
+        run control / capability negotiation / event mapping / context handoff
+        ↕
+Provider-managed Runtime or Thin Runtime
+        model invocation / loop / tool dispatch / execution persistence
+        ↕
+Native API / Structured Browser Interaction / Computer Use
 ```
 
-Host Adapter 是唯一可以依赖具体宿主 service、event、package name 与 UI channel 的层。Semantic Core、Compiled Expert manifest 和 Matter State 不得依赖宿主内部命名。
+分层围绕工作语义与执行机制的变化速度组织。Work Contract、Matter State 和 Expert manifest 保存工作对象、证据、权限与接受条件；Host Adapter 将本次 Assignment 绑定到宿主能力，翻译运行控制与事件；Human Work Surface 把候选差异与决定后果交给人。执行事件提供过程证据，正式状态仍由提交路径更新。
+
+Runtime 兼容以当前 Contract 所需能力为准。Adapter 声明可用的控制时点、Context 管理、历史访问、恢复、授权拦截与效果核对能力，再选择原生实现、经验证的替代路径或收窄后的任务。该绑定覆盖执行时实际进入的材料和可产生的效果，包括宿主自行召回的历史；无法满足必要边界的任务不予执行。宿主可以保留自身的调度、压缩与并发机制；跨 Run 必须保留的工作事实则进入 Matter State。上层由此共享工作语义，下层按各自能力执行。
+
+执行层可以消费 provider-managed Runtime，也可以封装私有模型所需的薄 Runtime。薄实现从模型调用、受限工具分发、事件记录与续行开始，依赖上层的状态、Context 和审批契约。自治长度、并发规模和失败恢复决定需要多少执行设施；短反馈循环与明确的人类裁决节点可以减少自主调度的负担。
+
+API、结构化浏览器交互与 Computer Use 是访问外部系统的不同通道。选择取决于任务要求的授权、前置条件和结果核对能力，以及运行与维护成本。效果未知时先核对再续行；高频或需要更强控制的操作可编订为 Work Primitive。观察到的 trace 为这一编订提供材料，发布仍须经过权限约束与验证。
+
+通用执行、存储、检索和界面组件可以复用成熟实现。SE 的实现工作集中于把它们接成同一条语义链：从正式状态生成有边界的工作视图，让执行交回可审阅的候选，再把被接受的变化写回唯一权威状态。
 
 ### 3.2 七个对象
 
@@ -315,6 +321,8 @@ Rebuildable Index Layer
 
 一个 Matter 可以关联多个 Session。删除 Session、替换模型或宿主升级不应同时删除 active Artifact、Current Semantic State 和未完义务。
 
+Session 只是当前交互与 attention window，Run / executor 是一次可丢弃的执行尝试。恢复测试必须证明新 executor 能从 canonical state、active Artifact、Evidence、开放义务与 checkpoint 继续工作，而不是依赖旧 sandbox、旧模型的主观连续性或完整 transcript replay。
+
 ### 4.3 Store → Govern → Retrieve → Compile
 
 ```text
@@ -323,26 +331,20 @@ Store
 → Govern
   identity / status / version / provenance / authority / scope / expiry
 → Retrieve
-  potentially relevant governed objects
+  relevant objects within the authorized scope
 → Compile
   Context Projection / Human Work Surface / Retrieval Index / Run Plan
 ```
 
-Store 解决总容量，Govern 使对象可被区分，Retrieve 缩小候选集，Compile 决定谁占用当前 Attention。Govern 是承重层：每个规则和状态需要 owner、scope、version、review path、disagreement representation、expiry 与 rollback。
+实现从本次 Assignment 的接收者、用途、任务阶段和状态版本出发确定可用范围，再定位完成当前义务所需的对象及关系。查询、索引和缓存可以分担这些操作，授权规则在数据进入对应 Runtime、工具或用户界面前执行。相关性排序只在允许使用的材料中决定优先次序。
 
-对边界稳定的 procedural task，每步可进一步收窄为：
+Compiler 按任务组织工作集。路由可以使用事项类别与开放义务，执行需要相关事实、Evidence 与当前版本，Review 需要候选差异、判据和未解冲突。每种视图保留其判断依赖的限定与来源；不足以支持下一步时，补取授权材料或返回缺口。Context 预算决定表示规模，不能把尚未覆盖的义务编译成完成。
 
-```text
-Stable Procedure + Current Semantic State + Latest Observation
-→ transient reasoning + Candidate State Patch + action
-→ deterministic validation
-→ Committed Event + updated Current Semantic State + executed action
-→ next Context Projection
-```
+视图的来源版本、规则版本和适用范围随生成结果保存。对象变化或权限失效后，复用路径重新判断其适用性；依赖私有材料的摘要和工具参数沿用相应披露约束，不能因换了表示或操作通道而扩大接收范围。传递由执行边界实施控制，不能只交给 Prompt 中的保密要求。
 
-中间 reasoning 可以从下一步 prompt 移除，但“不再进入热 Context”不等于“从存储删除”。当工作需要 provenance、audit、debugging、recovery 或对历史行动的解释时，Event / Evidence Ledger 仍保留原始对象与坐标；Current Semantic State 只是默认执行基底，不是全部历史的替代品。
+本次执行产生带对象、版本和前置条件的 Candidate，由提交路径判断哪些内容可以写回正式状态。外部操作先通过授权与前置条件检查，完成后将结果证据与相应候选关联；结果未知时保留待核对状态。新 Run 从有效状态和开放义务续行。
 
-对跨多轮开发或其他可版本化工作，Artifact State 与 Evidence State 应分别持久化。前者回答“当前对象是什么”，后者回答“哪些行为已经验证、哪些主张仍无支持、哪些失败尚未解决”。只携带最新 Artifact 会迫使下一轮从成果反推工作史；只携带报告又无法提供可继续修改的对象。每轮目标应从 Stable Contract、当前 Artifact 与 Evidence 共同裁定，并把验证记录绑定到具体 Candidate version。
+Artifact State 与 Evidence State 分别回答“当前对象是什么”与“哪些行为已经验证、哪些主张仍无支持”。每轮工作同时携带可继续修改的 Artifact 与绑定具体版本的验证记录，原始材料和历史行动保持可检索。中间 reasoning 可以退出下一轮 Context，工作连续性由正式状态、Evidence 和恢复路径承接。
 
 ### 4.4 Context Mutation Preservation
 
@@ -361,7 +363,7 @@ Stable Procedure + Current Semantic State + Latest Observation
 ### 5.1 三种投影
 
 ```text
-Current Semantic State
+Current Semantic State + Sources / Evidence + Candidates
 ├── Context Projection
 │   compact / normalized / executable
 ├── Human Work Surface
@@ -370,7 +372,7 @@ Current Semantic State
     identify / version / locate / disclose later
 ```
 
-人需要看到原文锚点、来源关系、版本差异、未解冲突、覆盖缺口与裁决后果。模型需要紧凑、规范化、符合当前权限和任务阶段的工作集。未来 Runtime 需要按 Matter、状态、版本、适用范围和 provenance 重新定位对象。三者来自同一正式状态，不必共用同一表示，也不能各自拥有独立的权威事实。
+人需要看到原文锚点、来源关系、版本差异、未解冲突、覆盖缺口与裁决后果。模型需要紧凑、规范化、符合当前权限和任务阶段的工作集。未来 Runtime 需要按 Matter、状态、版本、适用范围和 provenance 重新定位对象。三者以同一权威状态解释来源与候选，保留各自的版本和效力，不必共用同一表示。
 
 ### 5.2 表示原语
 
@@ -406,6 +408,8 @@ Review Item
 ```
 
 Review 围绕有状态后果的 decision unit 分批编译。默认表面只放形成独立判断所需的最小充分对象；Raw Trace、旧版本和补充 Evidence 保持可检索并按需展开。逐项 tool-call confirmation 和事后 chronology replay 都不能替代对 Candidate delta 的专业裁决。
+
+主交互应使 `Current → Proposed → Reviewed → Committed` 的状态差异可见，并同时呈现 prior state、Evidence、uncertainty、Authority、side effect、reversibility 与 recovery point。模型的内部计划、Agent avatar、Agent 间聊天和 decorative workflow graph 只有在帮助诊断或裁决时才渐进披露；用户首先审阅工作变化及其后果，而不是观看执行表演。
 
 可复用的动作族包括 accept、reject、revise、request further work、request evidence、qualify、defer、waive、escalate、approve、publish、supersede 和 withdraw。动作名称不产生复用性；只有以下链路可复用：
 
@@ -542,13 +546,14 @@ codified artifacts
 #### Continuity and governance
 
 - **Session Replacement**：替换 Session 或模型后从 governed state 恢复。
-- **Candidate / Committed Isolation**：未审阅 output 不改变 Current Semantic State。
+- **Candidate / Committed Isolation**：未通过适用提交检查的 output 不改变 Current Semantic State。
 - **Authority Failure**：越权裁决被拒绝并保留候选记录。
 - **Retrieval / Canonical Separation**：检索命中的旧陈述不被自动恢复为当前状态。
 - **Documentation Promotion**：Trace、Index、Candidate Decision、Active Contract 和 Accepted Artifact 具有不同写入路径。
 - **Context Mutation Preservation**：限定、冲突、否定、来源和恢复路径不因压缩丢失。
 - **State Sufficiency / History Disclosure**：对照 State-only、State + on-demand History 与 append-only Transcript，检查未被及时编入的 Observation、动态 Schema 和 trajectory-defined task 是否需要披露历史。
 - **Patch Preservation**：State patch 采用 merge semantics 而不是无声全量覆写；旧字段删除、类型改变与非法 patch 必须显式验证、拒绝或回滚。
+- **Failure Containment / Trusted Recovery**：向 Observation、Proposition、Candidate 与 validation 阶段分别注入错误，检查它是否在 commit 前被发现或隔离，并能否从最近 trusted checkpoint 由新 executor 恢复。
 
 #### Sparse activation and Expert release
 
@@ -566,9 +571,10 @@ codified artifacts
 - **UI Representation Equivalence**：不同 renderer 对同一裁决产生相同状态后果。
 - **Review Bandwidth**：在成果质量不降低时，专家 Review 时间或恢复成本下降。
 - **Review Sufficiency**：去除完整 execution trace 后，结构化 Review packet 仍使 Reviewer 发现关键错误、请求必要证据并形成可解释的独立判断。
-- **Projection Consistency**：从同一 Current Semantic State 重建 Context Projection、Human Work Surface 与 Retrieval Index，检查三者不产生冲突的事实、版本或效力。
+- **Projection Consistency**：基于同一状态与来源快照重建三种视图，检查候选身份、版本与效力一致，且不同披露范围不被误判为事实冲突。
 - **Evaluator Lifecycle**：criterion、rubric、reason 与 deployment version 可追踪；错误归因不会因 label 碰巧正确而进入下游 revision 或训练信号。
 - **Correlated Review Failure**：注入共享错误前提、共同缺失来源和相同 Evaluator 偏差，检查多实例共识是否被误当独立验证。
+- **State-mediated Coordination**：比较 governed branch / artifact 汇合与高频 Agent messaging，在相同任务下检查冲突、重复工作、错误传播、Context 成本和 accepted outcome。
 - **Accepted Work Product**：结果由具备 Authority 的 Reviewer 在预定节点接受，可进入下游且无需实质性修改。
 
 ---
@@ -598,6 +604,10 @@ codified artifacts
 | Projection split-brain | Context Projection、Human Work Surface 与 Retrieval Index 对同一 Matter 持有不同事实或版本 |
 | Evaluator drift without governance | rubric 或 reason 改变生产行为，却没有版本、Review、monitoring 与 rollback |
 | Correlated consensus | 多个实例共享错误前提和 Evaluator，共识被误当独立校验 |
+| Chatter topology | Agent 间消息成为事实源，缺少版本、冲突处理与 commitment boundary |
+| Executor-bound work | 新 Session 或 executor 无法从 governed Matter State 恢复，必须依赖旧 sandbox 或 transcript |
+| Imperative ossification | Runtime 已能安全选择执行路径，Contract 仍冻结不必要的 planner / worker / reviewer 步骤 |
+| Agent theater | UI 强调内部计划、头像和聊天，却弱化 Candidate delta、Evidence、Authority 与 commit 后果 |
 | Dense activation regression | 能力与数据总量增长时，每次 Run 的 Context 和权限表面同比增长 |
 | Expert ossification | 旧来源、规则、工具或偏好因快速路径而持续生效 |
 | False promotion | 成功 trace 在无适用范围、反例、Authority 和 held-out E2E 时晋升为 Expert |

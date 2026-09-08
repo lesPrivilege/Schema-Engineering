@@ -14,12 +14,17 @@ papers/
 │   ├── canonical.md       # 稳定 Kernel
 │   ├── practice.md        # 带日期、泛化的实践快照
 │   └── practice-index.md  # 来源、检验、裁决与增量记录
+├── archive/ancestry/      # 本编订链建立前的祖本，不参与编译
+├── notes/                 # 传播与产品叙事材料，不作命题来源
 └── dist/
     ├── index.html                       # 当前 Pages 入口，不纳入版本控制
     ├── schema-engineering-2026-08-29.html
     ├── schema-engineering-2026-09-01.html
     ├── schema-engineering-2026-09-04.html
-    └── schema-engineering-2026-09-05.html
+    ├── schema-engineering-2026-09-05.html
+    ├── schema-engineering-2026-09-06.html
+    ├── schema-engineering-2026-09-07-v9.5.html
+    └── schema-engineering-2026-09-07.html
 ```
 
 ## 三份文本的责任
@@ -56,6 +61,8 @@ Canonical 与 Practice 只呈现当前成立的完整文本。材料通过裁决
 
 仓库级的观察登记、提交边界与发版检查见根目录 `CONTRIBUTING.md`；版本级变化见 `CHANGELOG.md`。
 
+同日修订保留前一候选的版本后缀文件；当前 `schema-engineering-2026-09-07.html` 为 9.6，`schema-engineering-2026-09-07-v9.5.html` 保留 9.5。
+
 ## 发版方法
 
 1. 确认三份源文件的 `Edition` 和 base 相互一致。
@@ -73,7 +80,7 @@ Canonical 与 Practice 只呈现当前成立的完整文本。材料通过裁决
 python3 -m pip install -r papers/requirements.txt
 python3 papers/build.py
 python3 papers/validate.py
-# → papers/dist/schema-engineering-2026-09-05.html
+# → papers/dist/schema-engineering-2026-09-07.html
 # → papers/dist/index.html
 ```
 

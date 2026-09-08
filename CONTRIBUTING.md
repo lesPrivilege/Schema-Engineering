@@ -2,6 +2,12 @@
 
 本仓库以“观察—讨论—裁决—修订”为基本工作单元。新增材料不直接取得正文地位。
 
+## 工程实践反馈
+
+CourtWork 工程方案、RD、技术裁决、开发 PR 与验收在 [CourtWork](https://github.com/lesPrivilege/Courtwork/tree/main) 维护，工程状态不在论文仓重复记账。其 `PAPER.md` 固定采用的论文版本。
+
+工程结果若影响 Canonical / Practice，先在 Practice Index 登记最小命题、边界及 CourtWork 的固定 commit/证据链接，再按本协议裁决。只调整仓库入口与索引时，检查链接和 diff，不触发论文版本号变更或发版。
+
 ## 观察登记
 
 先在 `papers/src/practice-index.md` 登记观察。条目至少包含：

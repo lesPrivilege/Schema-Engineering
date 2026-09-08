@@ -1,8 +1,8 @@
 ---
 Status: Practice Index · Evidence and Revision Ledger
-Edition: 2026-09-05
-Canonical base: 2026-09-05 Canonical Edition
-Practice base: 2026-09-05 Generalized Practice Snapshot
+Edition: 2026-09-07
+Canonical base: 2026-09-07 Canonical Edition
+Practice base: 2026-09-07 Generalized Practice Snapshot
 Scope: 来源、局部命题、证据边界、检验状态与增量修订记录。
 ---
 
@@ -232,6 +232,74 @@ status
 
 ---
 
+### PI-19 · Replaceable execution, durable control and contained failure
+
+- **日期 / 来源类别**：2026-09-06 访问；InfoQ 对 TiDB、腾讯研究院、Floatboat 与 Trae 从业者的访谈报道。[^infoq-thin-loop]
+- **观察**：TiDB 受访者将内部 Harness 概括为“薄 Agent Loop，厚 Control Plane”，报告从 OpenCode 更换到 Pi 时保留 Sandbox、权限、持久状态与恢复设施；同一报道还描述 declarative goal、低通信拓扑、通过明确状态与结果协作，以及 `fail fast → limit propagation → recover from trusted state`。项目周期、workspace 数量与无人工编码／审阅均为受访者自报，未见本文独立复核。
+- **最小支持命题**：通用执行 loop 与持久状态／权限／副作用／恢复边界可以分层；模型吸收通用执行步骤时，Work Contract 可以减少不承载专业语义的 imperative orchestration；长程可靠性需要衡量错误传播与 trusted recovery，而不只衡量连续步数；可分解任务可以优先通过 bounded state output 协作。
+- **不支持的外推**：Pi 或任何 Agent core 是通用最优；所有 Skill 或 orchestration 都会消失；所有工作应使用数据库、filesystem、MVCC、checkpoint 或 Multi-agent；少通信必然提高结果；受访系统已经实现完整 Work Contract、Matter governance 或 accepted-work-product gate；自报规模与周期具有独立因果效度。
+- **检验**：固定模型、任务、资源与 Work Contract，替换等价 Agent loop 并比较状态语义与成果；比较 declarative contract 与固定 planner / worker / reviewer 路径；在不同阶段注入错误，测 durable-state contamination、detection latency、rollback loss 与 recovery success；比较 governed branch / artifact 汇合与高频 messaging 的冲突、重复、成本与接受结果。
+- **讨论与裁决 / 正文处置**：Canonical §2.1、3、4.5、5.4–5.5 与 8.1 只吸收 declarative contract、Matter / Session / Run、Context compilation、failure containment 和可替换执行的最小关系，不采用产品实现为理论来源；Practice §2、3、4、5、7、8 增加实现、UI、复用、测试与失败边界。未新增 ontology、Contract 类型或原则编号。
+- **状态**：practice-adopted；canonical-adopted（既有边界的必要澄清，实证效果未验证）。
+
+---
+
+### PI-20 · Runtime compatibility and action-channel guarantees
+
+- **日期 / 来源类别**：2026-09-07；用户提供的架构讨论与本轮文本对照，属于设计推论，无新增实证。
+- **来源**：[Harness架构对比](chatgpt-conversation://6a9e6c32-5afc-83ec-834b-19ba8b9e9efa)，本轮读取完整四轮讨论。聊天中的产品说明与引用未独立核验，不作为供应方实现事实。
+- **可观察机制**：讨论提出 provider-managed / 自封装薄 Runtime 两条路径，终端围绕 Review / revision 组织，并比较 SaaS API 与 Computer Use 的适配成本；这是方案描述，不是运行观察。
+- **最小支持命题**：由既有分层 Contract 推导，替换执行层与操作通道必须保留工作语义并显式检验能力缺口；执行复杂度应随任务要求选择。
+- **不支持的外推**：不证明 Codex 或 Claude 的具体内部机制、CodeRabbit 的定位与优劣、专业任务普遍简单、API 天然幂等或可回滚、Computer Use 必然替代 connector，也不证明 SE 因治理语义而必然拥有市场优势。
+- **复现 / 证伪**：V-19 固定 Work Contract 比较原生、模拟和缺失能力的执行层；V-20 注入未知副作用结果并切换操作通道；另以相同成果接受标准比较薄与完整 Runtime 的开发、运维、Review 和恢复成本。均未运行。
+- **讨论与裁决**：Canonical §13.2、P21 与 F21 已容纳替换边界，不改正文；Practice §3.1 重写逻辑责任、能力协商、薄 Runtime 及通道选择，并在 §7.3 补充测试。§5.3 已表达面向变化的 Review surface，不重复增加产品类比。拒绝把“停止→注入→恢复”视作无条件等价的 steering，也不把本地 checkpoint 当作外部回滚。
+- **正文处置 / 状态**：已吸收为实现约束；9.6 重写 §3.1，并将新增的逐项测试移至 PI-21 / V-19–V-20。性能、互操作性与经济性待验证。不新增 ontology、Contract 或原则。
+
+---
+
+### PI-21 · Structured state, authorized views and reusable CS mechanisms
+
+- **日期 / 来源类别**：2026-09-07；用户提供的概念讨论与本轮文本对照，属于形式化候选与工程研究线索，无新增实证。
+- **来源**：[稳定 Schema 是否向量空间](chatgpt-conversation://6a9e71a9-85b4-83ec-8a39-93f4a1427090)。已读取三轮讨论，依次涉及状态空间、分层披露和 CS 范式迁移。初次入账未核理论文献；9.6 审阅补核下列原始资料，聊天类比仍不作为定理、实现保证或新颖性证据。
+- **可观察机制**：讨论尝试以同一 Schema 表达 Matter State、候选变化及不同执行角色的可见视图，并提出数据库、编译器、权限与程序分析机制作为实现候选。这是方案描述，尚无运行观察。
+- **最小支持命题**：既有 Schema、Context Projection 与 Authority 边界可以进一步转译为可测试的状态约束、读取策略、候选操作和提交检查；工程选型可按这些职责查找成熟机制，不必增加新的 Kernel 对象。
+- **数学边界**：可暂记 `X_S = {x ∈ ∏ᵢ Xᵢ | I_S(x)}`，表示满足 Schema 不变量的异质状态集合；分量间约束意味着并非所有字段组合都合法。候选操作 `p` 在给定版本、授权与前置条件下通过部分转换 `apply_S(x, p)` 求得候选结果，正式生效另经提交边界。这里不默认存在状态减法、线性加法、标量乘法或可逆操作；操作组合可能有顺序依赖、冲突或无定义。数值字段、文本 embedding 与稳定字段名均不能自动赋予整个工作状态向量空间结构。“坐标系”只作表示类比；流形、切空间与局部线性化需要另行定义结构和证明条件，本次不采纳。
+- **披露边界**：视图可暂记为 `v_i = π(x; assignment, purpose, policy_version, state_version)`；可读范围、可提议操作与可提交权限分别验证。授权过滤应在数据跨越相应信任边界前执行，但不因此把 Project 固定为新增流水线阶段或规定它总先于所有检索；可信域内的查询计划和最终 Context 编译可以分阶段实施。摘要、索引、缓存、日志、工具参数与结果也属于需检查的传播路径；隐藏原文不排除从派生值推断敏感信息。权限撤销不能使已经披露的数据自动消失。
+
+| 候选范式 | 对应的既有 SE 职责 | 迁移边界与待检验问题 |
+|---|---|---|
+| 数据库 view、行列访问控制、查询优化、物化视图 | 按 Matter / role / purpose 生成 Context Projection 与 Retrieval Index | 普通 view 或 projection pushdown 不自动成为安全边界；检查跨对象关联、派生字段、缓存失效与撤权后的重建 |
+| 编译器 IR / lowering、ISA / ABI 契约 | Work Contract 的中间表示与 Host Adapter 兼容边界 | 不将 Schema 等同于 ISA，也不新增 Work ABI；版本映射、语义保持和能力缺失继续按 PI-20 / V-19 检验 |
+| 类型、guard 与状态转换检查 | Candidate 形状、前置条件与 typed commitment boundary | 类型正确不等于 Evidence 充分或具有 Authority；并发版本冲突仍需提交时验证 |
+| OS 隔离、object capability、信息流控制 | 资源访问、最小权限、委派与输出去向 | 执行层 capability 不等于组织 Authority；RBAC 与 capability 可组合。Context 裁剪不是内存隔离或不泄漏证明，读取与外传权限的组合需单独检查 |
+| Abstract interpretation / abstract domain | 保留 unknown、冲突、限定和任务所需性质的抽象视图 | 普通摘要不自动具有 soundness；须定义具体域、抽象域、所保留性质与转换关系后才讨论可靠近似，不能仅凭两个映射声称 Galois connection |
+| CQRS / event sourcing | 读投影、候选命令、正式写入与可恢复历史 | 二者不互相蕴含，也不自动提供 Review / Authority；沿用 PI-18，事件溯源仍只是参考实现 |
+
+- **不支持的外推**：Schema 稳定即变化可自由组合、Context 编译必然确定或最小充分；数据库检索与投影可以任意交换且保持权限和结果；Agent 只能知道本次 Context 中的信息；传统 CS 只治理计算位置而不治理信息与动作；通用理论机制已证明 SE 的安全性、效率、专业正确性或市场价值。
+- **复现 / 证伪**：V-21 比较源端授权视图与检索后过滤，注入跨 Matter 关联、敏感派生值、缓存与撤权变化，检查各信任边界的暴露及必要证据遗漏；V-22 固定任务与授权范围，对比全文、自由摘要与按声明性质生成的视图，保留反例、unknown 和冲突，测错误确信、成果接受与披露成本。跨版本映射和 Runtime 替换复用 V-19，不新建重复队列。均未运行；本轮来源核验只覆盖下表，具体安全模型、实现选型和证明仍待执行。
+- **讨论与裁决 / 正文处置**：初次裁决为 indexed；9.6 强审后，主要概念仍由既有 Kernel 承载，但发现候选可见性被误写成必须先取得正式效力，以及 Schema 被缩窄为 persistence policy 的表述问题。Canonical §2.3、§5.4–5.5、§6.1 重写既有表示、披露与提交关系；Practice §2.5、§3.1、§4.3 将其编排为实现叙述。数学公式、CS 对应、反例和证明要求保留本条，不增加 Project 阶段、epistemic sandbox 或 Work ABI 等对象，不据此采纳技术栈。
+- **状态**：practice-adopted；Canonical 为既有原则的一致性修订，不新增 Kernel 命题。
+
+**9.6 原始来源核验（2026-09-07）**：
+
+| 来源 | 本轮核验到的内容 | 不据此推导 |
+|---|---|---|
+| PostgreSQL 18 Row Security Policies 与 CREATE VIEW [^pg-authorized-views] | 行级策略可分别限制读取与修改；view 的安全语义取决于执行身份与 security 配置，部分访问路径有例外 | 普通 view、查询优化或简单字段投影自动防泄漏；任何数据库配置直接满足 SE 的组织 Authority |
+| LLVM Language Reference，Introduction / Well-Formedness [^llvm-ir] | 同一 IR 有多种表示；可解析与满足内部结构约束有区别 | Work Schema 具有 LLVM 的精确执行语义，或宿主替换无需证明兼容 |
+| Cousot & Cousot 1977，作者保存的论文摘要及书目信息 [^abstract-interpretation] | 抽象解释通过有序结构、转换和不动点讨论程序性质及抽象间一致性 | 普通摘要具备可靠近似；本轮已复核完整论文证明或为 SE 建立 Galois connection |
+| Sabelfeld & Myers 2003，§I、§V.D [^information-flow] | 读取控制不直接约束读取后的传播；允许的信息释放需由相应策略定义 | 标签检查能完全追踪 LLM 的语义依赖，或当前 SE 已证明 noninterference |
+
+**保留于 Index 的实现与审查条件**：
+
+- PI-20 的 Runtime 兼容测试继续覆盖控制时点、能力缺失、取消后完成和未知副作用；恢复 Matter State 不等于迁移内部推理快照，API 不天然提供幂等或回滚，薄 Runtime 不自动满足主权部署的数据边界。将这些条件从 Practice §3.1 的逐项警戒句和 §7.3 的两项新增测试收回本条与 V-19 / V-20；正文保留能力协商、效果核对与必要授权的机制。
+- 候选可保存、检索和进入 Review，但身份不得被摘要或重复召回升级为正式状态；对照“候选进入 Context”与“候选取得 Authority”分别断言。视图的一致性按相同对象、版本和效力检查，不要求不同时间的快照逐字相同。
+- 检查对象存在性、关联、派生值、工具参数、日志、缓存和接收端；撤权阻止后续复用，不能收回已披露信息。允许的脱敏或释放需要具备 Authority 的规则或决定，不能由模型自行降低限制。
+- 视图内容不足时应标明缺口或请求授权补充；对未能识别的遗漏另用 V-22 外部参照评测，不把“按 Schema 编译”当作充分性证明。保留先验知识、推断与隐蔽通道等模型边界，不声称限制了模型全部可知信息。
+- 保留 unknown、限定、冲突和来源的目标属于任务性质保持；如果要上升为形式可靠性，必须另行定义状态域、转换、抽象关系与威胁模型。没有该证明仍可实现并测量视图治理，不借数学术语取得保证。
+
+
+---
+
 ## 四、验证队列
 
 | ID | 待验证命题 | 最小对照 | 主要结果 | 当前状态 |
@@ -251,6 +319,13 @@ status
 | V-13 | Repository-governed handoff 支持自主续行 | repository state vs chat summary vs no governance files | duplication、source mismatch、revision scope、validation、Review | 单次自观察，待独立对照 |
 | V-14 | 按工作义务和状态边界记录信号改善失败定位 | 自由摘要 vs 原子笔记 vs Contract 证据记录；固定来源后另做端到端对照 | 独立参照下的遗漏、归因准确度、相关性、支持、Review 成本、接受与 reversal | 方法已定义，实验未运行 |
 | V-15 | 离线 signal 的改善预测真实工作改善 | 调优集 vs 按来源 / Matter 隔离的留出集及后续成果 | 指标稳定性、排序偏差、风险分层、成果接受、成本、指标与结果背离 | 方法已定义，实验未运行 |
+| V-16 | 可替换 Agent loop 不改变 Work semantics | 固定 Contract / Matter，替换语义等价 Runtime core | state transition、permission、recovery、accepted outcome、adapter cost | 访谈自报支持可行性，待独立复现 |
+| V-17 | Failure containment 比持续步数更能解释长程可靠性 | 分阶段注入相同错误；有无 commit isolation / trusted checkpoint | detection latency、propagation depth、state contamination、rollback loss、recovery | 从业者观察与架构推论，实验未运行 |
+| V-18 | Governed state 协作优于高频 Agent chatter 的条件 | bounded branches / artifacts vs messaging topology | conflict、duplicate work、Context cost、error propagation、accepted outcome | 从业者观察，适用边界待验证 |
+| V-19 | Runtime 能力协商保留 Work Contract | 原生 / 经验证替代 / 缺失能力；固定任务、权限和接受标准 | 非法提交、信息丢失、可恢复性、显式拒绝与总成本 | 设计推论，待验证 |
+| V-20 | 操作通道切换不突破效果边界 | API / Browser / Computer Use；注入超时、迟到结果、重复回执 | 重复副作用、授权绕过、结果核对与错误成功报告 | 设计推论，待验证 |
+| V-21 | 授权视图约束端到端披露 | 源端授权视图 vs 检索后过滤；跨 Matter、关联推断、缓存与撤权注入 | 边界暴露、外传、陈旧权限、必要证据遗漏 | 已核局部原始来源，实验未运行 |
+| V-22 | 任务抽象保留所声明的必要性质 | 全文 vs 自由摘要 vs 按声明性质生成的视图；固定授权范围 | unknown / 冲突保留、错误确信、接受率与披露成本 | 设计候选，不声称形式可靠性 |
 
 ### V-14 / V-15 · 离线评测快照与查考方法
 
@@ -270,6 +345,62 @@ status
 ---
 
 ## 五、增量修订记录
+
+### 2026-09-07 · 9.6
+
+| 审查对象 | 裁决与有机合成 | 正文处置 |
+|---|---|---|
+| 稳定 Schema / 状态空间 | 保留跨执行可比较的对象、状态、版本与转换语义；不用向量、流形或 ISA 替代工作定义 | Canonical §2.3 首段；Practice §2.5 |
+| 按角色披露与工作集编译 | 从授权范围、当前义务到不同接收视图，保留判断依赖的来源、限定和缺口 | 重写 Canonical §5.4、Practice §4.3 |
+| 候选可见性与正式效力混同 | Candidate 可被保存、检索并供后续 Review；正式更新单独过提交边界 | Canonical §5.5 |
+| 读取、操作与信息传播 | 读取权、工具权和向外传递的权限不能相互代替 | Canonical §6.1；Practice §4.3 |
+| Runtime / 通道适配段落累积保护性条件 | 按语义责任、能力协商、执行复杂度和操作通道重新合成 | 压缩 Practice §3.1；详细校验归 PI-21 / V-19–V-22 |
+
+本轮由 Astra 主笔，Luna 只读探索，另由未继承聊天历史的 Astra 实例进行独立文本审查。初审与终稿复审结果见下表。属于模型审稿与原始来源核验，不是安全证明、互操作实测或同行评审接受。没有新增 ontology、Contract 类型或原则编号。
+
+**审稿与修后复审**：Luna（`gpt-5.6-luna`，max）只读定位既有承重章节与重复，建议不新增 Kernel 对象；主笔据此选择重写而非加入术语合集。独立 Astra（`gpt-6-astra`，xhigh）在未继承聊天的情况下完整通读三份原稿，并复核磁盘修订稿；最终未发现阻断本轮修订接受的承重矛盾。主笔保留最终裁决与文字责任。
+
+| 审稿发现 | 最终处置与反例 |
+|---|---|
+| 候选尚未提交便不能进入下一轮 Context | §5.5 允许有明确身份的候选被保存、检索和审阅；候选可见不等于取得正式效力 |
+| “未提交错误仍是局部失败”与共享候选冲突 | 整段改写为传播时保留认识状态、提交限制正式效力及污染后的修复；Committed working assumption 仍非已证实事实 |
+| 三视图只从正式状态生成，排除了候选与原始材料 | 同步 Practice §2.9、§5.1 图示与说明、Projection Consistency 测试和 Canonical 开放问题 33；一致性比较相同版本和效力，不要求披露相同 |
+| 本地提交与外部执行被写在同一步 | 删除原 Practice §4.3 procedural 图，以授权和前置检查、结果证据与待核对状态表达边界 |
+| 宿主历史不透明仅被视为审计限制 | Practice §3.1 的兼容绑定覆盖宿主实际召回的信息及可产生的效果；不能只约束新传入的 Context |
+| §11.5 声称相乘公式预设独立、单调且同号 | 删除错误数学断言；`X·X` 即可反驳独立性推论，负因子反驳同号预设。组合模型仍需定义与消融，不在正文扩写代数解释 |
+| F21 将接受率的任何变化视为兼容失败 | 收紧为所需能力满足时仍破坏工作语义或无法维持声明的接受条件；质量改善和随机轨迹变化本身不触发证伪 |
+| “未审阅 output”可能被读成人工 Review 普遍必需 | Practice §7.3 统一为“未通过适用提交检查的 output”，服从既有混合裁决边界 |
+
+**本地候选检查**：构建与 10 项发布检查通过，67 个文内链接均有目标，当前入口与带日期 HTML 一致，`git diff --check` 通过。浏览器检查三视图切换与入口排版，并抽查重写后的 Practice §4.3；不声称逐屏检查全文。Canonical 与 Practice 正文合计较本轮起点缩短约 1,600 字符。原始来源核验仅覆盖 PI-21 所列范围；V-19–V-22 实验未运行，未推送或部署 Pages。
+
+同日 9.5 HTML 保存为 `papers/dist/schema-engineering-2026-09-07-v9.5.html`；当前带日期文件在本轮更新为 9.6。此前 Index-only 条目随本次构建进入 HTML。未推送或部署。
+
+### 2026-09-07 · Index-only 补记
+
+登记 PI-21 与 V-21 / V-22：保留受约束状态空间、授权视图及 CS 机制映射；拒绝把向量空间、流形、隔离或可靠抽象类比提升为已证命题。Canonical / Practice 与版本元数据不变；按索引更新规则不重新构建发布文件，本条尚未进入已生成的 9.5 HTML。检查条目编号、聊天来源、章节指向与 diff；实验及外部理论来源核验待执行。
+
+### 2026-09-07 · 9.5
+
+| 观察 / 讨论 | 裁决 | Canonical | Practice | Index |
+|---|---|---|---|---|
+| 可替换 Runtime、薄主权部署、面向 Review 的终端与 API / Computer Use 适配 | 采用能力与效果边界；产品事实和市场推断不提升为证据 | 正文不变，仅同步 Edition / Revision | 重写 §3.1；§7.3 增加两项验证要求；§5.3 已充分 | PI-20；V-19 / V-20，均待实测 |
+
+本轮为架构与文字审阅，不是运行时互操作实验或独立模型审稿。保留已有未提交修订与历史候选产物；本地生成不等于 Pages 发布。
+
+**本地候选检查**：三份源文件 Edition / base 同步为 2026-09-07；构建与 10 项发布检查通过，带日期 HTML 与当前入口一致，`git diff --check` 通过。本轮未做浏览器视觉复核，未推送或部署。
+
+### 2026-09-06 · 9.4
+
+| 观察 / 讨论 | 裁决 | Canonical | Practice | Index |
+|---|---|---|---|---|
+| TiDB 等从业者访谈把易折旧 Agent loop 与状态、权限、副作用、验证和恢复控制面分层 | 作为既有 SE layering 的工程佐证；不把具体 Harness、数据库类比或自报结果提升为理论权威 | §2.1、8.1 合并重复 Runtime 说明，收紧为 declarative Contract 与 replaceable execution | §2.2、3.1 增加折旧分层与成熟组件复用 | PI-19；V-16 |
+| 长程失败来自局部错误越过验证成为持久共享状态 | 吸收为 proposal / commitment 的 failure-containment 解释，不新增状态对象 | §5.5 增加最小段落；§3、4.5 明确 Matter / Session / Run 与 executor replacement | §4.2、7.3、8.2 增加 trusted recovery 测试与失败模式 | PI-19；V-17 |
+| Agent 间通信拓扑会增加协调状态；安静协作可以经 bounded artifacts 汇合 | 只采用 state-mediated coordination 的默认倾向，保留任务相关通信与并发冲突边界 | 现有 Operator / Lane / Candidate 关系已充分，不修订 | §2.7、7.3、8.2 增加 branch / artifact 协作和对照 | PI-19；V-18 |
+| Human review 与 GUI 应暴露状态、证据、权限、提交与恢复，而不是 Agent 表演 | 作为既有 Human Work Surface 的产品推导；UI 形态不进入 Canonical ontology | 不修订 | §5.3、8.2 明确 transition surface 与 Agent theater 失败 | PI-19 记录来源边界；具体组件不作为证据命题 |
+
+本轮没有新增 Canonical ontology、Contract 类型或原则编号。正文净增量通过合并 Canonical §8.1 的重复 Runtime / composability 说明控制；外部项目、受访者判断和易折旧实现细节只留 Index。
+
+**本地候选检查**：三份源文件 Edition / base 已同步到 2026-09-06；构建与 10 项现有发布检查通过，当前入口与带日期 HTML 内容一致，`git diff --check` 通过；桌面浏览器完成当前 Canonical 入口的渲染检查。未推送、未部署，Pages 工作流尚未执行。
 
 ### 2026-09-05 · 9.3
 
@@ -369,3 +500,13 @@ status
 [^prov-dm]: W3C, “PROV-DM: The PROV Data Model,” Recommendation, 2013-04-30, https://www.w3.org/TR/prov-dm/ 。访问日期：2026-09-05。用于 provenance 对象和关系的既有基础；来源关系本身不判定专业主张为真。
 
 [^cmmn]: OMG, “Case Management Model and Notation,” Version 1.1, December 2016, https://www.omg.org/spec/CMMN/1.1/About-CMMN ，规范正文 https://www.omg.org/spec/CMMN/1.1/PDF ，§4–5。访问日期：2026-09-05。用于 case 工作建模的定位，不把 SE 等同于 CMMN，也不声称穷尽案件管理相关工作。
+
+[^infoq-thin-loop]: Tina，InfoQ，《人人都能整个“自己的 DeepSeek Harness”，那我们为啥还在给 Claude Code 们充会员？》，2026-09-04，https://www.infoq.cn/article/6Jc130IN2OaXqsPDIzmJ ，访问日期：2026-09-06。访谈报道用于 thin loop / control plane、Runtime replacement、declarative orchestration、state-mediated coordination 与 failure containment 的从业者观察；系统规模、开发周期、无人工编码／PR review 与行业共识均视为报道或受访者自述，不作为独立实验。
+
+[^pg-authorized-views]: PostgreSQL Global Development Group, PostgreSQL 18 Documentation, “Row Security Policies,” https://www.postgresql.org/docs/18/ddl-rowsecurity.html ；“CREATE VIEW,” https://www.postgresql.org/docs/18/sql-createview.html 。访问日期：2026-09-07，访问 current 页面时版本为 18；登记固定主版本入口。用于区分访问与修改策略、执行身份及视图安全配置，不构成 SE 安全验证。
+
+[^llvm-ir]: LLVM Project, “LLVM Language Reference Manual,” Introduction / Well-Formedness, https://llvm.org/docs/LangRef.html 。访问日期：2026-09-07。仅用于中间表示与结构约束的既有机制定位；不证明 Work Contract 的语义保持。
+
+[^abstract-interpretation]: Patrick Cousot and Radhia Cousot, “Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints,” POPL 1977, pp. 238–252，作者摘要与书目 https://www.di.ens.fr/~cousot/COUSOTpapers/POPL77.shtml 。访问日期：2026-09-07。本轮核验摘要，不声称逐项复核论文证明。
+
+[^information-flow]: Andrei Sabelfeld and Andrew C. Myers, “Language-Based Information-Flow Security,” IEEE Journal on Selected Areas in Communications, 21(1), 2003，§I、§V.D，作者保存的原文 https://www.cs.cornell.edu/andru/papers/jsac/sm-jsac03.pdf 。访问日期：2026-09-07。用于访问控制与传播约束的区别及显式信息释放策略，不把传统程序分析保证直接外推给 LLM。

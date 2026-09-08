@@ -2,7 +2,7 @@
 
 Schema Engineering 是一组持续修订的工作论文，讨论 Agent 如何参与可提交、可恢复、可审阅的正式工作。
 
-当前本地候选版本为 **9.3（2026-09-05）**。已发布版本可从 [GitHub Pages](https://lesprivilege.github.io/Schema-Engineering/) 阅读；带日期的发布文件保留在 [`papers/dist/`](papers/dist/) 中。
+当前版本为 **9.6（2026-09-07）**。可从 [GitHub Pages](https://lesprivilege.github.io/Schema-Engineering/) 阅读；带日期的发布文件保留在 [`papers/dist/`](papers/dist/) 中。
 
 ## 文本体系
 
@@ -13,6 +13,12 @@ Schema Engineering 是一组持续修订的工作论文，讨论 Agent 如何参
 | [`practice-index.md`](papers/src/practice-index.md) | 来源、观察、检验、裁决与修订记录 | 持续追加和校正 |
 
 Canonical 与 Practice 正文均自足。可折旧的产品行为、个人实例、帖子、数字和引用进入 Practice Index，不承担正文论证。
+
+## 工程实践与论文反馈
+
+CourtWork 的实现、设计、RD、验收与开发 PR 已迁往 [CourtWork 源码](https://github.com/lesPrivilege/Courtwork/tree/main)，当前状态见 [CourtWork engineering/current.md](https://github.com/lesPrivilege/Courtwork/blob/main/engineering/current.md)。本地唯一开发入口为 `../Courtwork`；本目录只维护论文与发布设施。
+
+CourtWork 的 [PAPER.md](https://github.com/lesPrivilege/Courtwork/blob/main/PAPER.md) 固定采用的论文版本与 SHA，并提供开发反馈入口。工程结果影响论文命题时，在 Practice Index 保存最小观察、支持范围与固定工程证据链接；完整施工记录留在 CourtWork。
 
 ## 工作方法
 
@@ -28,6 +34,8 @@ Canonical 与 Practice 正文均自足。可折旧的产品行为、个人实例
 ```
 
 具体登记格式、提交边界和发版规则见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。版本级变化见 [`CHANGELOG.md`](CHANGELOG.md)。
+
+公众入口、双语、图与引用/版本的准备见 [论文发布面草稿](papers/notes/publication-surface.md)；该稿不改变论文版本或已发布状态。
 
 ## 本地构建
 
