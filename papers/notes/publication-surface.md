@@ -38,7 +38,7 @@ English:
 
 正文继续遵守中文为主的现有编订协议。若增加英文README或全文翻译，记录原文固定SHA、译文hash、人工语义复核日期与遗漏范围；结构/链接检查不能代替译文审阅。原文修订后把译文标为对应旧版或待同步，不同时维护两份独立Canonical。
 
-本次读取根README为本地9.6候选；CourtWork `PAPER.md`仍固定9.3。发布准备不使这两个版本自动一致。对外入口应同时区分最新已发布阅读版本、当前编订候选与实现采用版本；具体值在每次发布前从源与远端工作流核对。
+9.6 已于 2026-09-08 发布并由 CourtWork `PAPER.md` 采用（`d78fd31`）；最新已发布版本、当前编订候选与实现采用版本在本轮一致。发布准备不使后续版本自动一致。对外入口应同时区分最新已发布阅读版本、当前编订候选与实现采用版本；具体值在每次发布前从源与远端工作流核对。
 
 ## 发版与交叉引用
 
@@ -46,8 +46,19 @@ English:
 
 实际发布沿现有build→validate→Pages工作流成功的判定，保留历史带日期产物；不为了两仓同日发布覆盖旧文件或临时升级Paper版本。只改变入口文案和链接时不触发论文版本号变化，但仍须核对发布工作流实际影响。
 
-跨仓固定入口：[CourtWork候选](https://github.com/lesPrivilege/Courtwork/tree/codex/fresh-courtwork)、[其采用的Paper版本](https://github.com/lesPrivilege/Courtwork/blob/codex/fresh-courtwork/PAPER.md)。产品发布/迭代计划保存在CourtWork `engineering/release/2026-09-08/`；本仓只保存论文发布责任。
+跨仓固定入口：[CourtWork main](https://github.com/lesPrivilege/Courtwork/tree/main)、[其采用的Paper版本](https://github.com/lesPrivilege/Courtwork/blob/main/PAPER.md)。产品发布/迭代计划保存在CourtWork `engineering/release/2026-09-08/`；本仓只保存论文发布责任。
 
 ## 来源消费
 
 Chat《筹备两个仓库发布》（`6a9f20a0-898c-83ec-9813-a401199d00d2`）提供发布结构候选。REEF官方发布面的限定核验固定到`8e87829572b210572cad2008c28d39888b2b8396`：双语README、Docs与公开roadmap可作信息结构参考，详见 [其README](https://github.com/Human-Agent-Society/reef/blob/8e87829572b210572cad2008c28d39888b2b8396/README.md) 与 [结构同步检查](https://github.com/Human-Agent-Society/reef/blob/8e87829572b210572cad2008c28d39888b2b8396/.github/scripts/check_readme_i18n.py)。仅消费发布机制，不将REEF实例作为SE正文命题或验证结论；无需为本次入口筹备新增Practice Index观察。
+
+## 2026-09-09 · CourtWork Pages 与本仓的关系
+
+CourtWork 发布面于 2026-09-09 重开筹备（Courtwork `engineering/release/publishing-surface-2026-09-09/`，裁定 PS-1…PS-15）。与本仓相关的裁定：
+
+- 页面定位为 repository → publication surface → executable evidence：Paper 提出命题，repo 给出实现，Pages 允许访客检查命题。页面引用 Paper 只用两种方式：`PAPER.md` 所列 9.6 三份文本的固定 SHA 链接，以及本仓的最新阅读入口。页面需要而 Paper 没有的句子写在页面，不写进 Paper。
+- 本批不修订 Canonical、Practice 或 Index；发布面筹备不产生 Practice Index 观察。页面的命题段引用 9.6 摘要链 B 与 §4.6 / §4.9，转写须与当版正文语义一致，"Schema = model context = review surface = work state"的等号写法仍不采用。
+- 语言：一页，中文为主，English 保留在字标、命题句、术语、UI 词与代码处；不做机械双语两版。本仓英文 README 或全文翻译仍按上文"双语与版本"的条件处理。
+- 本仓 Pages 入口仍是论文三视图，不另建 landing page。论文页页脚加一条指向 CourtWork Pages 的链接是 `infra:` 候选：push 会触发本仓 Pages 重建，留用户裁定，宜与 CourtWork main 推送同期。
+- CourtWork 本地 main 领先远端 135 个提交（2026-09-09）；其 Pages 由 main 的 workflow 构建，未推送则不部署。本仓不代行推送。
+- 用户同日转交的商业化与 Eval 两条线只在 CourtWork 登记；Eval 的可复现部分进入 CourtWork Pages 证据区，八问结构（What was tested · Against what · With which model · Which harness · Which fixture · What was held constant · What failed · Can I reproduce it），有界模型 pilot 未跑之前不出现对比分数。商业化不进页面。是否形成 Practice Index 观察，待有固定工程证据后另议。
