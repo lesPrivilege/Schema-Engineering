@@ -1,0 +1,471 @@
+{
+  "results": [
+    {
+      "id": "zh-desktop",
+      "pass": true,
+      "language": "zh-CN",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "zh-desktop-contrast",
+      "pass": true,
+      "checked": 1016,
+      "failures": []
+    },
+    {
+      "id": "zh-mobile",
+      "pass": true,
+      "language": "zh-CN",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "zh-mobile-contrast",
+      "pass": true,
+      "checked": 1016,
+      "failures": []
+    },
+    {
+      "id": "zh-dark",
+      "pass": true,
+      "language": "zh-CN",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "zh-dark-contrast",
+      "pass": true,
+      "checked": 1016,
+      "failures": []
+    },
+    {
+      "id": "zh-zoom200",
+      "pass": true,
+      "language": "zh-CN",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "zh-zoom200-contrast",
+      "pass": true,
+      "checked": 1016,
+      "failures": []
+    },
+    {
+      "id": "zh-canonical",
+      "pass": true,
+      "mode": "canonical",
+      "visible": [
+        "canonical"
+      ]
+    },
+    {
+      "id": "zh-canonical-toc-scroll",
+      "pass": true,
+      "position": 128.234375
+    },
+    {
+      "id": "zh-canonical-language-anchor",
+      "pass": true,
+      "mode": "canonical",
+      "hash": "摘要",
+      "language": "en"
+    },
+    {
+      "id": "zh-practice",
+      "pass": true,
+      "mode": "practice",
+      "visible": [
+        "practice"
+      ]
+    },
+    {
+      "id": "zh-practice-toc-scroll",
+      "pass": true,
+      "position": 128.109375
+    },
+    {
+      "id": "zh-practice-language-anchor",
+      "pass": true,
+      "mode": "practice",
+      "hash": "practice-摘要",
+      "language": "en"
+    },
+    {
+      "id": "zh-index",
+      "pass": true,
+      "mode": "index",
+      "visible": [
+        "index"
+      ]
+    },
+    {
+      "id": "zh-index-toc-scroll",
+      "pass": true,
+      "position": 128.359375
+    },
+    {
+      "id": "zh-index-language-anchor",
+      "pass": true,
+      "mode": "index",
+      "hash": "一用途",
+      "language": "en"
+    },
+    {
+      "id": "zh-canonical-width390",
+      "pass": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "id": "zh-canonical-width390-contrast",
+      "pass": true,
+      "checked": 1016,
+      "failures": []
+    },
+    {
+      "id": "zh-canonical-width720",
+      "pass": true,
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "id": "zh-canonical-width720-contrast",
+      "pass": true,
+      "checked": 1016,
+      "failures": []
+    },
+    {
+      "id": "zh-practice-width390",
+      "pass": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "id": "zh-practice-width390-contrast",
+      "pass": true,
+      "checked": 424,
+      "failures": []
+    },
+    {
+      "id": "zh-practice-width720",
+      "pass": true,
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "id": "zh-practice-width720-contrast",
+      "pass": true,
+      "checked": 424,
+      "failures": []
+    },
+    {
+      "id": "zh-index-width390",
+      "pass": true,
+      "width": 451,
+      "scrollWidth": 451
+    },
+    {
+      "id": "zh-index-width390-contrast",
+      "pass": true,
+      "checked": 926,
+      "failures": []
+    },
+    {
+      "id": "zh-index-width720",
+      "pass": true,
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "id": "zh-index-width720-contrast",
+      "pass": true,
+      "checked": 926,
+      "failures": []
+    },
+    {
+      "id": "zh-system-dark-toggle",
+      "pass": true,
+      "theme": "light"
+    },
+    {
+      "id": "zh-theme-language",
+      "pass": true,
+      "theme": "dark"
+    },
+    {
+      "id": "zh-malformed-hash",
+      "pass": true,
+      "mode": "practice"
+    },
+    {
+      "id": "zh-noscript",
+      "pass": true,
+      "visible": 3
+    },
+    {
+      "id": "zh-self-contained",
+      "pass": true,
+      "requests": [
+        "http://127.0.0.1:8962/index-en.html"
+      ]
+    },
+    {
+      "id": "zh-keyboard",
+      "pass": true,
+      "tag": "A",
+      "text": "跳至论文",
+      "outline": "solid"
+    },
+    {
+      "id": "zh-print",
+      "pass": true,
+      "visible": 3
+    },
+    {
+      "id": "en-desktop",
+      "pass": true,
+      "language": "en",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "en-desktop-contrast",
+      "pass": true,
+      "checked": 1017,
+      "failures": []
+    },
+    {
+      "id": "en-mobile",
+      "pass": true,
+      "language": "en",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "en-mobile-contrast",
+      "pass": true,
+      "checked": 1017,
+      "failures": []
+    },
+    {
+      "id": "en-dark",
+      "pass": true,
+      "language": "en",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "en-dark-contrast",
+      "pass": true,
+      "checked": 1017,
+      "failures": []
+    },
+    {
+      "id": "en-zoom200",
+      "pass": true,
+      "language": "en",
+      "visible": [
+        "canonical"
+      ],
+      "overflow": false
+    },
+    {
+      "id": "en-zoom200-contrast",
+      "pass": true,
+      "checked": 1017,
+      "failures": []
+    },
+    {
+      "id": "en-canonical",
+      "pass": true,
+      "mode": "canonical",
+      "visible": [
+        "canonical"
+      ]
+    },
+    {
+      "id": "en-canonical-toc-scroll",
+      "pass": true,
+      "position": 127.796875
+    },
+    {
+      "id": "en-canonical-language-anchor",
+      "pass": true,
+      "mode": "canonical",
+      "hash": "摘要",
+      "language": "zh-CN"
+    },
+    {
+      "id": "en-practice",
+      "pass": true,
+      "mode": "practice",
+      "visible": [
+        "practice"
+      ]
+    },
+    {
+      "id": "en-practice-toc-scroll",
+      "pass": true,
+      "position": 128.109375
+    },
+    {
+      "id": "en-practice-language-anchor",
+      "pass": true,
+      "mode": "practice",
+      "hash": "practice-摘要",
+      "language": "zh-CN"
+    },
+    {
+      "id": "en-index",
+      "pass": true,
+      "mode": "index",
+      "visible": [
+        "index"
+      ]
+    },
+    {
+      "id": "en-index-toc-scroll",
+      "pass": true,
+      "position": 128.234375
+    },
+    {
+      "id": "en-index-language-anchor",
+      "pass": true,
+      "mode": "index",
+      "hash": "一用途",
+      "language": "zh-CN"
+    },
+    {
+      "id": "en-canonical-width390",
+      "pass": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "id": "en-canonical-width390-contrast",
+      "pass": true,
+      "checked": 1017,
+      "failures": []
+    },
+    {
+      "id": "en-canonical-width720",
+      "pass": true,
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "id": "en-canonical-width720-contrast",
+      "pass": true,
+      "checked": 1017,
+      "failures": []
+    },
+    {
+      "id": "en-practice-width390",
+      "pass": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "id": "en-practice-width390-contrast",
+      "pass": true,
+      "checked": 425,
+      "failures": []
+    },
+    {
+      "id": "en-practice-width720",
+      "pass": true,
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "id": "en-practice-width720-contrast",
+      "pass": true,
+      "checked": 425,
+      "failures": []
+    },
+    {
+      "id": "en-index-width390",
+      "pass": true,
+      "width": 451,
+      "scrollWidth": 451
+    },
+    {
+      "id": "en-index-width390-contrast",
+      "pass": true,
+      "checked": 927,
+      "failures": []
+    },
+    {
+      "id": "en-index-width720",
+      "pass": true,
+      "width": 720,
+      "scrollWidth": 720
+    },
+    {
+      "id": "en-index-width720-contrast",
+      "pass": true,
+      "checked": 927,
+      "failures": []
+    },
+    {
+      "id": "en-system-dark-toggle",
+      "pass": true,
+      "theme": "light"
+    },
+    {
+      "id": "en-theme-language",
+      "pass": true,
+      "theme": "dark"
+    },
+    {
+      "id": "en-malformed-hash",
+      "pass": true,
+      "mode": "practice"
+    },
+    {
+      "id": "en-noscript",
+      "pass": true,
+      "visible": 3
+    },
+    {
+      "id": "en-self-contained",
+      "pass": true,
+      "requests": [
+        "http://127.0.0.1:8962/index-en.html"
+      ]
+    },
+    {
+      "id": "en-keyboard",
+      "pass": true,
+      "tag": "A",
+      "text": "Skip to papers",
+      "outline": "solid"
+    },
+    {
+      "id": "en-print",
+      "pass": true,
+      "visible": 3
+    }
+  ],
+  "reader_sha256": {
+    "schema-engineering-2026-09-07-reader-2026-09-10.html": "bb6c87d9ed1c04dd008d285da28be7dfc03cd33574cfb45c872beffc4c575a1f",
+    "schema-engineering-2026-09-07-reader-2026-09-10-en.html": "3b50eae25d9e5cb52baf7e5e98b3531ad87e2a41ae4c0d8340dcc9c08fd4f445"
+  },
+  "scope": "真实最终译稿；首屏截图与三视图窄屏布局、文本对比度、目录/语言/主题/键盘/无脚本/打印检查。不是逐屏通读全文。"
+}
