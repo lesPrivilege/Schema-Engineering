@@ -157,6 +157,21 @@ try {
       const switched=await evaluate(`({mode:document.body.dataset.activeMode,hash:decodeURIComponent(location.hash.slice(1)),language:document.documentElement.lang})`);
       record(`${language}-${mode}-language-anchor`,switched.mode===mode&&switched.hash===anchor&&switched.language!==(language==='zh'?'zh-CN':'en'),switched);
     }
+    for (const mode of ['canonical','practice','index']) {
+      for (const width of [390,720]) {
+        await load(new URL(`${filename}?mode=${mode}`,ORIGIN).href,{width});
+        const layout=await evaluate(`({width:innerWidth,scrollWidth:document.documentElement.scrollWidth})`);
+        record(`${language}-${mode}-width${width}`,layout.scrollWidth<=layout.width+1,layout);
+        const contrast=await evaluate(CONTRAST);
+        record(`${language}-${mode}-width${width}-contrast`,contrast.every(row=>row.pass),{checked:contrast.length,failures:contrast.filter(row=>!row.pass)});
+        if(width===390) {
+          await evaluate(`document.querySelector('[data-paper-mode="${mode}"] .table-scroll')?.scrollIntoView({block:'center'})`);
+          await sleep(200);
+          const shot=await cdp('Page.captureScreenshot',{format:'png'});
+          await writeFile(path.join(OUT,`${language}-${mode}-table-mobile.png`),Buffer.from(shot.data,'base64'));
+        }
+      }
+    }
     await load(new URL(filename,ORIGIN).href,{theme:'dark'});
     await evaluate(`document.querySelector('[data-theme-toggle]').click()`);
     const light=await evaluate(`document.documentElement.dataset.theme`);

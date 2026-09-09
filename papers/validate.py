@@ -8,7 +8,10 @@ import json
 import re
 import subprocess
 import sys
+from collections import Counter
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import unquote
 
 import build
 
@@ -27,6 +30,28 @@ TRANSLATION_FILES = build.TRANSLATION_FILES
 def fail(message: str) -> None:
     print(f"FAIL: {message}", file=sys.stderr)
     raise SystemExit(1)
+
+
+def validate_fragment_links(markup: str, name: str) -> None:
+    class Links(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.ids = []
+            self.links = []
+
+        def handle_starttag(self, tag, attrs):
+            values = dict(attrs)
+            if "id" in values:
+                self.ids.append(values["id"])
+            if tag == "a" and values.get("href", "").startswith("#"):
+                self.links.append(unquote(values["href"][1:]))
+
+    parsed = Links()
+    parsed.feed(markup)
+    duplicates = [value for value, count in Counter(parsed.ids).items() if count > 1]
+    missing = set(parsed.links) - set(parsed.ids)
+    if duplicates or missing:
+        fail(f"{name} fragment links: duplicate IDs={duplicates}, missing targets={sorted(missing)}")
 
 
 def front_matter(text: str, name: str) -> dict[str, str]:
@@ -101,6 +126,7 @@ def validate_chinese(sources: dict[str, str]) -> list[str]:
         fail("missing current Chinese reader output; run papers/build.py")
     release = READER_FILE.read_text(encoding="utf-8")
     current = INDEX_FILE.read_text(encoding="utf-8")
+    validate_fragment_links(release, "Chinese")
     if release != current:
         fail("Chinese Pages entry point differs from the dated reader")
 
@@ -156,6 +182,7 @@ def validate_english_if_present(sources: dict[str, str]) -> bool:
         fail("reviewed translation cache has no English reader output; run papers/build_en.py")
     release = EN_READER_FILE.read_text(encoding="utf-8")
     current = EN_INDEX_FILE.read_text(encoding="utf-8")
+    validate_fragment_links(release, "English")
     if release != current:
         fail("English Pages entry point differs from the dated reader")
     source_digests = build.file_digests(SOURCE_FILES)

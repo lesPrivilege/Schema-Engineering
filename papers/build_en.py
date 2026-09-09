@@ -77,6 +77,7 @@ def main() -> None:
     for name, path in files.items():
         translated = path.read_text(encoding="utf-8")
         papers[name] = zh_build.render_paper(translated, stable_ids=source_ids[name])
+    papers = zh_build.unique_document_ids(papers)
 
     page = zh_build.render_page(
         papers,

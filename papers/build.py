@@ -241,7 +241,7 @@ def render_paper(markdown: str, *, stable_ids: Sequence[str] | None = None) -> s
 
 
 def unique_document_ids(papers: Mapping[str, str]) -> dict[str, str]:
-    """Namespace duplicate heading IDs across the three paper views.
+    """Namespace duplicate IDs across and within the three paper views.
 
     The old release had repeated Chinese IDs such as ``#摘要`` in separate
     hidden views. The canonical occurrence remains unchanged; later views get
@@ -251,7 +251,7 @@ def unique_document_ids(papers: Mapping[str, str]) -> dict[str, str]:
 
     used: set[str] = set()
     result: dict[str, str] = {}
-    heading_pattern = re.compile(r'(<h[1-6]\s+)id="([^"]+)"')
+    id_pattern = re.compile(r'(\s)id="([^"]+)"')
     for mode in ("canonical", "practice", "index"):
         markup = papers[mode]
 
@@ -267,7 +267,7 @@ def unique_document_ids(papers: Mapping[str, str]) -> dict[str, str]:
             used.add(new)
             return f'{prefix}id="{html.escape(new, quote=True)}"'
 
-        result[mode] = heading_pattern.sub(replace, markup)
+        result[mode] = id_pattern.sub(replace, markup)
     return result
 
 
