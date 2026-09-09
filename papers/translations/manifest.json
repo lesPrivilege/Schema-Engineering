@@ -1,0 +1,51 @@
+{
+  "source_commit": "a0234bc42dda75767554a2da89c247d66c2ad022",
+  "edition": "2026-09-07",
+  "revision": "9.6",
+  "language": "en",
+  "review_status": "reviewed",
+  "review_date": "2026-09-10",
+  "review_record": "papers/translations/review-2026-09-10.md",
+  "files": {
+    "canonical": {
+      "source": "papers/src/canonical.md",
+      "translation": "papers/translations/en/canonical.md",
+      "source_sha256": "9771dfce3863933db819029e8679b36bfd0933ac2028bab5b6bb2e1f73e4dc59",
+      "translation_sha256": "c6ff1f904b2b689fe525905d1f1b62c03acaf5bb7b586e9612737487a5343066",
+      "review_status": "reviewed",
+      "author": "Luna AI",
+      "semantic_review": {
+        "Luna AI": "摘要与§1–8；非译文作者",
+        "Astra AI": "§9–结语；非译文作者"
+      },
+      "omissions": [],
+      "preserved_source_text": "代码块保持原字节；Index保留一处来源作者中文专名。"
+    },
+    "practice": {
+      "source": "papers/src/practice.md",
+      "translation": "papers/translations/en/practice.md",
+      "source_sha256": "cb5b106899d23429ff93e24a0470c93f8a22abb34c62c760a15426f61a39fc9d",
+      "translation_sha256": "5562a29c23b3256e8dee7921ec2eda886a77a66481a2e0b1484ca0e88b576379",
+      "review_status": "reviewed",
+      "author": "Luna AI",
+      "semantic_review": {
+        "Astra AI": "全文；非译文作者"
+      },
+      "omissions": [],
+      "preserved_source_text": "代码块保持原字节；Index保留一处来源作者中文专名。"
+    },
+    "index": {
+      "source": "papers/src/practice-index.md",
+      "translation": "papers/translations/en/practice-index.md",
+      "source_sha256": "0ab68d37f07e33bd49c14ab42e75ee5452f1b593e0dd527200246eaf692bc894",
+      "translation_sha256": "5f2d9a11705c1ecce741f84cae97f3bbababa9971bd13af8c654ab501db5c88b",
+      "review_status": "reviewed",
+      "author": "Luna AI",
+      "semantic_review": {
+        "Luna AI（另一实例）": "全文，包括修订记录与全部来源登记；非译文作者"
+      },
+      "omissions": [],
+      "preserved_source_text": "代码块保持原字节；Index保留一处来源作者中文专名。"
+    }
+  }
+}

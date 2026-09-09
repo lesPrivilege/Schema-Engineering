@@ -610,7 +610,7 @@ Artifact Contract defines work-product type, structure, version, status, referen
 
 #### 6.6 Review Contract
 
-Review Contract defines who may accept, reject, revise, request additions, approve, and promote a rule under which state. Effective Review also requires a person with Authority to form an independent judgment under finite attention. Human Work Surface is therefore compiled by decision unit from current state, Candidate delta, Evidence, automated checks, unresolved questions, reversibility, Authority requirement, and state consequence; Raw Trace remains retrievable without becoming the default review object. Review produces a Candidate Decision; only after it passes Authority Check and is written as a Committed Event may it change Semantic State or the active Artifact reference.
+Review Contract defines, for each state, who may accept, reject, revise, request additions, approve, and promote rules. Effective Review also requires a person with Authority to form an independent judgment under finite attention. Human Work Surface is therefore compiled by decision unit from current state, Candidate delta, Evidence, automated checks, unresolved questions, reversibility, Authority requirement, and state consequence; Raw Trace remains retrievable without becoming the default review object. Review produces a Candidate Decision; only after it passes Authority Check and is written as a Committed Event may it change Semantic State or the active Artifact reference.
 
 #### 6.7 Escalation Contract
 
