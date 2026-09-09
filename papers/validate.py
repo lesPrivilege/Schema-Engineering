@@ -1,22 +1,27 @@
 #!/usr/bin/env python3
-"""Validate source invariants and the compiled Schema Engineering release."""
+"""Validate paper sources, the additive Chinese reader, and reviewed English output."""
 
+from __future__ import annotations
+
+import hashlib
+import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
+import build
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-SRC_DIR = SCRIPT_DIR / "src"
 DIST_DIR = SCRIPT_DIR / "dist"
-EDITION = "2026-09-07"
-RELEASE_FILE = DIST_DIR / f"schema-engineering-{EDITION}.html"
-INDEX_FILE = DIST_DIR / "index.html"
-SOURCE_FILES = {
-    "canonical": SRC_DIR / "canonical.md",
-    "practice": SRC_DIR / "practice.md",
-    "index": SRC_DIR / "practice-index.md",
-}
+EDITION = build.EDITION
+READER_FILE = build.OUT_FILE
+INDEX_FILE = build.INDEX_FILE
+EN_READER_FILE = build.EN_OUT_FILE
+EN_INDEX_FILE = build.EN_INDEX_FILE
+SOURCE_FILES = build.SOURCE_FILES
+TRANSLATION_FILES = build.TRANSLATION_FILES
 
 
 def fail(message: str) -> None:
@@ -45,7 +50,6 @@ def validate_source(name: str, path: Path) -> str:
         fail(f"{name} Edition is not {EDITION}")
     if text.count("```") % 2:
         fail(f"{name} has an unclosed fenced block")
-
     used = set(re.findall(r"\[\^([^\]]+)\]", text))
     defined = set(re.findall(r"(?m)^\[\^([^\]]+)\]:", text))
     missing = used - defined
@@ -56,12 +60,33 @@ def validate_source(name: str, path: Path) -> str:
     return text
 
 
-def main() -> None:
-    sources = {
-        name: validate_source(name, path)
-        for name, path in SOURCE_FILES.items()
-    }
+def historical_blob() -> bytes:
+    relative = build.HISTORICAL_RELEASE_FILE.relative_to(SCRIPT_DIR.parent)
+    # The checkout is shallow in some local environments. The published
+    # historical file is still required to be tracked at HEAD; cat-file gives
+    # a byte comparison without relying on the index or a clean worktree.
+    result = subprocess.run(
+        ["git", "cat-file", "blob", f"HEAD:{relative.as_posix()}"],
+        cwd=SCRIPT_DIR.parent,
+        capture_output=True,
+    )
+    if result.returncode:
+        fail(f"cannot read historical release from HEAD: {relative}")
+    return result.stdout
 
+
+def read_manifest() -> dict:
+    path = build.TRANSLATIONS_DIR / "manifest.json"
+    if not path.is_file():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        fail(f"invalid translation manifest: {exc}")
+    return payload if isinstance(payload, dict) else {}
+
+
+def validate_chinese(sources: dict[str, str]) -> list[str]:
     expected_bases = {
         "practice": "Canonical base: 2026-09-07 Canonical Edition",
         "index": "Canonical base: 2026-09-07 Canonical Edition",
@@ -72,35 +97,98 @@ def main() -> None:
     if "Practice base: 2026-09-07 Generalized Practice Snapshot" not in sources["index"]:
         fail("index does not declare the expected Practice base")
 
-    for path in (RELEASE_FILE, INDEX_FILE):
-        if not path.is_file():
-            fail(f"missing compiled output: {path}")
-    release = RELEASE_FILE.read_text(encoding="utf-8")
+    if not READER_FILE.is_file() or not INDEX_FILE.is_file():
+        fail("missing current Chinese reader output; run papers/build.py")
+    release = READER_FILE.read_text(encoding="utf-8")
     current = INDEX_FILE.read_text(encoding="utf-8")
     if release != current:
-        fail("current Pages entry point differs from the dated release")
+        fail("Chinese Pages entry point differs from the dated reader")
 
     checks = {
-        "three paper views": release.count('<article class="paper"') == 3,
-        "canonical default": '<article class="paper" id="paper-canonical">' in release,
-        "practice hidden": '<article class="paper" id="paper-practice" hidden>' in release,
-        "index hidden": '<article class="paper" id="paper-index" hidden>' in release,
-        "three modes": all(
-            f'data-mode="{mode}"' in release
+        "three paper views": all(
+            f'id="paper-{mode}" data-paper-mode="{mode}"' in release
             for mode in ("canonical", "practice", "index")
         ),
-        "index switch": "getElementById('paper-index').hidden = mode !== 'index'" in release,
+        "canonical default": 'id="paper-canonical" data-paper-mode="canonical" data-active="true"' in release,
+        "reader revision metadata": f'name="reader-revision" content="{build.READER_REVISION}"' in release,
+        "text edition metadata": f'name="paper-edition" content="{EDITION}"' in release,
+        "cold reading palette": "--canvas: #f2f5f7" in release and "--ink: #202a33" in release,
+        "dark mode": "prefers-color-scheme: dark" in release and "--canvas: #151b20" in release,
+        "table scroll surface": 'class="table-scroll"' in release,
+        "review attention hook": '[data-attention="review"]' in release,
         "responsive metadata": 'name="viewport"' in release,
-        "self-contained runtime": "<script src=" not in release and "<link rel=" not in release,
-        "environment-independent fences": '<div class="codehilite">' not in release,
-        "9.6 index record": "### 2026-09-07 · 9.6" in sources["index"],
+        "self-contained runtime": '<script src=' not in release and '<link rel=' not in release,
+        "no-js readable": 'body[data-reader][data-reader-ready] .paper:not([data-active="true"])' in release,
+        "stable deep-link code": "modeFromHash" in release and "scrollIntoView" in release,
     }
     failed = [name for name, passed in checks.items() if not passed]
     if failed:
-        fail("compiled checks failed: " + ", ".join(failed))
+        fail("Chinese reader checks failed: " + ", ".join(failed))
+    return [f"{name}" for name in checks]
 
-    print(f"PASS: {len(SOURCE_FILES)} sources, {len(checks)} release checks, Edition {EDITION}")
-    print(f"PASS: {RELEASE_FILE.name} == index.html ({RELEASE_FILE.stat().st_size:,} bytes)")
+
+def validate_historical() -> None:
+    path = build.HISTORICAL_RELEASE_FILE
+    if not path.is_file():
+        fail(f"missing historical release: {path}")
+    expected = historical_blob()
+    current = path.read_bytes()
+    if current != expected:
+        fail(
+            "historical 9.6 release bytes changed "
+            f"(HEAD sha256={hashlib.sha256(expected).hexdigest()[:12]}, "
+            f"working sha256={hashlib.sha256(current).hexdigest()[:12]})"
+        )
+
+
+def validate_english_if_present(sources: dict[str, str]) -> bool:
+    manifest = read_manifest()
+    translations_present = all(path.is_file() for path in TRANSLATION_FILES.values())
+    reviewed = build.reviewed_translation_cache()
+    if not reviewed or not translations_present:
+        if EN_INDEX_FILE.exists():
+            fail("English index-en.html exists without a complete reviewed translation cache")
+        if 'data-language-switch ' in READER_FILE.read_text(encoding="utf-8"):
+            fail("Chinese reader links an English cache that is not current and reviewed")
+        return False
+
+    if not EN_READER_FILE.is_file() or not EN_INDEX_FILE.is_file():
+        fail("reviewed translation cache has no English reader output; run papers/build_en.py")
+    release = EN_READER_FILE.read_text(encoding="utf-8")
+    current = EN_INDEX_FILE.read_text(encoding="utf-8")
+    if release != current:
+        fail("English Pages entry point differs from the dated reader")
+    source_digests = build.file_digests(SOURCE_FILES)
+    translation_digests = build.file_digests(TRANSLATION_FILES)
+    checks = {
+        "English language": '<html lang="en" data-language="en">' in release,
+        "Chinese switch": 'data-language-target="index.html"' in release,
+        "three English views": release.count('class="paper"') == 3,
+        "source binding": f'name="source-sha256" content="{build.combined_digest(source_digests)}"' in release,
+        "translation binding": f'name="translation-sha256" content="{build.combined_digest(translation_digests)}"' in release,
+        "source commit binding": f'name="source-commit" content="{build.manifest_source_commit(manifest)}"' in release,
+        "stable reader IDs": all(f'id="paper-{mode}"' in release for mode in ("canonical", "practice", "index")),
+        "self-contained runtime": '<script src=' not in release and '<link rel=' not in release,
+    }
+    failed = [name for name, passed in checks.items() if not passed]
+    if failed:
+        fail("English reader checks failed: " + ", ".join(failed))
+    return True
+
+
+def main() -> None:
+    sources = {name: validate_source(name, path) for name, path in SOURCE_FILES.items()}
+    chinese_checks = validate_chinese(sources)
+    validate_historical()
+    english = validate_english_if_present(sources)
+    print(
+        f"PASS: {len(SOURCE_FILES)} Chinese sources, {len(chinese_checks)} reader checks, "
+        f"Edition {EDITION}; English={'reviewed' if english else 'withheld'}"
+    )
+    print(f"PASS: {READER_FILE.name} == index.html ({READER_FILE.stat().st_size:,} bytes)")
+    if english:
+        print(f"PASS: {EN_READER_FILE.name} == index-en.html ({EN_READER_FILE.stat().st_size:,} bytes)")
+    print(f"PASS: historical {build.HISTORICAL_RELEASE_FILE.name} bytes unchanged")
 
 
 if __name__ == "__main__":

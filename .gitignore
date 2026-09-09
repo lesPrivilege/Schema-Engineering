@@ -5,3 +5,4 @@ __pycache__/
 
 # GitHub Pages entry point is generated from the dated release.
 papers/dist/index.html
+papers/dist/index-en.html
