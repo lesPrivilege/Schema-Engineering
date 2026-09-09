@@ -300,6 +300,18 @@ status
 
 ---
 
+### PI-22 · Personal Attention 与既有连续性原语
+
+- **日期 / 来源类别**：2026-09-09；用户提供的设计讨论。完整读取13个turn与1张截图，属于设计输入；外部项目机制与Courtwork实际接缝由Courtwork研究索引登记，不在论文重复选型。
+- **来源**：[解释 GoRaven](chatgpt-conversation://6aa122d3-ac50-83ec-bbb3-a7959c28d9d3)。后续用户明确Attention可拥有独立于单个Matter和Session的生命周期；“全量memory”指可寻址、按需要披露。完整私有原文留在个人项目，外部技术来源及本轮消费见[Courtwork固定来源索引](https://github.com/lesPrivilege/Courtwork/blob/b260feb213bf60c39165d2070fcfe7c4940bb590/engineering/research/attention-2026-09-09/source-index.md)与[局部核验](https://github.com/lesPrivilege/Courtwork/blob/b260feb213bf60c39165d2070fcfe7c4940bb590/engineering/research/attention-2026-09-09/verification.md)。固定提交已在本地形成，未推送前远端链接可能暂不可用。
+- **观察与最小支持命题**：这是对个人持续关注对象的设计要求，而非运行结果。可检验一个关注关系在关联零个、一个或多个Matter时，能否保留identity、owner、未完义务与生命周期；人的视图与执行Session是否仍可替换且不成为第二事实源。
+- **Astra裁决 / 正文处置**：本轮不修订Canonical或Practice。Canonical摘要已明确 `anything governed is addressable`、持久状态与Context分离；PI-21已容纳存在性、关联、缓存与撤权的披露边界；PI-20 / V-19已容纳Runtime能力协商。typed lookup与grep作为实现选择进入Courtwork局部选型，不升为新的普遍检索定律。独立Attention的产品对象语义不自动要求新增Kernel ontology；先比较既有对象关系是否足够，再决定是否需要最小正文修订。若未来需修正文，由Astra在SE源目录亲自撰写。
+- **不支持的外推**：不证明Attention必须成为新的Kernel实体、任何Runtime可无损互换、grep提供访问控制，或文件化手动loop已经证明自动ACL、效率及专业质量；来信中的产品主张不证明成熟度。个人通信原文、Courtwork工单和选型台账不复制到论文。
+- **复现 / 证伪**：V-23比较独立Attention记录与既有Topic/Queue/Matter关系及State/Event原语，覆盖零/单/多Matter、Session替换、关闭/重开及未完义务。若既有对象可保持同等边界，则否决新增ontology。存在性与内容披露复用V-21，Runtime缺失能力与替换复用V-19；本轮均未运行这些对照实验。
+- **状态**：indexed；设计线索已登记，正文不改，无新Edition或发布。
+
+---
+
 ## 四、验证队列
 
 | ID | 待验证命题 | 最小对照 | 主要结果 | 当前状态 |
@@ -326,6 +338,7 @@ status
 | V-20 | 操作通道切换不突破效果边界 | API / Browser / Computer Use；注入超时、迟到结果、重复回执 | 重复副作用、授权绕过、结果核对与错误成功报告 | 设计推论，待验证 |
 | V-21 | 授权视图约束端到端披露 | 源端授权视图 vs 检索后过滤；跨 Matter、关联推断、缓存与撤权注入 | 边界暴露、外传、陈旧权限、必要证据遗漏 | 已核局部原始来源，实验未运行 |
 | V-22 | 任务抽象保留所声明的必要性质 | 全文 vs 自由摘要 vs 按声明性质生成的视图；固定授权范围 | unknown / 冲突保留、错误确信、接受率与披露成本 | 设计候选，不声称形式可靠性 |
+| V-23 | 个人Attention是否需要独立对象语义 | 独立记录 vs 既有Topic/Queue/Matter关系与State/Event；零/单/多Matter及Session替换 | identity、owner、未完义务、生命周期、恢复与重复事实源 | 设计候选，实验未运行 |
 
 ### V-14 / V-15 · 离线评测快照与查考方法
 
@@ -345,6 +358,10 @@ status
 ---
 
 ## 五、增量修订记录
+
+### 2026-09-09 · Attention · Index-only
+
+Astra复读现有正文与PI-20/PI-21后裁决：只登记PI-22及对象生命周期对照V-23，披露与Runtime验证复用V-21/V-19；不修订Canonical、Practice、Edition、CHANGELOG或发布产物。外部成熟实践的局部核验与产品消费留在Courtwork，不把本轮设计讨论提升为实现证据。
 
 ### 2026-09-07 · 9.6
 
