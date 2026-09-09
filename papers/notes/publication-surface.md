@@ -36,7 +36,7 @@ English:
 
 ## 双语与版本
 
-正文继续遵守中文为主的现有编订协议。若增加英文README或全文翻译，记录原文固定SHA、译文hash、人工语义复核日期与遗漏范围；结构/链接检查不能代替译文审阅。原文修订后把译文标为对应旧版或待同步，不同时维护两份独立Canonical。
+正文继续遵守中文为主的现有编订协议。若增加英文README或全文翻译，记录原文固定SHA、译文hash、语义复核日期、真实作者/复核者与遗漏范围（本次由AI翻译及非作者AI审读，不冒称人工签核）；结构/链接检查不能代替译文审阅。原文修订后把译文标为对应旧版或待同步，不同时维护两份独立Canonical。
 
 9.6 已于 2026-09-08 发布并由 CourtWork `PAPER.md` 采用（`d78fd31`）；最新已发布版本、当前编订候选与实现采用版本在本轮一致。发布准备不使后续版本自动一致。对外入口应同时区分最新已发布阅读版本、当前编订候选与实现采用版本；具体值在每次发布前从源与远端工作流核对。
 
@@ -62,3 +62,9 @@ CourtWork 发布面于 2026-09-09 重开筹备（Courtwork `engineering/release/
 - 本仓 Pages 入口仍是论文三视图，不另建 landing page。论文页页脚加一条指向 CourtWork Pages 的链接是 `infra:` 候选：push 会触发本仓 Pages 重建，留用户裁定，宜与 CourtWork main 推送同期。
 - CourtWork 本地 main 领先远端 135 个提交（2026-09-09）；其 Pages 由 main 的 workflow 构建，未推送则不部署。本仓不代行推送。
 - 用户同日转交的商业化与 Eval 两条线只在 CourtWork 登记；Eval 的可复现部分进入 CourtWork Pages 证据区，八问结构（What was tested · Against what · With which model · Which harness · Which fixture · What was held constant · What failed · Can I reproduce it），有界模型 pilot 未跑之前不出现对比分数。商业化不进页面。是否形成 Practice Index 观察，待有固定工程证据后另议。
+
+## 2026-09-10 · 阅读器与英文独立编译
+
+用户已授权将本地材料、阅读器与译文合并推送。中文继续采用自然中文与必要的英文术语；三份英文全文是固定中文源的派生 cache，由独立入口编译，不成为第二套 Canonical。来源固定到 `a0234bc42dda75767554a2da89c247d66c2ad022`，hash、实际复核范围与遗漏在 `papers/translations/` 登记。旧日期发布物不重写；本次使用独立 reader revision 文件，论文仍为9.6。
+
+阅读页保留 Canonical / Practice / Index 三种职责，采用冷白、灰阶和稀疏的 review 提示色。语言切换须保留当前文档与章节，页面不依赖外部字体或运行服务。发布完成以 Pages 工作流结果为准。

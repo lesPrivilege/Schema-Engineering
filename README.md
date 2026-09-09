@@ -2,7 +2,7 @@
 
 Schema Engineering 是一组持续修订的工作论文，讨论 Agent 如何参与可提交、可恢复、可审阅的正式工作。
 
-当前版本为 **9.6（2026-09-07）**。可从 [GitHub Pages](https://lesprivilege.github.io/Schema-Engineering/) 阅读；带日期的发布文件保留在 [`papers/dist/`](papers/dist/) 中。
+当前版本为 **9.6（2026-09-07）**。可从 [中文阅读页](https://lesprivilege.github.io/Schema-Engineering/) 或 [English reader](https://lesprivilege.github.io/Schema-Engineering/index-en.html) 阅读；带日期的发布文件保留在 [`papers/dist/`](papers/dist/) 中。
 
 ## 文本体系
 
@@ -35,17 +35,18 @@ CourtWork 的 [PAPER.md](https://github.com/lesPrivilege/Courtwork/blob/main/PAP
 
 具体登记格式、提交边界和发版规则见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。版本级变化见 [`CHANGELOG.md`](CHANGELOG.md)。
 
-公众入口、双语、图与引用/版本的准备见 [论文发布面草稿](papers/notes/publication-surface.md)；该稿不改变论文版本或已发布状态。
+公众入口、双语、图与引用/版本的约定见 [论文发布面说明](papers/notes/publication-surface.md)。项目继续采用自然中文与必要的英文术语；英文全文由绑定中文源的派生译文独立编译，见 [英文编译约定](papers/translations/README.md)。
 
 ## 本地构建
 
 ```bash
 python3 -m pip install -r papers/requirements.txt
+python3 papers/build_en.py
 python3 papers/build.py
 python3 papers/validate.py
 ```
 
-构建同时生成当前入口 `papers/dist/index.html` 和带日期的不可变发布文件。推送到 `main` 后，GitHub Actions 会重新构建、校验并发布 Pages。
+中文构建生成当前入口 `papers/dist/index.html`；英文独立构建生成 `papers/dist/index-en.html`。两者各自保存带日期的 reader revision，历史发布文件保持原字节。英文入口以完整译文、来源 hash 与复核记录通过校验为前提。推送到 `main` 后，GitHub Actions 会重新构建、校验并发布 Pages。
 
 ## 目录
 
@@ -58,6 +59,9 @@ python3 papers/validate.py
 └── papers/
     ├── README.md
     ├── build.py
+    ├── build_en.py
+    ├── reader/
+    ├── translations/
     ├── validate.py
     ├── requirements.txt
     ├── src/

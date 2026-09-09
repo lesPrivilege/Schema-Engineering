@@ -7,7 +7,11 @@ Schema Engineering 工作论文的源文件、证据索引、编译脚本与带�
 ```text
 papers/
 ├── README.md
-├── build.py
+├── build.py               # 中文构建
+├── build_en.py            # 英文独立构建
+├── reader/                # 共用阅读器样式与交互
+├── translations/          # 固定中文源的派生译文、hash 与复核记录
+├── qa/                    # 浏览器验证与译文发布入口反例
 ├── validate.py
 ├── requirements.txt
 ├── src/
@@ -61,7 +65,7 @@ Canonical 与 Practice 只呈现当前成立的完整文本。材料通过裁决
 
 仓库级的观察登记、提交边界与发版检查见根目录 `CONTRIBUTING.md`；版本级变化见 `CHANGELOG.md`。
 
-同日修订保留前一候选的版本后缀文件；当前 `schema-engineering-2026-09-07.html` 为 9.6，`schema-engineering-2026-09-07-v9.5.html` 保留 9.5。
+既有 `schema-engineering-2026-09-07.html` 保留 9.6 的历史发布，`schema-engineering-2026-09-07-v9.5.html` 保留 9.5。本次阅读器更新另存 `schema-engineering-2026-09-07-reader-2026-09-10.html` 及对应 `-en.html`，不覆盖历史文件，也不改变论文 Edition。
 
 ## 发版方法
 
@@ -78,10 +82,13 @@ Canonical 与 Practice 只呈现当前成立的完整文本。材料通过裁决
 
 ```bash
 python3 -m pip install -r papers/requirements.txt
+python3 papers/build_en.py
 python3 papers/build.py
 python3 papers/validate.py
-# → papers/dist/schema-engineering-2026-09-07.html
-# → papers/dist/index.html
+# → papers/dist/schema-engineering-2026-09-07-reader-2026-09-10[-en].html
+# → papers/dist/index.html / index-en.html
 ```
 
 依赖：Python 3.10+ 与锁定版本的 `markdown2`。编译产物是无外部运行依赖的单文件 HTML，包含 Canonical、Practice 和 Practice Index 三个视图。推送到 `main` 后，GitHub Actions 会重新构建、校验并发布 Pages；本地生成的 `dist/index.html` 不纳入版本控制，避免重复的可变发布文件。
+
+英文三份文本保存为固定中文源的派生译文 cache，由 `build_en.py` 独立编译。中文仍是唯一编订源；英文不另立论断或修订账本。来源、复核与同步条件见 [英文编译约定](translations/README.md)。`index-en.html` 与中文当前入口一样不纳入版本控制。
