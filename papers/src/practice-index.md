@@ -314,7 +314,7 @@ status
 
 ### PI-23 · DSH model–harness 协同与持续工作 loop（候选观察）
 
-- **日期 / 来源类别**：2026-09-10；用户提供的产品讨论导出与社交媒体截图。来源身份是完整的《DSH协同训练分析》导出（7 turns、13 messages，最新用户轮“看起来不错 @Exa”后无 assistant reply）及一张 X.com 截图。截图可见发帖人 Tianyi Cui（`@tianyi`）、`13:27 · 10/09/2026`，帖子 URL 未随附件提供；评论者与聊天中 Exa 的引用不作为已核验来源。
+- **日期 / 来源类别**：2026-09-10；用户提供的产品讨论导出与社交媒体截图。来源身份是完整的《DSH协同训练分析》导出（7 turns、13 messages，最新用户轮无 assistant reply）及一张 X.com 截图；本条仅消费 T01–T03 技术讨论，不复制后续职业交流材料。截图可见发帖人 Tianyi Cui（`@tianyi`）、`13:27 · 10/09/2026`，帖子 URL 未随附件提供；评论者与聊天中 Exa 的引用不作为已核验来源。
 - **核验级别**：仅核对附件文字、导出完整性和来源身份；属于未核验产品信号 / 设计推论（非运行观察、非独立实证）。截图声称 DSH `v0.1.5` 与 DeepSeek V4.1 Flash 深度结合并在不同配置中专项训练／优化，且 Agent Teams 将以模型训练结合的实验功能开放；这些版本、训练关系和实验语义尚未由本条独立确认。已有 [CourtWork 固定来源索引（`9c8b64e`）](https://github.com/lesPrivilege/Courtwork/blob/9c8b64e85e1b4a906dcd23cd5be621da1ba90638/engineering/research/architecture-maintenance-2026-09-09/source-index.md) 与本 Index 的 [DSH 官方入口][^dsh-home][^dsh-readme][^dsh-architecture] 只可作为后续核验入口，不替代本轮新证据。
 - **可观察机制与候选解释**：材料把以下五个方面放在同一 model × harness 叙事中，但后四项主要来自聊天内的二手分析，当前只登记为待核对候选：
 
@@ -329,8 +329,8 @@ status
 - **最小支持命题**：本材料最多支持一个可追踪的外部产品／社区信号：DSH 叙事明确把 Harness 配置、模型专项优化和实验性 Agent Teams 放在共同演化语境中，并提出一个可检验的分层候选——稳定的 Work semantics、durable state 与 provenance 应与可专门化的 model / Harness / Context / coordination execution 分离；专家维护的工作 loop 可作为由 trace、Eval、修复和版本化推动的行为改进候选，但不等于模型 post-training。该命题是 Index 级候选，不是独立趋同已证明，也不证明任何收益。
 - **不支持的外推**：不支持 DSH `v0.1.5`、V4.1 Flash 的完整发布或训练细节；不支持不同 Harness 配置已经导致质量、效率或 cache 命中改善；不支持 Agent Teams 的 roster、mailbox、CAS、DAG、live-vs-durable separation、replay 或实验包隔离已经实现；不支持任何聊天内数字、代码路径、API、产品 roadmap、组织或市场判断；不支持 Harness specialization 必然保持 Work semantics、专家 loop 等于权重 post-training、trace 可直接变成训练数据、coding agent 已成为 software-engineering agent，或 DSH 与 SE 已形成独立趋同／跨领域效度。亦不据此增加 Career-kit 内容或复制个人职业／私密原文。
 - **复现 / 证伪**：先用带版本的官方 release、tag、源码／文档和可定位的原帖核对产品与训练声称；无原帖 URL 或官方训练说明时，将相关项保持未核验。对 model–Harness 候选，固定 Work Contract、模型、任务与预算，比较 generic 与 harness-specialized profile，并做 tool rename、protocol substitution、field-order、Context Projection 和环境迁移，复用 Canonical §11.3、PI-20 / V-19 的 interface-accident 与兼容边界。对 state / Context / cache，比较同一 Matter 的跨 Session 投影，注入 compaction、stale / superseded context、policy 变化和 prefix 重排，分别测 provenance、omission / pollution、cache stability、成本与 accepted work，复用 PI-07、PI-10、PI-21 / V-06、V-09、V-21、V-22。对 durable coordination，注入重复投递、迟到回执、CAS 冲突和并发写入，对照 governed branch / artifact 与 messaging topology，测污染、重复、恢复和接受，复用 PI-19 / V-17、V-18。对 expert loop / post-train，固定 rights、专家工时、计算、模型族和留出集，对照静态 prompt、版本化 loop policy 与权重训练，检查 attribution、held-out Work Eval、accepted outcome、reversal、成本和回归，复用 PI-03、PI-13、PI-14、PI-16 / P15–P16。coding 与 software engineering 的区分沿用 PI-13 的局部 coding benchmark 对长期 Artifact / Evidence、架构和独立 Acceptance 的对照；本条不新建验证队列。
-- **讨论与裁决 / 正文处置**：待主 Astra fresh 复核。本地临时建议为 `observed` / Index-only：只保留来源身份、逐项候选、核验级别、最小命题和证伪路径；不把原文“极强命中”“独立趋同”作为裁决，不修改 Canonical、Practice、Edition、CHANGELOG、验证队列或发布生成物。现有 Canonical §11.3–11.5、§12.2、§13.2–13.3 与 Practice §2.5、§2.7、§3.1、§3.5、§4.3–4.4、§6.5–6.6 已能承载这些边界；若后续发现新命题仍不能由既有对象表达，应由 Astra 另行裁决，而非由本条先加 ontology。
-- **状态**：observed（候选，Index-only；Astra 裁决待定）。
+- **讨论与裁决 / 正文处置**：主 Astra 复读候选差异及既有 PI-03、PI-22 / 验证队列后，裁为 `indexed` / Index-only：只保留来源身份、逐项候选、核验级别、最小命题和证伪路径；不把原文“极强命中”“独立趋同”作为裁决，不修改 Canonical、Practice、Edition、CHANGELOG、验证队列或发布生成物。上述既有正文坐标是 Luna 的候选映射，不声称本轮独立逐条验证；没有足够证据支持新增 ontology 或正文修订。后续若提出新命题，由 Astra 另行复读承重正文并裁决。
+- **状态**：indexed（候选仅入 Index；不构成产品或实证接受，未发布）。
 
 ---
 
