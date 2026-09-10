@@ -68,3 +68,7 @@ CourtWork 发布面于 2026-09-09 重开筹备（Courtwork `engineering/release/
 用户已授权将本地材料、阅读器与译文合并推送。中文继续采用自然中文与必要的英文术语；三份英文全文是固定中文源的派生 cache，由独立入口编译，不成为第二套 Canonical。来源固定到 `a0234bc42dda75767554a2da89c247d66c2ad022`，hash、实际复核范围与遗漏在 `papers/translations/` 登记。旧日期发布物不重写；本次使用独立 reader revision 文件，论文仍为9.6。
 
 阅读页保留 Canonical / Practice / Index 三种职责，采用冷白、灰阶和稀疏的 review 提示色。语言切换须保留当前文档与章节，页面不依赖外部字体或运行服务。发布完成以 Pages 工作流结果为准。
+
+## Reader controls · 2026-09-11
+
+Canonical / Practice / Index 为中英文阅读页共用的三宗标签。移动端三宗导航与语言、主题两个控件保持同一行，两组分居左右；均保留44px高的触控区域。只修阅读设施，9.6正文、译文与历史产物不改；本次reader revision单列2026-09-11。

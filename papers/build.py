@@ -32,7 +32,7 @@ EN_DIR = TRANSLATIONS_DIR / "en"
 
 EDITION = "2026-09-07"
 TEXT_REVISION = "9.6"
-READER_REVISION = "2026-09-10"
+READER_REVISION = "2026-09-11"
 
 # The old file is a historical text release. Keep this path visible so the
 # validator can guard it explicitly, while the reader uses a new path.
@@ -277,8 +277,8 @@ def _labels(language: str) -> dict[str, str]:
             "lang": "en",
             "html_lang": "en",
             "canonical": "Canonical",
-            "practice": "Practice Snapshot",
-            "index": "Practice Index",
+            "practice": "Practice",
+            "index": "Index",
             "reader": "Working Papers",
             "switch": "中文",
             "aria": "Paper view",
@@ -292,9 +292,9 @@ def _labels(language: str) -> dict[str, str]:
     return {
         "lang": "zh",
         "html_lang": "zh-CN",
-        "canonical": "正文",
-        "practice": "实践快照",
-        "index": "Practice Index",
+        "canonical": "Canonical",
+        "practice": "Practice",
+        "index": "Index",
         "reader": "工作论文",
         "switch": "English",
         "aria": "论文视图",

@@ -132,3 +132,21 @@ body[data-reader][data-reader-ready] .paper:not([data-active="true"]) { display:
 
 .reader-footer { width: min(var(--page-width), calc(100% - 2rem)); margin: 0 auto 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--muted); font: 0.78rem/1.8 var(--sans); }
 .reader-footer span { display: block; }
+
+/* The document family and reading controls share one line, at opposite ends. */
+.view-controls { flex-wrap:nowrap; gap:1rem; }
+.mode-controls { flex-wrap:nowrap; min-width:0; }
+.mode-controls a { display:inline-flex; align-items:center; justify-content:center; min-height:44px; white-space:nowrap; }
+.reader-actions { flex-shrink:0; }
+.reader-actions button, .reader-actions .language-switch { min-height:44px; }
+@media (max-width:720px) {
+  .view-controls { gap:0.5rem; }
+  .mode-controls { gap:0; }
+  .mode-controls a { padding-inline:0.45rem; }
+  .reader-actions { gap:0.35rem; }
+}
+@media (max-width:390px) {
+  .view-controls { width:calc(100% - 1.5rem); gap:0.4rem; }
+  .mode-controls a { font-size:0.73rem; padding-inline:0.3rem; }
+  .reader-actions button, .reader-actions .language-switch { font-size:0.73rem; padding-inline:0.4rem; }
+}
