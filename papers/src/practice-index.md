@@ -314,6 +314,7 @@ status
 
 ### PI-23 · DSH model–harness 协同与持续工作 loop（候选观察）
 
+- **原始讨论入口**：[DSH协同训练分析](chatgpt-conversation://6aa26525-7848-83ec-90b3-34b4da6ef670)；访问需要原讨论权限。导出 JSON SHA-256：`c2d975314cc1f3c2ce4b0af79927d07e6fb3d73aa5591c63705481bef995e58f`；原文不复制到论文仓。
 - **日期 / 来源类别**：2026-09-10；用户提供的产品讨论导出与社交媒体截图。来源身份是完整的《DSH协同训练分析》导出（7 turns、13 messages，最新用户轮无 assistant reply）及一张 X.com 截图；本条仅消费 T01–T03 技术讨论，不复制后续职业交流材料。截图可见发帖人 Tianyi Cui（`@tianyi`）、`13:27 · 10/09/2026`，帖子 URL 未随附件提供；评论者与聊天中 Exa 的引用不作为已核验来源。
 - **核验级别**：仅核对附件文字、导出完整性和来源身份；属于未核验产品信号 / 设计推论（非运行观察、非独立实证）。截图声称 DSH `v0.1.5` 与 DeepSeek V4.1 Flash 深度结合并在不同配置中专项训练／优化，且 Agent Teams 将以模型训练结合的实验功能开放；这些版本、训练关系和实验语义尚未由本条独立确认。已有 [CourtWork 固定来源索引（`9c8b64e`）](https://github.com/lesPrivilege/Courtwork/blob/9c8b64e85e1b4a906dcd23cd5be621da1ba90638/engineering/research/architecture-maintenance-2026-09-09/source-index.md) 与本 Index 的 [DSH 官方入口][^dsh-home][^dsh-readme][^dsh-architecture] 只可作为后续核验入口，不替代本轮新证据。
 - **可观察机制与候选解释**：材料把以下五个方面放在同一 model × harness 叙事中，但后四项主要来自聊天内的二手分析，当前只登记为待核对候选：
