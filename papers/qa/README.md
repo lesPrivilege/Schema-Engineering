@@ -21,3 +21,11 @@ node papers/qa/verify_reader.mjs --origin http://127.0.0.1:8962/ --out /tmp/se-r
 浏览器使用独立临时 profile 与调试端口，不读取个人浏览器资料。可用 `--cdp-port` 更换端口。截图和 `results.json` 写到指定输出目录；该脚本不修改源文、译文或 manifest。
 
 覆盖中英文三视图、章节目录跳转、语言与章节位置、桌面/320px/390px/720px/1100px/1301px/200%/深色、文本对比度、键盘入口、无 JavaScript、打印（含深色彩色署名的灰阶覆盖）与页面外部请求。译文语义审读范围见 `../translations/review-2026-09-10.md`；结构相同不代表语义正确。
+
+## 发布前补充验证
+
+```bash
+node papers/qa/verify_prepublish.mjs --origin http://127.0.0.1:8962/ --cdp-port 19981 --out /tmp/se-prepublish
+```
+
+54项覆盖前进/后退、刷新与共享链接、目录末项、键盘路径、无脚本details、显式主题优先级、减弱动态、高对比颜色映射、打印矩阵和离线阅读；另核 optical-03 几何及 common-red-v1 品牌色在浅深主题/正文墨色变化时稳定。forced-colors由浏览器媒体模拟；缩放自动化采用有效viewport/DPR模拟，不称真实浏览器菜单zoom。原生VoiceOver、IME、实体打印未测。

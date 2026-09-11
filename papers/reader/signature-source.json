@@ -1,0 +1,19 @@
+{
+  "revision": "optical-03",
+  "source": {
+    "repository": "Courtwork",
+    "commit": "7b154a1c720fdeb40f6a838efae2e528b3357e0c",
+    "path": "brand/les-privilege/mark.svg",
+    "sha256": "f6491af9a90407c020d378f874afae250416aceb1581d5f7b2f5a5875f0c2299",
+    "paletteManifest": {
+      "path": "brand/les-privilege/manifest.json",
+      "sha256": "c6e412620bd4112cb4eadb9dea7fd90eff972109eadcae4db9b50e99ab55bc55"
+    }
+  },
+  "adaptation": "Same optical-03 geometry including group translation; host decorative ARIA and family CSS hooks. common-red-v1 #c95e55 on both schemes; print black and forced-colors system mapping.",
+  "derived": {
+    "path": "signature.svg",
+    "sha256": "d263b57a30630d7f7babdaa7f4d6580250dccae181775d2929776bab8e647b4e"
+  },
+  "paletteRevision": "common-red-v1"
+}
