@@ -143,6 +143,14 @@
     themeButton.setAttribute("aria-pressed", String(dark));
   }
 
+  // Wide screens carry the contents as a rail beside the column; narrow screens keep it folded.
+  var rail = window.matchMedia ? window.matchMedia("(min-width: 1100px)") : null;
+  function foldContents() {
+    document.querySelectorAll(".reader-toc").forEach(function (toc) { toc.open = Boolean(rail && rail.matches); });
+  }
+  foldContents();
+  if (rail && rail.addEventListener) rail.addEventListener("change", foldContents);
+
   setMode(modeFromLocation(), false);
   if (window.location.hash) {
     window.setTimeout(function () {

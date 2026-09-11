@@ -33,13 +33,17 @@ EN_DIR = TRANSLATIONS_DIR / "en"
 EDITION = "2026-09-07"
 TEXT_REVISION = "9.6"
 READER_REVISION = "2026-09-11"
+# Publication-view candidate. The dated 2026-09-11 reader files stay untouched; the
+# candidate writes its own dated file until Astra integrates and drops the suffix.
+READER_CANDIDATE = "paper-v1"
+SIGNATURE_FAMILY = "black"  # "black" (default reading masthead) or "color" (cover / publishing use)
 
 # The old file is a historical text release. Keep this path visible so the
 # validator can guard it explicitly, while the reader uses a new path.
 HISTORICAL_RELEASE_FILE = DIST_DIR / f"schema-engineering-{EDITION}.html"
-OUT_FILE = DIST_DIR / f"schema-engineering-{EDITION}-reader-{READER_REVISION}.html"
+OUT_FILE = DIST_DIR / f"schema-engineering-{EDITION}-reader-{READER_REVISION}-{READER_CANDIDATE}.html"
 INDEX_FILE = DIST_DIR / "index.html"
-EN_OUT_FILE = DIST_DIR / f"schema-engineering-{EDITION}-reader-{READER_REVISION}-en.html"
+EN_OUT_FILE = DIST_DIR / f"schema-engineering-{EDITION}-reader-{READER_REVISION}-{READER_CANDIDATE}-en.html"
 EN_INDEX_FILE = DIST_DIR / "index-en.html"
 
 SOURCE_FILES: dict[str, Path] = {
@@ -51,6 +55,43 @@ TRANSLATION_FILES: dict[str, Path] = {
     name: EN_DIR / f"{name if name != 'index' else 'practice-index'}.md"
     for name in SOURCE_FILES
 }
+
+
+COVER_ALT = {
+    "zh": "编辑插画：一块铅白的承载面上留着工作的结构——几张成果的纸、一行已提交的刻痕、一个仍然打开的义务环；右侧几道石墨弧线是先后到来又离开的执行者，只有它们接触承载面时留下的记号被保留下来。",
+    "en": "Editorial illustration: on a lead-white bearing surface the structure of the work remains—a few sheets of results, a row of committed notches, one obligation ring still open; on the right, graphite arcs are executors that arrive and leave in turn, and only the marks they left where they touched the surface are kept.",
+}
+
+
+def reader_asset(name: str) -> str:
+    """Read an optional reader-layer asset (signature mark, editorial cover)."""
+
+    path = SCRIPT_DIR / "reader" / name
+    return path.read_text(encoding="utf-8").strip() if path.is_file() else ""
+
+
+def with_cover(markup: str, alt: str) -> str:
+    """Mount the editorial cover after the paper's own title and subtitle.
+
+    The cover is a reader-layer asset; the Markdown source is not edited. Wide
+    and compact drawings are both inlined; CSS shows one per viewport.
+    """
+
+    wide = reader_asset("cover.svg")
+    compact = reader_asset("cover-compact.svg")
+    if not wide:
+        return markup
+    escaped = html.escape(alt, quote=True)
+    figure = (
+        '<figure class="paper-cover" role="img" aria-label="' + escaped + '">'
+        + wide.replace("<svg ", '<svg class="cover-wide" aria-hidden="true" ', 1)
+        + (compact.replace("<svg ", '<svg class="cover-compact" aria-hidden="true" ', 1) if compact else "")
+        + "</figure>"
+    )
+    match = re.search(r"</h2>", markup)
+    if not match:
+        return figure + markup
+    return markup[: match.end()] + figure + markup[match.end() :]
 
 
 def strip_front_matter(text: str) -> str:
@@ -288,6 +329,14 @@ def _labels(language: str) -> dict[str, str]:
             "source": "Chinese editorial source",
             "translation_note": "AI translation · Source comparison and review record",
             "noscript": "JavaScript is optional; all three papers remain readable on this page.",
+            "maker": "les Privilege",
+            "meta_canonical": "Canonical Edition",
+            "meta_practice": "Practice Snapshot",
+            "meta_index": "Practice Index",
+            "meta_edition": "Edition",
+            "meta_revision": "Text revision",
+            "meta_reader": "Reader candidate",
+            "cover_alt": COVER_ALT["en"],
         }
     return {
         "lang": "zh",
@@ -304,6 +353,14 @@ def _labels(language: str) -> dict[str, str]:
         "source": "中文编订源",
         "translation_note": "",
         "noscript": "未启用 JavaScript 时，三份论文仍可完整阅读。",
+        "maker": "les Privilege",
+        "meta_canonical": "Canonical Edition",
+        "meta_practice": "Practice Snapshot",
+        "meta_index": "Practice Index",
+        "meta_edition": "Edition",
+        "meta_revision": "文本版本",
+        "meta_reader": "阅读面候选",
+        "cover_alt": COVER_ALT["zh"],
     }
 
 
@@ -359,6 +416,10 @@ def render_page(
         edition=EDITION,
         text_revision=TEXT_REVISION,
         reader_revision=READER_REVISION,
+        reader_candidate=READER_CANDIDATE,
+        signature_family=SIGNATURE_FAMILY,
+        maker=html.escape(labels["maker"]),
+        signature=reader_asset("signature.svg"),
         css=(SCRIPT_DIR / "reader" / "reader.css").read_text(encoding="utf-8"),
         js=(SCRIPT_DIR / "reader" / "reader.js").read_text(encoding="utf-8"),
         canonical=with_toc(papers["canonical"], "canonical", labels),
@@ -381,9 +442,20 @@ def with_toc(markup: str, mode: str, labels: Mapping[str, str]) -> str:
             f'data-toc-link href="#{html.escape(anchor, quote=True)}">{plain}</a></li>'
         )
     summary = f'{labels[mode]} · {labels["toc"]}'
+    meta = (
+        '<p class="paper-meta">'
+        f'<span>{html.escape(labels["meta_" + mode])}</span>'
+        f'<span>{html.escape(labels["meta_edition"])} {EDITION}</span>'
+        f'<span>{TEXT_REVISION}</span>'
+        f'<span>{html.escape(labels["meta_reader"])} {READER_REVISION}</span>'
+        "</p>"
+    )
+    if mode == "canonical":
+        markup = with_cover(markup, labels["cover_alt"])
     return (
         f'<details class="reader-toc"><summary>{html.escape(summary)}</summary>'
-        f'<nav aria-label="{html.escape(summary)}"><ol>{"".join(links)}</ol></nav></details>{markup}'
+        f'<nav aria-label="{html.escape(summary)}"><ol>{"".join(links)}</ol></nav></details>'
+        f'<div class="paper-body">{meta}{markup}</div>'
     )
 
 
@@ -395,22 +467,21 @@ TEMPLATE = """<!doctype html>
   <meta name="paper-edition" content="{edition}">
   <meta name="text-revision" content="{text_revision}">
   <meta name="reader-revision" content="{reader_revision}">
+  <meta name="reader-candidate" content="{reader_candidate}">
   <meta name="source-sha256" content="{source_digest}">
   <meta name="source-commit" content="{source_commit}">
   <meta name="translation-sha256" content="{translation_digest}">
   <title>Schema Engineering · {edition} · {language}</title>
   <style>{css}</style>
 </head>
-<body data-reader data-reader-revision="{reader_revision}" data-language="{language}">
+<body data-reader data-reader-revision="{reader_revision}" data-reader-candidate="{reader_candidate}" data-language="{language}" data-signature="{signature_family}">
   <a class="skip-link" href="#reader-content">{skip_label}</a>
-  <header class="reader-header">
+  <header class="reader-masthead">
     <div class="reader-brand">
-      <p class="eyebrow">SCHEMA ENGINEERING · {edition} · {language}</p>
-      <div class="reader-heading">
-        <h1>Schema Engineering</h1>
-        <p>{reader_label}</p>
-      </div>
+      <h1>Schema Engineering</h1>
+      <p>{reader_label} · {edition}</p>
     </div>
+    <p class="maker">{signature}<span>{maker}</span></p>
   </header>
   <nav class="view-controls" aria-label="{paper_aria}">
     <div class="mode-controls">
@@ -428,7 +499,7 @@ TEMPLATE = """<!doctype html>
     <article class="paper" id="paper-practice" data-paper-mode="practice" aria-hidden="false">{practice}</article>
     <article class="paper" id="paper-index" data-paper-mode="index" aria-hidden="false">{index}</article>
   </main>
-  <footer class="reader-footer">9.6 · {edition} · {source_link} <span>{translation_note}</span></footer>
+  <footer class="reader-footer"><span>Schema Engineering · {text_revision} · {edition} · {source_link} {translation_note}</span><span>{maker} · {reader_candidate} · {reader_revision}</span></footer>
   <noscript><p class="noscript-note">{noscript_label}</p></noscript>
   <script>{js}</script>
 </body>
