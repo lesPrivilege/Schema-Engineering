@@ -34,7 +34,7 @@ EDITION = "2026-09-07"
 TEXT_REVISION = "9.6"
 READER_REVISION = "2026-09-11"
 # Publication-view candidate. The dated 2026-09-11 reader files stay untouched; the
-# candidate writes its own dated file until Astra integrates and drops the suffix.
+# candidate keeps its own dated path; integration must not overwrite historical releases.
 READER_CANDIDATE = "paper-v1"
 SIGNATURE_FAMILY = "black"  # "black" (default reading masthead) or "color" (cover / publishing use)
 
@@ -58,16 +58,19 @@ TRANSLATION_FILES: dict[str, Path] = {
 
 
 COVER_ALT = {
-    "zh": "编辑插画：一块铅白的承载面上留着工作的结构——几张成果的纸、一行已提交的刻痕、一个仍然打开的义务环；右侧几道石墨弧线是先后到来又离开的执行者，只有它们接触承载面时留下的记号被保留下来。",
-    "en": "Editorial illustration: on a lead-white bearing surface the structure of the work remains—a few sheets of results, a row of committed notches, one obligation ring still open; on the right, graphite arcs are executors that arrive and leave in turn, and only the marks they left where they touched the surface are kept.",
+    "zh": "编辑插画：承载面保留经治理的成果、提交记录与未完义务；右侧弧线表示更替的模型执行实例。",
+    "en": "Editorial illustration: the bearing surface retains governed results, commit records, and unfinished obligations; arcs on the right represent successive model execution instances.",
 }
 
 
 def reader_asset(name: str) -> str:
-    """Read an optional reader-layer asset (signature mark, editorial cover)."""
+    """Read a required reader asset; missing or empty files must stop the build."""
 
     path = SCRIPT_DIR / "reader" / name
-    return path.read_text(encoding="utf-8").strip() if path.is_file() else ""
+    content = path.read_text(encoding="utf-8").strip()
+    if not content:
+        raise ValueError(f"Required reader asset is empty: {path}")
+    return content
 
 
 def with_cover(markup: str, alt: str) -> str:
@@ -79,13 +82,11 @@ def with_cover(markup: str, alt: str) -> str:
 
     wide = reader_asset("cover.svg")
     compact = reader_asset("cover-compact.svg")
-    if not wide:
-        return markup
     escaped = html.escape(alt, quote=True)
     figure = (
         '<figure class="paper-cover" role="img" aria-label="' + escaped + '">'
         + wide.replace("<svg ", '<svg class="cover-wide" aria-hidden="true" ', 1)
-        + (compact.replace("<svg ", '<svg class="cover-compact" aria-hidden="true" ', 1) if compact else "")
+        + compact.replace("<svg ", '<svg class="cover-compact" aria-hidden="true" ', 1)
         + "</figure>"
     )
     match = re.search(r"</h2>", markup)
@@ -330,7 +331,7 @@ def _labels(language: str) -> dict[str, str]:
             "translation_note": "AI translation · Source comparison and review record",
             "noscript": "JavaScript is optional; all three papers remain readable on this page.",
             "maker": "les Privilege",
-            "meta_canonical": "Canonical Edition",
+            "meta_canonical": "Canonical",
             "meta_practice": "Practice Snapshot",
             "meta_index": "Practice Index",
             "meta_edition": "Edition",
@@ -354,7 +355,7 @@ def _labels(language: str) -> dict[str, str]:
         "translation_note": "",
         "noscript": "未启用 JavaScript 时，三份论文仍可完整阅读。",
         "maker": "les Privilege",
-        "meta_canonical": "Canonical Edition",
+        "meta_canonical": "Canonical",
         "meta_practice": "Practice Snapshot",
         "meta_index": "Practice Index",
         "meta_edition": "Edition",
@@ -446,7 +447,7 @@ def with_toc(markup: str, mode: str, labels: Mapping[str, str]) -> str:
         '<p class="paper-meta">'
         f'<span>{html.escape(labels["meta_" + mode])}</span>'
         f'<span>{html.escape(labels["meta_edition"])} {EDITION}</span>'
-        f'<span>{TEXT_REVISION}</span>'
+        f'<span>{html.escape(labels["meta_revision"])} {TEXT_REVISION}</span>'
         f'<span>{html.escape(labels["meta_reader"])} {READER_REVISION}</span>'
         "</p>"
     )

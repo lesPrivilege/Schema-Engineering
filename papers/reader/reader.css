@@ -146,7 +146,7 @@ body:not([data-reader-ready]) .paper + .paper { margin-top: 5rem; padding-top: 2
 .paper-cover .ed-ink-field { fill: none; stroke: var(--ed-ink-field); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .paper-cover .ed-ink-fill-field { fill: var(--ed-ink-field); } .paper-cover .ed-fill-none { fill: none; }
 .paper-cover .ed-thin { stroke-width: 1.5; } .paper-cover .ed-heavy { stroke-width: 3.2; } .paper-cover .ed-dashed { stroke-dasharray: 7 8; } .paper-cover .ed-faded { stroke: var(--ed-faded); } .paper-cover .ed-red { fill: var(--ed-red); }
-@media print { .paper-cover { --ed-field: #e6e6e6; --ed-plate: #fff; --ed-ink-plate: #000; --ed-ink-field: #000; --ed-faded: #777; --ed-red: #000; } }
+@media print { :root .paper-cover, :root[data-theme] .paper-cover { --ed-field: #e6e6e6; --ed-plate: #fff; --ed-ink-plate: #000; --ed-ink-field: #000; --ed-faded: #777; --ed-red: #000; } }
 
 /* section hierarchy */
 .paper-body h2 {
@@ -245,7 +245,7 @@ body:not([data-reader-ready]) .paper + .paper { margin-top: 5rem; padding-top: 2
 }
 @media (prefers-reduced-motion: reduce) { .reader-toc summary::before { transition: none; } }
 @media print {
-  :root, :root[data-theme] { color-scheme: light; --canvas: #fff; --surface: #fff; --surface-muted: #f5f5f5; --code: #fff; --ink: #000; --ink-strong: #000; --muted: #333; --link: #000; --rule: #999; --rule-strong: #666; }
+  :root, :root[data-theme] { color-scheme: light; --canvas: #fff; --surface: #fff; --surface-muted: #f5f5f5; --code: #fff; --ink: #000; --ink-strong: #000; --muted: #333; --link: #000; --rule: #999; --rule-strong: #666; --lp-l: #000; --lp-secondary: #000; --lp-red: #000; }
   .view-controls, .reader-actions, .noscript-note, .reader-toc { display: none; }
   .reader-masthead { border-bottom: 1px solid var(--rule); }
   .reader-content, .paper, .paper-body { width: auto; max-width: none; display: block; }

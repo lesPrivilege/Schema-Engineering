@@ -158,7 +158,7 @@ try {
       record(`${language}-${mode}-language-anchor`,switched.mode===mode&&switched.hash===anchor&&switched.language!==(language==='zh'?'zh-CN':'en'),switched);
     }
     for (const mode of ['canonical','practice','index']) {
-      for (const width of [390,720]) {
+      for (const width of [320,390,720,1100,1301]) {
         await load(new URL(`${filename}?mode=${mode}`,ORIGIN).href,{width});
         const layout=await evaluate(`({width:innerWidth,scrollWidth:document.documentElement.scrollWidth})`);
         record(`${language}-${mode}-width${width}`,layout.scrollWidth<=layout.width+1,layout);
@@ -195,9 +195,12 @@ try {
     await cdp('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});
     const focused=await evaluate(`({tag:document.activeElement.tagName,text:document.activeElement.textContent,outline:getComputedStyle(document.activeElement).outlineStyle})`);
     record(`${language}-keyboard`,focused.tag==='A'&&focused.outline!=='none',focused);
+    await evaluate(`document.documentElement.dataset.theme='dark';document.body.dataset.signature='color'`);
     await cdp('Emulation.setEmulatedMedia',{media:'print'});
     const print=await evaluate(`[...document.querySelectorAll('[data-paper-mode]')].filter(n=>getComputedStyle(n).display!=='none').length`);
     record(`${language}-print`,print===3,{visible:print});
+    const printPalette=await evaluate(`({field:getComputedStyle(document.querySelector('.paper-cover')).getPropertyValue('--ed-field').trim(),mark:getComputedStyle(document.querySelector('.lp-l')).fill})`);
+    record(`${language}-print-dark-color`,printPalette.field==='#e6e6e6'&&printPalette.mark==='rgb(0, 0, 0)',printPalette);
     await cdp('Emulation.setEmulatedMedia',{media:''});
   }
 } finally {
