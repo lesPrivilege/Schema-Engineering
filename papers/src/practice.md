@@ -1,10 +1,9 @@
 ---
 Status: Companion Paper · Practice Snapshot
-Edition: 2026-09-13
-Revision: 9.7 · Generalized Practice Snapshot
-Canonical base: 2026-09-13 Canonical Edition
+Edition: 2026-09-14
+Revision: 9.8 · Generalized Practice Snapshot
+Canonical base: 2026-09-14 Canonical Edition
 Scope: Sparse Work Harness、Compiled Work Expert、Matter Sidecar、Context governance、Human Work Surface、Work Extension 编订、离线 Eval 与验证。
-Closure posture: 本文是带日期的实践快照，只保留当下可执行的最小、泛化结论。产品、论文、社区个例、来源、检验状态与增量裁决统一编入 Practice Index，不作为本文成立的前提。
 ---
 
 # Schema Engineering 的实践面
@@ -15,20 +14,18 @@ Closure posture: 本文是带日期的实践快照，只保留当下可执行的
 
 Schema Engineering 的实践问题是：如何把通用模型和 Agentic Runtime 已经提供的推理、工具、会话、权限和界面能力，编订为可以恢复、审阅、提交和修订的工作能力。
 
-当前实践形态可压缩为：通用 Runtime 之上放置宿主适配层；用 Sparse Work Harness 组合经治理的 Work Extension 与 Compiled Work Expert；用 Matter Sidecar 保存正式状态、未完义务和 Artifact 版本；用 Context Compiler 与 Human Work Surface 生成面向模型和人的不同投影；用 typed commitment boundary 决定什么可以生效。
+实践从可复用的持久工作语义出发：沿用既有系统、文档与记录中的对象身份、版本、权限和决定，把它们映射到 Work Contract；用适配层接入可替换的 Agentic Runtime；用 Context Compiler 与 Human Work Surface 生成面向模型和人的不同投影；用 typed commitment boundary 决定什么可以生效。Sparse Work Harness、Compiled Work Expert 与 Matter Sidecar 分别组织能力激活、任务族复用和持续状态，可以随现有设施逐步采用。
 
 ---
 
 ## 一、实践约束
 
-实践不从某个宿主、产品或成功案例出发，而从四个不受具体实现影响的约束出发：
+Agent 参与持续工作需要满足四个约束：
 
 1. Runtime 只提供执行机制，不自动提供工作语义。
 2. 总存量与单次 Attention 必须分离，否则长期工作会退化为反复全量重读。
 3. 模型、人和多个执行实例只能提出候选变更，不能因为输出完整或意见一致就取得正式效力。
 4. 专业用户直接处理工作对象、证据、版本、异议和决定，不学习 Session、Prompt、Tool routing 或 Subagent mechanics。
-
-以下各节的边界、架构、状态层、工作表面、编订方法、测试与失败模式都由这四个约束推出。
 
 ---
 
@@ -87,6 +84,8 @@ candidate evaluator or training signal
 
 持久内容分别承担原始记录、当前状态和工作规则的责任。Memory 支持保存与召回；Current Semantic State 表达目前有效的事实、决定和开放义务；Schema 规定对象关系、状态含义与可接受的转换，并约束什么应跨 Run 保留。
 
+接入已有工作先确定 canonical owner。业务记录、版本库、文件档案或事项系统继续拥有其正式对象，Agent 通过稳定标识、版本和授权接口读取与提案；Sidecar 只补存尚无归属的义务与关系。保留期限、撤销、来源和审批状态随对象进入投影，避免另建一份由模型记忆维护的权威副本。
+
 稳定语义使不同执行实例能够比较同一工作中的变化。Candidate 应引用对象和依据版本，声明拟改变的内容及前置条件；提交时对当前状态重新验证。Schema 版本变化则先建立明确映射，再解释旧状态与新候选的关系。
 
 Context Projection、Human Work Surface 与 Retrieval Index 是执行、裁决和定位所需的不同视图。它们共同引用正式状态与原始来源，不各自维护事实。Current Semantic State 能承载后续决策所需信息时，可以成为默认执行基底；未编入的 Observation、尚待发现的工作关系及作为研究对象的历史过程，通过 Raw History / Evidence 按需补充。
@@ -139,18 +138,6 @@ Run Plan
 | 已接受文档成果 | Active Artifact | 经 commitment 后可以 |
 
 完整保留原始记录有助于回溯，生成索引有助于恢复；二者都不取代 Current Semantic State。
-
-### 2.9 当前实践命题
-
-当前快照承担以下可检验命题：
-
-1. Runtime 与 Work semantics 可以通过适配层分离。
-2. Completion 外置、feedback 编订、工作域隔离、持久资源和 Context 管理是互补机制，不是完整架构的替代品。
-3. Sparse capability activation 与 sparse state projection 需要共同接受 omission、pollution、permission 和 accepted-work-product 检验。
-4. Context Mutation、multi-agent topology 和 documentation workflow 都必须回到同一 Candidate / Committed 边界。
-5. Context Projection、Human Work Surface 与 Retrieval Index 共享同一权威状态及带来源和效力标记的材料、候选，不各自维护事实源。
-
----
 
 ## 三、参考架构：Sparse Work Harness
 
@@ -320,6 +307,8 @@ Store
 
 实现从本次 Assignment 的接收者、用途、任务阶段和状态版本出发确定可用范围，再定位完成当前义务所需的对象及关系。查询、索引和缓存可以分担这些操作，授权规则在数据进入对应 Runtime、工具或用户界面前执行。相关性排序只在允许使用的材料中决定优先次序。
 
+Schema 与检索分担不同工作。Schema 声明对象身份、关系、状态、效力与使用条件；关键词检索定位术语、编号和原文，向量检索寻找语义近邻，关系遍历补齐依赖与沿革。混合检索可以组合这些候选，再依据任务重排；metadata filter 执行已声明的范围与版本条件。检索结果携带身份、版本、来源和效力标记，进入 Context 时仍保留候选、历史与当前状态的区别。相关性得分不授予事实效力，Schema 也不穷尽尚待发现的内容。
+
 Compiler 按任务组织工作集。路由可以使用事项类别与开放义务，执行需要相关事实、Evidence 与当前版本，Review 需要候选差异、判据和未解冲突。每种视图保留其判断依赖的限定与来源；不足以支持下一步时，补取授权材料或返回缺口。Context 预算决定表示规模，不能把尚未覆盖的义务编译成完成。
 
 视图的来源版本、规则版本和适用范围随生成结果保存。对象变化或权限失效后，复用路径重新判断其适用性；依赖私有材料的摘要和工具参数沿用相应披露约束，不能因换了表示或操作通道而扩大接收范围。传递由执行边界实施控制，不能只交给 Prompt 中的保密要求。
@@ -327,18 +316,6 @@ Compiler 按任务组织工作集。路由可以使用事项类别与开放义�
 本次执行产生带对象、版本和前置条件的 Candidate，由提交路径判断哪些内容可以写回正式状态。外部操作先通过授权与前置条件检查，完成后将结果证据与相应候选关联；结果未知时保留待核对状态。新 Run 从有效状态和开放义务续行。
 
 Artifact State 与 Evidence State 分别回答“当前对象是什么”与“哪些行为已经验证、哪些主张仍无支持”。每轮工作同时携带可继续修改的 Artifact 与绑定具体版本的验证记录，原始材料和历史行动保持可检索。中间 reasoning 可以退出下一轮 Context，工作连续性由正式状态、Evidence 和恢复路径承接。
-
-### 4.4 Context Mutation Preservation
-
-在相同任务和资源下，对删除、摘要、压缩和重载分别检查：
-
-- 限定、冲突、否定关系和来源坐标是否保留；
-- retention policy 要求保留的 Raw Evidence 是否可恢复；
-- superseded 或 rejected state 是否被重新引入；
-- mutation 的 scope、lifetime、provenance 和 recovery path 是否可见；
-- 更短 Context 是否改善 accepted-work-product，而不只改善 token 或局部得分。
-
----
 
 ## 五、Human Work Surface
 
@@ -498,83 +475,7 @@ codified artifacts
 
 ---
 
-## 七、概念验证
-
-### 7.1 验证目标
-
-> 验证 Work Contract 能否在不修改宿主核心的条件下，被编译为可加载能力、Matter continuity、Context Projection、Human Work Surface、Authority boundary 与 typed commitment protocol。
-
-概念验证需要一个可插拔或可适配的 Runtime、一个 Matter repository、一组 Work Extension、一个 Context Compiler、一个 Human Work Surface renderer 和一条 commit protocol；多租户平台、市场、训练管线和全领域 ontology 都不是前提。
-
-### 7.2 共享场景
-
-至少使用三类责任结构不同的任务：
-
-- 结构化对象的逐项裁决；
-- 主张、来源、支持、反驳与限定的校勘；
-- finding、control、evidence、owner 与 remediation 的整改裁决。
-
-再增加一个弱 commitment 的对照场景，检查 Human Work Surface 是否在不依赖完整 Matter governance 时仍能改善 review bandwidth。
-
-### 7.3 必要测试
-
-#### Architecture
-
-- **No Core Patch**：不修改宿主核心也能加载、撤销和恢复 Extension。
-- **Upstream Upgrade**：等价接口替换只修改 adapter，不改变 Work semantics。
-- **Plugin Reload**：重载后 Matter 与 active Artifact 不丢失。
-- **AOT / JIT Equivalence**：预编译与运行时组合在相同边界下产生等价语义。
-
-#### Continuity and governance
-
-- **Session Replacement**：替换 Session 或模型后从 governed state 恢复。
-- **Candidate / Committed Isolation**：未通过适用提交检查的 output 不改变 Current Semantic State。
-- **Authority Failure**：越权裁决被拒绝并保留候选记录。
-- **Retrieval / Canonical Separation**：检索命中的旧陈述不被自动恢复为当前状态。
-- **Documentation Promotion**：Trace、Index、Candidate Decision、Active Contract 和 Accepted Artifact 具有不同写入路径。
-- **Context Mutation Preservation**：限定、冲突、否定、来源和恢复路径不因压缩丢失。
-- **State Sufficiency / History Disclosure**：对照 State-only、State + on-demand History 与 append-only Transcript，检查未被及时编入的 Observation、动态 Schema 和 trajectory-defined task 是否需要披露历史。
-- **Patch Preservation**：State patch 采用 merge semantics 而不是无声全量覆写；旧字段删除、类型改变与非法 patch 必须显式验证、拒绝或回滚。
-- **Failure Containment / Trusted Recovery**：向 Observation、Proposition、Candidate 与 validation 阶段分别注入错误，检查它是否在 commit 前被发现或隔离，并能否从最近 trusted checkpoint 由新 executor 恢复。
-
-#### Sparse activation and Expert release
-
-- **Sparse Capacity Scaling**：per-run Context 和 Tool surface 不随总存量线性增长。
-- **Omission / Pollution**：必要约束不被遗漏，旧版本、其他 Matter 和越权 capability 不被引入。
-- **Least Privilege**：激活能力只获得当前 role 与 stage 所需权限。
-- **Three-tier Priority**：Preset 先于 Expert routing，Expert 先于 primitive composition。
-- **Compiled Expert E2E**：评测整个 activation profile，而不是单个 tool 或 prompt。
-- **Staleness / Revalidation**：依赖或现实变化能触发缩窄、暂停、回滚或弃用。
-- **Graceful Escape**：未覆盖事项进入 Candidate-only frontier path，不被快速路径掩盖。
-
-#### Review and evaluation
-
-- **Completion Independence**：完成条件不由 Agent 临时降低。
-- **UI Representation Equivalence**：不同 renderer 对同一裁决产生相同状态后果。
-- **Review Bandwidth**：在成果质量不降低时，专家 Review 时间或恢复成本下降。
-- **Review Sufficiency**：去除完整 execution trace 后，结构化 Review packet 仍使 Reviewer 发现关键错误、请求必要证据并形成可解释的独立判断。
-- **Projection Consistency**：基于同一状态与来源快照重建三种视图，检查候选身份、版本与效力一致，且不同披露范围不被误判为事实冲突。
-- **Evaluator Lifecycle**：criterion、rubric、reason 与 deployment version 可追踪；错误归因不会因 label 碰巧正确而进入下游 revision 或训练信号。
-- **Correlated Review Failure**：注入共享错误前提、共同缺失来源和相同 Evaluator 偏差，检查多实例共识是否被误当独立验证。
-- **State-mediated Coordination**：比较 governed branch / artifact 汇合与高频 Agent messaging，在相同任务下检查冲突、重复工作、错误传播、Context 成本和 accepted outcome。
-- **Accepted Work Product**：结果由具备 Authority 的 Reviewer 在预定节点接受，可进入下游且无需实质性修改。
-
----
-
-## 八、非目标与失败模式
-
-### 8.1 非目标
-
-当前实践不主张：
-
-- 某个宿主是唯一或永久实现；
-- 把所有工作完全形式化；
-- 把专业判断消除或转移给多个 Agent 投票；
-- 把文档、索引、记忆或检索系统等同于 Current Semantic State；
-- 让普通用户在全量工具和 primitives 中自行编排；
-- 以训练、市场规模或横向平台作为产品价值成立的前提。
-
-### 8.2 失败模式
+## 七、失败模式
 
 | 失败 | 判定 |
 |---|---|
@@ -594,14 +495,14 @@ codified artifacts
 | Expert ossification | 旧来源、规则、工具或偏好因快速路径而持续生效 |
 | False promotion | 成功 trace 在无适用范围、反例、Authority 和 held-out E2E 时晋升为 Expert |
 | Annotation displacement | 结构化主要依赖专家额外填表，成本与使用量同比增长 |
-| Interface overfit | 等价宿主变更即使专业语义或成果质量变化 |
+| Interface overfit | 语义等价的宿主变更仍使专业语义或成果质量变化 |
 | Structure without outcome | 结构增多，accepted-work-product、Review、恢复、缺口发现和成本均无改善 |
 
 ---
 
-## 九、结论
+## 八、结论
 
-当下实践的最小结构是：
+这些责任可以组合为以下参考结构：
 
 ```text
 thin shared runtime
@@ -616,4 +517,4 @@ thin shared runtime
 
 这一结构把总能力、总知识与单次 Attention 分离，把执行拓扑与 Expert 语义分离，把原始记录、索引、当前状态与正式成果分离，并使 Context 的每次重写和 Output 的每次写回都可被检查。
 
-是否成立不由宿主能力、界面完整度、Agent 数量、社区采用或库内 Expert 数量证明。裁决条件是：原作者离场后其他合格用户能否产生可采用成果，替换 Session、模型或宿主后工作能否恢复，候选与正式状态是否始终分离，专家 Review 或恢复成本是否下降，以及新形成的信号是否在 rights、归因和 held-out Work Eval 下具有增量价值。
+工作积累在可恢复、可审阅和可更新的对象中。新的执行实例读取当前有效状态与开放义务，提出增量变化，由确定性检查、Evaluator 和有权裁决的人使其取得效力。Agent 与 Runtime 可以替换，工作从已有成果继续。

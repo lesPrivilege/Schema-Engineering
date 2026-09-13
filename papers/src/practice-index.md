@@ -1,8 +1,8 @@
 ---
 Status: Practice Index · Evidence and Revision Ledger
-Edition: 2026-09-13
-Canonical base: 2026-09-13 Canonical Edition
-Practice base: 2026-09-13 Generalized Practice Snapshot
+Edition: 2026-09-14
+Canonical base: 2026-09-14 Canonical Edition
+Practice base: 2026-09-14 Generalized Practice Snapshot
 Scope: 来源、局部命题、证据边界、检验状态与增量修订记录。
 ---
 
@@ -348,6 +348,19 @@ status
 
 ---
 
+### PI-25 · 持久工作语义、概率推理成本与检索分工
+
+- **日期 / 来源类别**：2026-09-14；固定对话输入、既有研究索引、标准与官方产品文档、设计推论。
+- **输入**：[登记前端测试技术栈](chatgpt-conversation://6aa6e0a8-cd5c-83ec-9ba3-077682e5f1fd)，固定导出 SHA-256 `7973c9bf8ff9d398884a3a0317e13ab654bf5d1d9b2b628ab92cddc683b96ee0`，2 页、12 turn、24 消息，最终 `hasMore=false`。对话后半段作为候选观点消费；content-reference `index3` 手稿正文未返回，未读、未引用。
+- **独立实践快照与来源清单**：[Durable work semantics · 2026-09-14](https://github.com/lesPrivilege/Schema-Engineering/blob/a263805f65c326ba044392c792e5adf09ecfb98d/papers/research/2026-09-14-durable-work-semantics.md)。快照分开记录 Mature Systems、DDIA、法律信息、记录管理、PROV、DataHub/OpenMetadata 与 metadata-aware retrieval；每项附核验层级、固定工程来源或原始 URL 与外推限制。研究包是材料索引，不是 CourtWork 实现或验收证据。
+- **可观察机制**：若干既有系统和标准已经为对象提供身份、关系、版本或生命周期以及机器可读接口；检索设施分别处理字段条件、词项和语义相似性。来源覆盖各自定义的局部机制，不构成一个跨领域统一系统的实证。
+- **最小支持命题**：Agent 可沿既有权威关系消费已经积累的持久语义；Schema、正式状态、检索索引与一次执行的 Context 承担不同职责。新增内容由现有 Work Contract、Evidence、Authority、State 与 Context Projection 承载。
+- **机制推论**：保存并更新高复用的有效关系，可减少后续重复识别、推理与核对；净收益必须扣除捕获、核验、纠错、迁移和维护成本。“状态复利”描述积累与复用，不是已测成本曲线、训练收益或必然为正的投资回报。
+- **不支持的外推**：企业系统已治理全部工作；metadata 本身正确；PROV 关系等于专业证据支持；向量相似度决定权限、效力或完整性；任意 Runtime 可无条件替换；SE 已取得效率或跨域效果验证。ELI 等法律标准不提供具体法律判断，ISO 公开目录不等于已读标准全文。
+- **检验 / 证伪方案**：在固定任务、模型、资源权限与成果判据下，比较 raw history、混合检索、带有效状态的检索与 Context Projection；记录遗漏、旧状态重引入、接受与 reversal、恢复成本、推理成本及专家维护时间。引入状态更新、撤销、权限变化和语义等价的 Runtime 替换，观察积累是否仍可复用。沿用 F12、F21–F24，不开新 benchmark；本轮未执行这些实验。
+- **讨论与裁决**：采用历史桥梁与成本机制；拒绝“结构取代推理”或“更多 metadata 自动改善效果”。可替换 Runtime 沿用声明能力与语义兼容的既有条件。Schema 继续是 judgment boundary，混合裁决保持 P6；不新增 ontology、Contract 类型或原则编号。
+- **正文处置**：Canonical §2、§2.4、§12.1 与结语；Practice 摘要、§2.5、§4.3 与结语。测试、证据等级和开放问题移入本 Index 第七节；F1–F27 作为 Kernel 的可证伪边界仍保留正文。来源适用范围移入快照与本条，工作本身的作用域、授权条件和语义边界仍属于正文定义。
+
 ## 四、验证队列
 
 | ID | 待验证命题 | 最小对照 | 主要结果 | 当前状态 |
@@ -394,6 +407,15 @@ status
 ---
 
 ## 五、增量修订记录
+
+### 2026-09-14 · 9.8
+
+- **裁决与撰写**：Luna 有界 Explore 并编制独立实践快照；Astra 负责主叙事、正文合成和最终裁决。未开展人工审稿、产品施工或新实证。
+- **实质变化**：PI-25 解释可复用持久语义的既有积累、重复概率推理的成本与状态维护的经济边界；Practice 明确沿用 canonical owner、Schema 与混合检索各司其职。
+- **体例变化**：移出 Canonical 原 §14、§15.1–15.2、§16、§11.5，以及 Practice 原 §2.9、§4.4、§七、非目标与成立条件；保存于本 Index 第七节。移走元说明与证据等级不把假说晋升为已发生事实。Canonical 后段现为 §14 可证伪边界、§15 原则索引；Practice 后段现为 §七失败模式、§八结论。旧版章节由历史 HTML 保留。
+- **不变量核对**：21 条显式原则定义及 F1–F27 相对 `fc820559` 逐字一致；正文无外部来源 URL。正文保留工作条件、成本边界与专业裁决责任，删去发表过程旁白。
+- **发布准备**：三份源的 Edition/base 为 2026-09-14，Revision 9.8；中文生成新日期产物，历史产物不覆盖。英文仍绑定 9.6，门禁 withheld。发布测试修复历史字节夹具及缺少英文链接时的键盘路径假设，未放宽生产门禁。
+- **发布状态**：本地候选；未 merge/push/Pages 部署，未修改 CourtWork `PAPER.md`。实际构建与浏览器核验回执见本轮发布准备记录；工作流通过后才能登记为发布完成。
 
 ### 2026-09-13 · 9.7
 
@@ -585,3 +607,252 @@ Astra复读现有正文与PI-20/PI-21后裁决：只登记PI-22及对象生命�
 [^abstract-interpretation]: Patrick Cousot and Radhia Cousot, “Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints,” POPL 1977, pp. 238–252，作者摘要与书目 https://www.di.ens.fr/~cousot/COUSOTpapers/POPL77.shtml 。访问日期：2026-09-07。本轮核验摘要，不声称逐项复核论文证明。
 
 [^information-flow]: Andrei Sabelfeld and Andrew C. Myers, “Language-Based Information-Flow Security,” IEEE Journal on Selected Areas in Communications, 21(1), 2003，§I、§V.D，作者保存的原文 https://www.cs.cornell.edu/andru/papers/jsac/sm-jsac03.pdf 。访问日期：2026-09-07。用于访问控制与传播约束的区别及显式信息释放策略，不把传统程序分析保证直接外推给 LLM。
+
+## 七、正文移入的检验与研究记录 · 2026-09-14
+
+以下保存 9.7 的验收设计、证据解释与开放问题，作为方案与研究议程；条目出现不表示测试已经执行或命题已经获得实证。原章节号用于历史定位。正文保留实质治理边界与 F1–F27 证伪条件。
+
+### 9.7 Canonical §14 · 架构、连续性与产品价值验收
+
+#### 14. Boundary Tests
+
+Boundary Tests 分别检查架构、连续性与治理、产品价值。三组结果不能合并为一个总分；Model、Agentic 与 Work benchmark 也必须保留各自的解释边界。
+
+##### 14.1 Architecture
+
+1. Candidate State Change 只有经过 Schema、Evidence、Authority 与适用的 Review Policy 检查，才能写入 Committed Event。
+2. Committed Event Ledger、Current Semantic State 和 Artifact Store 之间只有一条明确的权威关系，不会各自形成相互冲突的状态。
+3. Evidence Relation、Authority、Operational Responsibility 与 Accountability 存在于 prose 之外，并且可以分别查询。
+4. Assignment completion 不由 Agent 单方面宣布。
+5. 并行执行不会模糊 Operator 的运行义务，也不会改变 Accountable Principal 的最终问责。
+6. Work Contract 能够派生 validators、Evaluator rubric、Work benchmark 与 Review points；tool success、Run stop 或 Agentic benchmark 全绿不能直接把结果提升为 accepted work product。
+7. Work Extension 通过声明式 service / event / permission / UI seam 依赖宿主；更换语义等价的 Harness provider、model adapter 或 UI channel，不会改变 Work Contract 与 accepted-work-product 标准。
+8. HITL action 具有领域化 decision type、Authority、evidence context 与正式状态后果，不以一个无语义的通用确认框替代 Review Contract。
+9. Capability activation 由 Contract、role、Matter stage 与 deterministic permission gate 约束；模型不能仅凭自述挂载越权 Tool、其他 Matter 数据或绕过 Review 的执行路径。
+10. Work Extension 可以在组织、角色、Matter 或 stage 层预编排，也可以在 Run 层动态投影；AOT 与 JIT 组合只要语义等价，就产生相同的 Authority、Commitment 与 accepted-work-product 标准。
+11. Compiled Work Expert 具有独立 identity、version、semantic owner、provenance、applicability、dependency compatibility、E2E evidence、freshness trigger、abstention / fallback 与 rollback；模型或 improver 不能直接改写 active version。
+12. Preset binding、Expert routing 与 primitive composition 具有明确的升级和降级边界；primitive path 默认 Candidate-only，Compiled Expert 遇到未覆盖事项可以 fail closed 并回到 Human / frontier path。
+
+##### 14.2 Continuity / Governance
+
+1. 用户返回的是 Matter，不是重建一段 Chat。
+2. 不阅读完整 transcript 也能理解当前工作状态。
+3. Artifact、approved decision、来源关系和未完成义务能跨模型、跨 Session 存在。
+4. Human Review 通过 Committed Event 改变正式状态，不只留下评论。
+5. 系统能够分别回答：发生过什么、现在是什么、模型下一次应看什么、这次运行产生的什么可以留下。
+6. 未提交、被驳回、已撤回或已 superseded 的 Output 不会静默进入 authoritative state 或下一轮优先 Context。
+7. Context Projection 可以从 Stable Contract、Current Semantic State 与可检索历史重建，不以反复压缩完整 chronology 作为唯一恢复方式。
+8. 当 Matter、Artifact、history 与可用 Work Primitive 总量扩大时，单次 Context、Tool surface 与 Human Work Surface 的规模主要随当前 Assignment working set 变化，不随 Store 总量线性增长；关键约束遗漏率、错误版本重引入率和成果接受率不因稀疏投影而恶化。
+9. Compiled Expert 的发布、暂停、重验证、替换和弃用均有 Committed version history；生产 edge case、Reviewer disagreement 与 later reversal 可以回溯到具体 Expert version 和 release decision。
+
+##### 14.3 Product Value
+
+1. 普通专业用户不必学习 Agent engineering 才能完成主要工作。
+2. 不以未来训练飞轮承诺代替当前成果接受；使用外部模型或自有训练模型的实现，都按同一工作要求判断产品是否成立。
+3. 移除 prototype 作者后，合格用户的成果接受率、恢复成本或专家 Review 时间至少有一项得到可测改善，且其他高风险指标没有恶化。
+4. 一个边界明确的 Matter 能够在不替换既有 system of record、不部署完整 Runtime 的条件下，分开 Candidate 与 Committed，并可测地降低 Review、恢复或版本协调成本。
+5. 与反复全量注入 Raw History 相比，Current Semantic State + task-specific Context Projection 至少在成本、latency、状态一致性、恢复或 accepted-work-product rate 中改善一项，且审计与开放问题发现不恶化。
+6. Model 或 Agentic benchmark 的提升只有在 Work benchmark、accepted work product、completion、grounding、escalation calibration 或真实 downstream adoption 上产生改进时，才能被解释为专业产品能力提升。
+7. 结构主要由正常工作行为、Artifact diff 与实际 Review 自动产生；在固定成果质量下，额外 clarification、字段填写与 Contract 维护占用的 Expert 时间低于它节省的 Review、恢复、重复 orchestration 与错误成本。
+8. 把 expert 自由 orchestration 编订为 Work Extension 后，其他合格用户能够在不学习 Tool routing、Prompt、Plugin 与 Context mechanics 的情况下复现声明范围内的工作，且 Expert 由逐次驾驶转为低频 Contract / rule governance。
+9. 高频任务通过 preset / Compiled Expert 执行时，routing 与 orchestration 成本下降；未覆盖任务进入 frontier path 后能够安全升级并回流为 Candidate Expert，而不会因 fallback 被掩盖或使普通用户承担开放式插件编排。
+
+判定 accepted work product 时，格式和措辞调整可以单独记录；改变结论、风险等级、事实基础或行动建议属于实质性修改。评估期内被推翻的成果需要记录 reversal，结果按风险等级、任务族、机构和 Reviewer 分层报告，不能只给一个总接受率。
+
+测试需要覆盖真实 Matter、任务恢复、模型替换、权限边界、Review 状态转换、Context Projection、Output commitment、三层 benchmark 和 accepted work product。
+
+### 9.7 Canonical §15 导言与 §15.1–15.2 · 证据解释
+
+#### 15. 证据纪律与可证伪边界
+
+Schema Engineering 的产品命题、学习命题与市场命题具有不同证据强度。Matter-first、external Semantic State、Evidence、Authority、Completion、Review、Operational Responsibility、Accountability、Context Projection、Candidate Output commitment 与 Lane parallelism 属于产品结构判断；Work benchmark 的增量解释力、attention economics、Production Learning、schema-derived behavior signal、institution-level generalization、synthetic economics、refinement capability 与横向市场品类仍需实证。抗折旧判断建立在“有限 attention 下由 Context 生成 Output，且工作经验不能可靠持续写回参数”的条件上。
+
+##### 15.1 证据命题与检验单元
+
+Canonical 只保留不随产品版本折旧的命题和证据责任。每项待验证主张至少写成 `claim + scope + observable mechanism + outcome measure + comparison + disconfirming result + evidence class and date`。实例、产品机制、个人实践和来源不进入 Kernel 的定义或推理链；它们只能支持自己直接呈现的局部机制。多个必要条件同时出现，不构成对整体架构的充分证明。
+
+##### 15.2 证据解释纪律
+
+证据强度由来源独立性、方法可审查性、负面结果保留、测量与命题的对应、反事实设计、重复性与外部效度共同决定。不同类型证据不得合并成“已验证”。
+
+下表限定各类证据的最大解释范围：
+
+| 证据类型 | 可以支持 | 不能单独支持 |
+|---|---|---|
+| 可观察产品机制与官方文档 | 某项 surface、scope 或 mechanism 被提供 | 不可观察的 backend ontology、效果大小或通用因果 |
+| 供应方报告与自建 benchmark | 在公开设定下的局部结果 | 跨任务、跨机构或一般专业正确性 |
+| 社区与个人实践 | 可检验的现象、候选机制或失败模式 | 因果、收益幅度或外部效度 |
+| 独立复现、消融与真实 outcome | 在声明边界内的机制与结果关系 | 超出采样、权限、时间窗口和任务分布的外推 |
+| 设计推论 | 待验证的系统命题和反证设计 | 外部背书或已经成立的产品事实 |
+
+机制类比只用于生成问题，不用于证明答案。
+
+### 9.7 Canonical §15 测试设计与 §16 · 研究问题
+
+每项证伪条件都需要配套测试设计。长期连续性比较应包含中断、跨周工作与模型替换；Ontology 比较应覆盖责任结构不同的至少三个领域；Contract 比较应同时测开放问题发现、锚定、错误确信、成果接受率、token、latency 与维护成本；Model / Agentic / Work benchmark 比较应固定模型、Harness 与任务分层，检查对 accepted work product 和 reversal 的增量预测力；学习路线比较应固定 expert-hour、计算、rights 和数据预算，并比较 schema-derived signal、普通文档与 synthetic-only 的增量收益；Harness 测试应在语义等价的接口变化下进行；产品边界应以真实采购、替换、留存和支付行为验证；增量采用测试应固定 Matter 范围，完整计入编码、集成、迁移和持续维护成本，再与 Review、恢复、Context 构造和版本协调收益比较。
+
+#### 16. 待回答的问题
+
+1. 最小 Semantic State 应包含哪些内容，才能改善连续性而不成为第二份过时 transcript？
+2. 哪些 Completion obligation 足够稳定，可以编码；哪些只能作为 Reviewer prompt？
+3. Runtime 如何表示同等授权 Reviewer 之间的真实分歧？
+4. Lane 在什么条件下应被提升为独立 Operator？
+5. 哪些 Event 对审计必要，哪些只是应当过期的噪声？
+6. Context Projection 如何暴露状态可能过时、冲突或置信不足？
+7. 一项重复 correction 从 Matter 提升到 client、institution 或 product scope，需要什么阈值？
+8. Accepted-work-product Eval 如何同时抵抗 benchmark saturation 与 institution overfit？
+9. Training rights 不存在时，aggregation 与 evaluation 至少需要哪些权利？
+10. 法律实现中的哪些对象必须保留为领域专属，不能进入通用 Runtime？
+11. 从 Expert Demonstration 抽取稳定义务时，多少个 Matter、多少位 Reviewer 才足以区分 domain invariant 与 individual habit？
+12. Extension 的 E2E suite 如何覆盖任务族边界，又不把全绿误当成整个领域的专业正确？
+13. Failure attribution 如何表示多因一果、归因不确定性与机构间真实分歧？
+14. Work benchmark 应以多大颗粒度从 Work Contract 派生，才能解释真实失败而不固化单一机构或 Reviewer 的偏好？
+15. 什么规则决定 Candidate Output 的 persistence、expiry、supersession 与下一轮 attention priority，且不把 Current Semantic State 重新写成一份压缩 transcript？
+16. 如何在固定模型、任务与 accepted-work-product 标准下，测量 Context Projection 相对全量历史注入的 token、latency、Review、漂移与恢复收益？
+17. Persistent learning 达到什么可靠性、可撤销性和权限隔离标准后，哪些外部状态可以降级，哪些 provenance 与 institutional semantics 仍必须显式存在？
+18. Capture → infer → promote 的产品界面如何把规则提升集中为低频裁决，而不让高频 Review 重新退化为数据标注？
+19. Work Contract、Evaluator、Committed Revision、Review decision 与 accepted outcome 中，哪些对象真正含有普通专业文档和 SOP 不具备的行为信号；怎样区分跨场景能力、机构偏好与 interface overfit？
+20. 在软件工程场景中，哪些高层 Completion、Architecture、Compatibility 与 Release 义务能够形成超越 tests / CI 的最小 Work Contract，而不重复工程师已有的手动 loop？
+21. Topic-level memory、Project / workspace 与 Matter 之间的 promotion rule 应如何定义，才能既避免 Session-first 退化，也避免把每条持久记忆或宽泛主题都建成 Matter？
+22. Work Extension 与通用 Harness 之间的最小稳定接口应包含哪些 service、event、permission、HITL UI、state migration、rollback 与 compatibility 语义，才能既支持热插拔，又不让 Runtime-specific code 污染 Work Contract？
+23. 外部案例中的哪一项最小机制必须被独立复现，才能把 vendor observation 从方向性证据提升为可归因证据；又如何避免把同一技术周期中的共同约束误写为对完整架构的独立收敛？
+24. Govern layer 的 owner、版本、Reviewer disagreement、deprecation 与 rollback 如何定义，才能避免它成为少数专家永久维护的第二套业务系统？
+25. 在 Store 持续增长时，如何同时测量 Context compiler 的 critical omission、irrelevant disclosure、stale-state reintroduction、token、latency 与 cache stability？
+26. Work Primitive Pack 的最小接口应如何划分 schema、tool、verifier、permission、transition 与 Human Work Surface，才能既支持组合又避免领域 ontology 碎片化？
+27. Organization、role、Matter、stage 与 Run 各适合承担多长的 activation lifetime；何时应 AOT 预编排，何时应 JIT 重编译？
+28. Expert orchestration 从自由 Demo 提升为可分发 Extension，需要多少跨 Matter 与跨 Operator 复现，才能区分稳定工作结构与单个 Expert 的有效捷径？
+29. Compiled Expert 的发布门应如何组合 accepted-work-product、Reviewer disagreement、风险分层、观察窗口与 later reversal，才能在慢反馈专业领域判断“足以部署”而不制造虚假确定性？
+30. 哪些变化应触发 Expert 的自动重验证、暂停或重新编译；怎样区分 source / regulation / institution drift、model / Harness drift 与真实工作分布变化？
+31. 当 Compiled Expert 遇到未覆盖事项时，abstention、Human escalation、bounded primitive composition 与 Candidate Expert revision 如何形成低摩擦闭环，而不把 ordinary user 重新推回开放 orchestration？
+32. Review packet 至少需要哪些 Evidence、delta、uncertainty、consequence 与 Authority 信息，才能证明人在有限 attention 下形成了独立判断，而不是只完成形式 approval？
+33. Context Projection、Human Work Surface 与 Retrieval Index 基于同一权威状态解释来源与候选时，如何检测 omission、staleness 与 cross-projection inconsistency，又不把三种视图物理锁死为同一表示？
+34. Evaluator reason 被下游执行消费时，怎样分别版本化 criterion、verdict、rationale 与 state consequence，并检测“标签正确但归因错误”的闭环污染？
+
+### 9.7 Practice §七 · 概念验证方案（未执行）
+
+### 七、概念验证
+
+#### 7.1 验证目标
+
+> 验证 Work Contract 能否在不修改宿主核心的条件下，被编译为可加载能力、Matter continuity、Context Projection、Human Work Surface、Authority boundary 与 typed commitment protocol。
+
+概念验证需要一个可插拔或可适配的 Runtime、一个 Matter repository、一组 Work Extension、一个 Context Compiler、一个 Human Work Surface renderer 和一条 commit protocol；多租户平台、市场、训练管线和全领域 ontology 都不是前提。
+
+#### 7.2 共享场景
+
+至少使用三类责任结构不同的任务：
+
+- 结构化对象的逐项裁决；
+- 主张、来源、支持、反驳与限定的校勘；
+- finding、control、evidence、owner 与 remediation 的整改裁决。
+
+再增加一个弱 commitment 的对照场景，检查 Human Work Surface 是否在不依赖完整 Matter governance 时仍能改善 review bandwidth。
+
+#### 7.3 必要测试
+
+##### Architecture
+
+- **No Core Patch**：不修改宿主核心也能加载、撤销和恢复 Extension。
+- **Upstream Upgrade**：等价接口替换只修改 adapter，不改变 Work semantics。
+- **Plugin Reload**：重载后 Matter 与 active Artifact 不丢失。
+- **AOT / JIT Equivalence**：预编译与运行时组合在相同边界下产生等价语义。
+
+##### Continuity and governance
+
+- **Session Replacement**：替换 Session 或模型后从 governed state 恢复。
+- **Candidate / Committed Isolation**：未通过适用提交检查的 output 不改变 Current Semantic State。
+- **Authority Failure**：越权裁决被拒绝并保留候选记录。
+- **Retrieval / Canonical Separation**：检索命中的旧陈述不被自动恢复为当前状态。
+- **Documentation Promotion**：Trace、Index、Candidate Decision、Active Contract 和 Accepted Artifact 具有不同写入路径。
+- **Context Mutation Preservation**：限定、冲突、否定、来源和恢复路径不因压缩丢失。
+- **State Sufficiency / History Disclosure**：对照 State-only、State + on-demand History 与 append-only Transcript，检查未被及时编入的 Observation、动态 Schema 和 trajectory-defined task 是否需要披露历史。
+- **Patch Preservation**：State patch 采用 merge semantics 而不是无声全量覆写；旧字段删除、类型改变与非法 patch 必须显式验证、拒绝或回滚。
+- **Failure Containment / Trusted Recovery**：向 Observation、Proposition、Candidate 与 validation 阶段分别注入错误，检查它是否在 commit 前被发现或隔离，并能否从最近 trusted checkpoint 由新 executor 恢复。
+
+##### Sparse activation and Expert release
+
+- **Sparse Capacity Scaling**：per-run Context 和 Tool surface 不随总存量线性增长。
+- **Omission / Pollution**：必要约束不被遗漏，旧版本、其他 Matter 和越权 capability 不被引入。
+- **Least Privilege**：激活能力只获得当前 role 与 stage 所需权限。
+- **Three-tier Priority**：Preset 先于 Expert routing，Expert 先于 primitive composition。
+- **Compiled Expert E2E**：评测整个 activation profile，而不是单个 tool 或 prompt。
+- **Staleness / Revalidation**：依赖或现实变化能触发缩窄、暂停、回滚或弃用。
+- **Graceful Escape**：未覆盖事项进入 Candidate-only frontier path，不被快速路径掩盖。
+
+##### Review and evaluation
+
+- **Completion Independence**：完成条件不由 Agent 临时降低。
+- **UI Representation Equivalence**：不同 renderer 对同一裁决产生相同状态后果。
+- **Review Bandwidth**：在成果质量不降低时，专家 Review 时间或恢复成本下降。
+- **Review Sufficiency**：去除完整 execution trace 后，结构化 Review packet 仍使 Reviewer 发现关键错误、请求必要证据并形成可解释的独立判断。
+- **Projection Consistency**：基于同一状态与来源快照重建三种视图，检查候选身份、版本与效力一致，且不同披露范围不被误判为事实冲突。
+- **Evaluator Lifecycle**：criterion、rubric、reason 与 deployment version 可追踪；错误归因不会因 label 碰巧正确而进入下游 revision 或训练信号。
+- **Correlated Review Failure**：注入共享错误前提、共同缺失来源和相同 Evaluator 偏差，检查多实例共识是否被误当独立验证。
+- **State-mediated Coordination**：比较 governed branch / artifact 汇合与高频 Agent messaging，在相同任务下检查冲突、重复工作、错误传播、Context 成本和 accepted outcome。
+- **Accepted Work Product**：结果由具备 Authority 的 Reviewer 在预定节点接受，可进入下游且无需实质性修改。
+
+---
+
+### 9.7 Practice §八 · 非目标
+
+### 八、非目标与失败模式
+
+#### 8.1 非目标
+
+当前实践不主张：
+
+- 某个宿主是唯一或永久实现；
+- 把所有工作完全形式化；
+- 把专业判断消除或转移给多个 Agent 投票；
+- 把文档、索引、记忆或检索系统等同于 Current Semantic State；
+- 让普通用户在全量工具和 primitives 中自行编排；
+- 以训练、市场规模或横向平台作为产品价值成立的前提。
+
+### 9.7 Practice §2.9 · 综合检验命题
+
+#### 2.9 当前实践命题
+
+当前快照承担以下可检验命题：
+
+1. Runtime 与 Work semantics 可以通过适配层分离。
+2. Completion 外置、feedback 编订、工作域隔离、持久资源和 Context 管理是互补机制，不是完整架构的替代品。
+3. Sparse capability activation 与 sparse state projection 需要共同接受 omission、pollution、permission 和 accepted-work-product 检验。
+4. Context Mutation、multi-agent topology 和 documentation workflow 都必须回到同一 Candidate / Committed 边界。
+5. Context Projection、Human Work Surface 与 Retrieval Index 共享同一权威状态及带来源和效力标记的材料、候选，不各自维护事实源。
+
+---
+
+### 9.7 Practice 结语 · 成立条件
+
+是否成立不由宿主能力、界面完整度、Agent 数量、社区采用或库内 Expert 数量证明。裁决条件是：原作者离场后其他合格用户能否产生可采用成果，替换 Session、模型或宿主后工作能否恢复，候选与正式状态是否始终分离，专家 Review 或恢复成本是否下降，以及新形成的信号是否在 rights、归因和 held-out Work Eval 下具有增量价值。
+
+### 9.7 Canonical §11.5 · 组件归因纪律
+
+#### 11.5 系统组合不能替单个组件证明因果
+
+系统表现由 model、Runtime、environment、context、Contracts 与 Evaluator 共同产生。这些组件存在交互：同一项 Harness 改动可能在不同 base model 上改善结果，也可能方向相反。组合系统在自有 benchmark 上表现更好，只能证明这套组合在相应设置下有效，不能据此把主要贡献分配给某个组件。
+
+因此，组件判断需要独立消融、跨模型复现、接口扰动和 held-out environment。
+
+
+### 解释范围与远期命题
+
+Kernel 定义架构与治理边界；市场规模、学习壁垒、横向平台机会与通用智能各需独立证据。
+
+9.8 的持久语义经济学是机制推论，净收益未在本轮测量；“状态复利”不指收益必然为正、固定增长率或训练收益。governed meta-improvement、通用能力渗透和连续学习仍是研究方向，本轮无新实验；正文以条件关系和治理要求表达，移走证据等级措辞不提升其事实地位。§12.1 judgment × continuity × consequence 表保留为采用框架，其经济阈值尚待测量。
+
+9.7 §12.1 通用智能的解释性类比：如果把通用智能理解为通用能力持续抵达多种现实工作，而不只是一项模型 benchmark，那么“上游扩展能力边界、下游编订并验证渗透面”的组合，是当前 Context + Output、Agentic Runtime 范式下一条可能的系统实现路径；其可检验的命题是每层 Contract 是否成立、accepted work 是否增加、成本和责任是否改善。
+
+### 9.7 Practice §4.4 · Context Mutation 检验方案
+
+### 4.4 Context Mutation Preservation
+
+在相同任务和资源下，对删除、摘要、压缩和重载分别检查：
+
+- 限定、冲突、否定关系和来源坐标是否保留；
+- retention policy 要求保留的 Raw Evidence 是否可恢复；
+- superseded 或 rejected state 是否被重新引入；
+- mutation 的 scope、lifetime、provenance 和 recovery path 是否可见；
+- 更短 Context 是否改善 accepted-work-product，而不只改善 token 或局部得分。
+
+---
