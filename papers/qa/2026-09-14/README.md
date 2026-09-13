@@ -23,3 +23,12 @@
 本分支完成发布准备，尚未合并、推送或部署，不能登记为已发布。集成时保留本分支提交祖先，以便Index中的固定快照链接可达；不要只拣选正文却遗漏快照提交。集成方核对当前main后合并，执行现有build/validate与Pages流程，工作流通过后更新候选/发布状态。CourtWork产品仓库及其 `PAPER.md` 未修改；是否更新采用pin由原任务在发布后处理。
 
 未完成项：SE merge/push/Pages；9.8英文翻译与语义复核（当前明确withheld）；原任务的CourtWork采用pin更新。Akoma Ntoso、ISO15489、NVIDIA和Google等线索未在本轮核验，不影响已裁定的最小正文，但不能作为新增事实引用。
+
+## 实际发布回执（首轮部署）
+
+- GitHub Actions `Publish papers` 在推送 `main` 后运行：run `34775940823`，提交 `448e5b370514b7a4896dd0889d76032c45c2c71b`，状态 `completed / success`（2026-09-13 18:52:33 UTC）。[工作流记录](https://github.com/lesPrivilege/Schema-Engineering/actions/runs/34775940823)
+- 2026-09-14 实测线上首页 `https://lesprivilege.github.io/Schema-Engineering/` 返回 HTTP 200；标题为 `Schema Engineering · 2026-09-14 · zh`，`lang=zh-CN`，Edition `2026-09-14`、Revision `9.8`。线上正文 393,543 字节，与上列中文候选逐字节一致，SHA-256 为 `8fcd1645813d246084ccf2da1e1dbd5fb020ee80412b5b2abf9fe73588d2cc06`。
+- 英文入口 `https://lesprivilege.github.io/Schema-Engineering/index-en.html` 返回 HTTP 404；首页未提供英文语言链接，与英文构建门禁因译文未完成而 SKIP 一致。此状态不代表英文 9.8 已完成。
+- Index 固定链接指向的实践快照可从 GitHub 按固定提交读取：[`a263805f65c326ba044392c792e5adf09ecfb98d`](https://github.com/lesPrivilege/Schema-Engineering/blob/a263805f65c326ba044392c792e5adf09ecfb98d/papers/research/2026-09-14-durable-work-semantics.md)。
+
+本节只记录首轮 Pages 部署；本回执随后的提交会再次触发 Pages，须另行核对该次工作流及线上结果后，才能将其记为最新发布状态。
