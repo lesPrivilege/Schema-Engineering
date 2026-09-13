@@ -1,8 +1,8 @@
 ---
 Status: Companion Paper · Practice Snapshot
-Edition: 2026-09-07
-Revision: 9.6 · Generalized Practice Snapshot
-Canonical base: 2026-09-07 Canonical Edition
+Edition: 2026-09-13
+Revision: 9.7 · Generalized Practice Snapshot
+Canonical base: 2026-09-13 Canonical Edition
 Scope: Sparse Work Harness、Compiled Work Expert、Matter Sidecar、Context governance、Human Work Surface、Work Extension 编订、离线 Eval 与验证。
 Closure posture: 本文是带日期的实践快照，只保留当下可执行的最小、泛化结论。产品、论文、社区个例、来源、检验状态与增量裁决统一编入 Practice Index，不作为本文成立的前提。
 ---
@@ -15,37 +15,20 @@ Closure posture: 本文是带日期的实践快照，只保留当下可执行的
 
 Schema Engineering 的实践问题是：如何把通用模型和 Agentic Runtime 已经提供的推理、工具、会话、权限和界面能力，编订为可以恢复、审阅、提交和修订的工作能力。
 
-实践不应从某个宿主、产品或成功案例出发。最小出发点是四个不受具体实现影响的约束：
+当前实践形态可压缩为：通用 Runtime 之上放置宿主适配层；用 Sparse Work Harness 组合经治理的 Work Extension 与 Compiled Work Expert；用 Matter Sidecar 保存正式状态、未完义务和 Artifact 版本；用 Context Compiler 与 Human Work Surface 生成面向模型和人的不同投影；用 typed commitment boundary 决定什么可以生效。
+
+---
+
+## 一、实践约束
+
+实践不从某个宿主、产品或成功案例出发，而从四个不受具体实现影响的约束出发：
 
 1. Runtime 只提供执行机制，不自动提供工作语义。
 2. 总存量与单次 Attention 必须分离，否则长期工作会退化为反复全量重读。
 3. 模型、人和多个执行实例只能提出候选变更，不能因为输出完整或意见一致就取得正式效力。
-4. 专业用户应直接处理工作对象、证据、版本、异议和决定，而不是学习 Session、Prompt、Tool routing 或 Subagent mechanics。
+4. 专业用户直接处理工作对象、证据、版本、异议和决定，不学习 Session、Prompt、Tool routing 或 Subagent mechanics。
 
-因此，当前实践形态可压缩为：通用 Runtime 之上放置宿主适配层；用 Sparse Work Harness 组合经治理的 Work Extension 与 Compiled Work Expert；用 Matter Sidecar 保存正式状态、未完义务和 Artifact 版本；用 Context Compiler 与 Human Work Surface 生成面向模型和人的不同投影；用 typed commitment boundary 决定什么可以生效。
-
----
-
-## 一、文本责任与快照方法
-
-本文记录一套当下可执行的实践构造，不编辑产品案例、个人工作法或新闻式趋势。每次增量按以下顺序处理：
-
-```text
-observe an instance or failure
-→ state the smallest mechanism it may expose
-→ separate observation from inference
-→ test against existing Canonical and Practice text
-→ adjudicate: no change / index only / practice revision / canonical revision
-→ record the decision and disconfirming condition
-```
-
-正文只接受同时满足三个条件的增量：
-
-- 能够脱离原实例独立表达；
-- 会改变实现、验证或失败边界；
-- 现有文本无法用更小的解释吸收。
-
-仅能说明某个产品已提供一项机制、某个团队自报一项收益、或某个人采用一种组织方式的材料，默认只进入 Index。正文中的结论必须可以不借助 Index 被理解和检验。
+以下各节的边界、架构、状态层、工作表面、编订方法、测试与失败模式都由这四个约束推出。
 
 ---
 
@@ -84,7 +67,7 @@ Governance surface
 
 长程执行不能以当前 Agent 的自评作为唯一终止条件。最小 Completion Contract 需要把目标分解为可查询义务，为每项义务绑定 evidence procedure、validator 或 Reviewer，并把 continue、stop、return-for-revision 与 escalate 写成独立于 Agent 的 gate。
 
-这只证明已明示的完成条件被检查，不证明专业正确性已经完全形式化。
+Gate 只检查已声明的完成条件；专业正确性的其余部分仍由 Evidence、Review 与 accepted work product 检验。
 
 ### 2.4 修正必须经编订才能跨 Run 复用
 
@@ -159,14 +142,13 @@ Run Plan
 
 ### 2.9 当前实践命题
 
-当下快照只承担以下可检验命题：
+当前快照承担以下可检验命题：
 
 1. Runtime 与 Work semantics 可以通过适配层分离。
 2. Completion 外置、feedback 编订、工作域隔离、持久资源和 Context 管理是互补机制，不是完整架构的替代品。
 3. Sparse capability activation 与 sparse state projection 需要共同接受 omission、pollution、permission 和 accepted-work-product 检验。
 4. Context Mutation、multi-agent topology 和 documentation workflow 都必须回到同一 Candidate / Committed 边界。
 5. Context Projection、Human Work Surface 与 Retrieval Index 共享同一权威状态及带来源和效力标记的材料、候选，不各自维护事实源。
-6. 上述命题是当前实现方向，并非已完成的普遍验证。
 
 ---
 
@@ -215,7 +197,7 @@ API、结构化浏览器交互与 Computer Use 是访问外部系统的不同通
 | Matter State | 一项具体工作的持久化工作包，包含 Current Semantic State、版本、Evidence、决定与未完义务 |
 | Run Plan | Expert / primitives 与 Matter、role、stage 的一次绑定 |
 
-Expert 不是人格化 Agent，也不是一组工具。它的最小单元是：
+Compiled Work Expert 的最小单元是：
 
 ```text
 schema
@@ -249,7 +231,7 @@ Preset binding
 
 Matter type、role 和 stage 已能确定的工作使用 Preset；常规歧义只在少量 approved Experts 中选择；没有适用 Expert、跨域或低置信度时，才进入 primitive composition。最后一层默认 least-privilege 且 Candidate-only，不自动取得 approve、publish、external transmit 或 irreversible authority。
 
-Activation lifetime 按 `organization → role → matter → stage → run` 分层。越稳定的左侧内容越适合预编译，越靠近当前 Run 的内容越适合动态投影。Sparse 不表示每个 turn 热替换全部能力。
+Activation lifetime 按 `organization → role → matter → stage → run` 分层。越稳定的左侧内容越适合预编译，越靠近当前 Run 的内容越适合动态投影；Matter 或 stage 内的 tool definitions、Contract prefix、permissions 与 Surface 保持稳定，只有 Current Semantic State 与 Evidence disclosure 随 Run 变化。
 
 ### 3.5 Compiled Expert 的发布与折旧
 
@@ -285,7 +267,7 @@ unsupported case
 
 ### 4.1 两种数据层
 
-Matter 可以首先实现为现有 Session 和 system of record 之外的薄层，不必一开始就替换它们。
+Matter 可以首先实现为现有 Session 和 system of record 之外的薄层，即 Matter Sidecar，对应 Overlay / Sidecar 部署形态；既有系统不必一开始就被替换。
 
 ```text
 Canonical Semantic Layer
@@ -388,7 +370,7 @@ Current Semantic State + Sources / Evidence + Candidates
 | Diff / Lineage | 版本、候选、覆盖与撤回 |
 | Queue / Coverage | 待处理对象、缺口与完成度 |
 
-这些是 renderer grammar，不是通用 ontology。哪些节点、关系、字段、动作和权限合法，仍由 Work Contract 决定。
+这些原语是 renderer grammar；哪些节点、关系、字段、动作和权限合法，由 Work Contract 决定。
 
 ### 5.3 Review grammar
 
@@ -409,7 +391,7 @@ Review Item
 
 Review 围绕有状态后果的 decision unit 分批编译。默认表面只放形成独立判断所需的最小充分对象；Raw Trace、旧版本和补充 Evidence 保持可检索并按需展开。逐项 tool-call confirmation 和事后 chronology replay 都不能替代对 Candidate delta 的专业裁决。
 
-主交互应使 `Current → Proposed → Reviewed → Committed` 的状态差异可见，并同时呈现 prior state、Evidence、uncertainty、Authority、side effect、reversibility 与 recovery point。模型的内部计划、Agent avatar、Agent 间聊天和 decorative workflow graph 只有在帮助诊断或裁决时才渐进披露；用户首先审阅工作变化及其后果，而不是观看执行表演。
+主交互应使 `Current → Proposed → Reviewed → Committed` 的状态差异可见，并同时呈现 prior state、Evidence、uncertainty、Authority、side effect、reversibility 与 recovery point。模型的内部计划、Agent avatar、Agent 间聊天和 workflow graph 只在帮助诊断或裁决时渐进披露；用户审阅的对象是工作变化及其后果。
 
 可复用的动作族包括 accept、reject、revise、request further work、request evidence、qualify、defer、waive、escalate、approve、publish、supersede 和 withdraw。动作名称不产生复用性；只有以下链路可复用：
 
@@ -449,11 +431,11 @@ Model proposes Candidate
 | Memory | 可召回信息、来源与适用范围 |
 | Tool permission | 某项资源或行动权限 |
 | Agent / Subagent | 执行位置；Operator 绑定运行义务，Lane 表达并行关系 |
-| Output | Candidate Change / Artifact Version |
+| Output | Candidate Change：Candidate State Change 或 Candidate Artifact Version |
 | Approval | 具有状态后果的专业裁决 |
 | Plugin / Skill | Work Extension / Primitive / Expert dependency |
 
-用户不必看不见这些技术对象，但默认交互应以专业对象和工作决定为中心。
+默认交互以专业对象和工作决定为中心；技术对象在诊断需要时渐进披露。
 
 ### 6.2 从观察到 Contract
 
@@ -500,7 +482,7 @@ Runtime 内的检查决定本次候选能否继续或提交；Runtime 外的 Eva
 → 后续工作中的反馈
 ```
 
-局部信号把笼统的质量感受变成可以追查的问题。Work Contract 则为追查提供坐标：哪些义务尚未处理，来源支持什么，哪些关系进入了持久状态，又在何处未被披露或被错误使用。Schema 使缺口能够被指认，不保证未记录的信息已经被发现，也不把可观测位置自动变成失败原因。
+局部信号把笼统的质量感受变成可以追查的问题。Work Contract 则为追查提供坐标：哪些义务尚未处理，来源支持什么，哪些关系进入了持久状态，又在何处未被披露或被错误使用。Schema 提供指认缺口的坐标；未记录的信息和失败的原因仍需另行发现。
 
 符合既有 Contract 与 Contract 足以表达工作要求，是两个不同判断。前者检查执行与成果，后者允许真实工作中的遗漏、分歧和后果反过来修订判据。Eval 因而既约束系统如何执行，也帮助团队判断系统原本要求它做的事是否恰当。
 
@@ -512,17 +494,17 @@ codified artifacts
 → governed situated judgment trajectories
 ```
 
-第三类信号至少需要 Matter、State、Evidence、Candidate / Committed、Review、Authority、Outcome 与 later reversal。这些对象首先服务运行、恢复和 Eval；只有在 rights、failure attribution、held-out Work Eval 和外部现实反馈成立时，才成为 selective post-training 候选。产品成立不以训练飞轮成立为前提。
+第三类信号至少需要 Matter、State、Evidence、Candidate / Committed、Review、Authority、Outcome 与 later reversal。这些对象首先服务运行、恢复和 Eval；只有在 rights、failure attribution、held-out Work Eval 和外部现实反馈成立时，才成为 selective post-training 候选。
 
 ---
 
-## 七、理念认证
+## 七、概念验证
 
 ### 7.1 验证目标
 
 > 验证 Work Contract 能否在不修改宿主核心的条件下，被编译为可加载能力、Matter continuity、Context Projection、Human Work Surface、Authority boundary 与 typed commitment protocol。
 
-理念认证只需一个可插拔或可适配的 Runtime、一个 Matter repository、一组 Work Extension、一个 Context Compiler、一个 Human Work Surface renderer 和一条 commit protocol。不必先完成多租户平台、市场、训练管线或全领域 ontology。
+概念验证需要一个可插拔或可适配的 Runtime、一个 Matter repository、一组 Work Extension、一个 Context Compiler、一个 Human Work Surface renderer 和一条 commit protocol；多租户平台、市场、训练管线和全领域 ontology 都不是前提。
 
 ### 7.2 共享场景
 
@@ -583,7 +565,7 @@ codified artifacts
 
 ### 8.1 非目标
 
-本快照不主张：
+当前实践不主张：
 
 - 某个宿主是唯一或永久实现；
 - 把所有工作完全形式化；

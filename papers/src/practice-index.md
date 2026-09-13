@@ -1,8 +1,8 @@
 ---
 Status: Practice Index · Evidence and Revision Ledger
-Edition: 2026-09-07
-Canonical base: 2026-09-07 Canonical Edition
-Practice base: 2026-09-07 Generalized Practice Snapshot
+Edition: 2026-09-13
+Canonical base: 2026-09-13 Canonical Edition
+Practice base: 2026-09-13 Generalized Practice Snapshot
 Scope: 来源、局部命题、证据边界、检验状态与增量修订记录。
 ---
 
@@ -168,7 +168,7 @@ status
 
 ### PI-13 · Software engineering becomes work-shaped beyond the task boundary
 
-- **观察**：*Harness-of-Harness* 把多日 autonomous software development 组织为 planning–development–independent QA 的迭代循环。Runtime 保存 software Artifact State 与 Evidence State，为不同 role 冻结输入、限制读写权限、要求 structured output、按 concise index 渐进披露持久 Artifact，并把 Evidence 绑定到 read-only candidate version。[^hoh]
+- **观察**：*Harness-of-Harness* 把多日 autonomous software development 组织为迭代的 planning–coding–testing 循环（论文原文用语；本 Index 此前转述为 planning–development–independent QA），并把实现期测试与独立评测分开。Runtime 保存 software Artifact State 与 Evidence State，为不同 role 冻结输入、限制读写权限、要求 structured output、按 concise index 渐进披露持久 Artifact，并把 Evidence 绑定到 read-only candidate version。[^hoh]
 - **最小命题**：当 coding autonomy 跨出一次 bounded task，持续推进需要长期 Specification、Artifact continuity、Evidence continuity、bounded objective、role-specific Authority 与独立 Acceptance；Artifact 与 Evidence 谁也不能替代谁。
 - **实验边界**：论文在三个 software benchmark、三组 harness–model pair 和一个 70+ iteration 游戏开发案例中报告增益；多日案例来自单一项目和作者系统，benchmark 的 verifier 与软件 substrate 也比多数专业工作更可执行、可回放和可版本化。[^hoh]
 - **不支持**：Planner / Developer / QA 是通用最佳拓扑；QA 报告已经形成外部 commitment gate；固定 Specification 适合规则会演化的工作；software tests 可以替代 broader professional judgment；结果可直接外推到法律、投资或机构审批。
@@ -335,6 +335,19 @@ status
 
 ---
 
+### PI-24 · 机制类比与保护性措辞的登记
+
+- **日期 / 来源类别**：2026-09-13；9.7 修订时从正文移出的类比与保护性措辞。无新增外部来源。
+- **Mixture-of-Experts 类比**（原 Canonical §5.6 末段）：MoE 稀疏化模型容量上的计算，Matter Runtime 稀疏化工作知识和 capability 上的 Attention；二者都尝试把总容量与单次成本解耦。差异在于模型 expert 通常是同构参数模块并由 learned router 激活，而 Matter、Work Contract、Evidence、Authority 与 Tool 是异构、状态化、带来源和现实后果的对象；Work Primitive 的 routing 更接近语义编译、least-privilege composition 与 governance gate，不能由 top-k gating 直接替代。类比只说明 scaling principle，不构成实现或正确性的证据；参数模块的 sparse routing 与 Work Primitive activation 不能互相证明。
+- **fast path / slow path 类比**（原 Canonical §8.2）：Compiled Expert 与 primitive composition 可以借用双路径的产品类比，但二者不保证产生相同结果，也不是同一决策过程的快慢版本；正文只保留“治理的默认路径 / 受限的探索路径”及其回路。
+- **目录学参照**（Canonical §2.3）：“辨章学术、考镜源流”只用于说明来源、版本、关系、沿革与适用范围的保存要求，不作为古典术语的移植；正文保留参照本身，删去解释借用动机的辩护句。
+- **正文移出的保护性措辞**：Schema Engineering “不是垂直 Agent 产品的宣言”；Matter-first “不是把所有长期对话改名为 Work”；Matter、Assignment、Work Contract “不需要合并成新的上位名词”；Compiled Expert “不新增一套专业 ontology”；分层 “不是第二套分类”；Agent Extension 与 Work Extension package “不是两套专业 ontology”；E2E “不能因全绿宣称整个领域已被形式化”；Benchmark “不是后来另造的 QA，也不是系统设计的起点”；Post-agentic Refinement “不把任何系统改进都称为 Training”；训练信号分层 “不表示当前 Agent 只有程序性外壳”；Schema Engineering “不是所有 LLM 应用都需要额外 Schema”，“不是把专业判断伪装成可完全编译的程序”；Kernel “不能单独证明市场规模、学习壁垒、横向平台机会或通用智能”；“不存在自动成立的单一 moat”；Boundary Tests “只规定产品边界，不证明具体实现已经满足”；“移除 Index 不影响本文的完整性”；§17 末段关于 P17–P21 “不改写 Runtime ontology、不新增 Kernel ontology” 的复述；Practice “上述命题是当前实现方向，并非已完成的普遍验证”与“产品成立不以训练飞轮成立为前提”（后者保留于 Practice §8.1 非目标）。这些句子的功能是预防误读；其边界已由所在章节的定义、F 表或本 Index 承担。
+- **AGI 与 governed meta-improvement**：原 Canonical §12.1 与结语两处声明“不是对 AGI 已经实现的宣称，也不证明任一模型本身具有通用智能”，以及 meta-improvement “不由 judgment data 的规模、模型涌现或系统优化自身评分器自动推出”。9.7 只保留可检验命题（每层 Contract 是否成立、accepted work 是否增加、成本和责任是否改善）与“研究假说、非前提”的证据等级；对模型通用智能本身不作判断的立场以本条记录。
+- **managed-resource 与 scoped-context 表面的推断边界**（原 Canonical §15.2）：可观察的产品表面只证明某项机制已被提供，不能反推后端 ontology 或 Govern layer 已成立；从人需要理解的结构与权衡推到系统需要表示和保存的状态，是一项额外命题。该边界由 PI-04、PI-05 与 §15.2 证据类型表承担。
+- **正文处置 / 状态**：indexed。正文不再承担上述辩护；F1–F27、§15.2 证据类型表与本条共同保存边界。
+
+---
+
 ## 四、验证队列
 
 | ID | 待验证命题 | 最小对照 | 主要结果 | 当前状态 |
@@ -382,7 +395,29 @@ status
 
 ## 五、增量修订记录
 
-### 2026-09-09 · Attention · Index-only
+### 2026-09-13 · 9.7
+
+本版为发表修订：不新增命题、ontology、Contract 类型或原则编号，只处理正文的旁白、保护性措辞、重复定义与同名对象。Sonnet 5 三路只读探查（正文清单、术语与外部快照、CourtWork 文档）供裁决，Fable 5.1 裁决并撰写全部正文与本条；未做人工审稿。
+
+| 审查对象 | 裁决 | 正文处置 |
+|---|---|---|
+| 自指与旁白（“本文承接”“本文称其为”“本部把…分开处理”“下文采用”“这里需要区分”“例如”“真正稳定的顺序”） | 删去作者与文本作主语的句子；定义、关系与来源承接改为对象直述 | Canonical 摘要、§2、§4、§5、§8.1、§8.5、§12 |
+| 保护性措辞（“不是…宣言”“不新增 ontology”“不是第二套分类”“不能因全绿宣称…”“不证明具体实现已经满足”等） | 一律移出正文；边界由所在章节定义、F 表或 PI-24 承担 | Canonical 摘要、§2.1、§3、§4.2、§6.3、§7、§8、§9、§11.4、§12、§13、§14、§15、§17；Practice §2.3、§2.9、§6.6 |
+| 机制类比 | MoE 类比与 fast / slow path 类比移入 PI-24；目录学参照保留参照本身，删去辩护句；法律 Agent 的失败例保留为条件陈述 | Canonical §2.3、§5.6、§8.2、§8.5、§15.2、§17 |
+| AGI 与 governed meta-improvement 的免责声明 | 只保留可检验命题与证据等级；免责立场记入 PI-24 | Canonical §12.1、结语 |
+| 重复定义 | Accepted work product 定义只留 §8.6，§14.3 保留实质性修改判据与分层报告；§15 引言的证据类型清单并入 §15.2 表；§17 末段删去对 P17–P21 的复述 | Canonical §8.6、§14.3、§15、§17 |
+| 同名对象 | Semantic State 为对象名，其当前值统一称 Current Semantic State（§4.8 首句定义，§4.8、§6.6 两处补全）；P4 大小写统一；progressive disclosure 统一为渐进披露；§12.1 标题改为正文定义的 Commitment scope / Continuity scope；Candidate Change 在 §2 定义为 Candidate State Change 与 Candidate Artifact Version 的统称；Review Policy 在 §6.6 定义为 Review Contract 的路由规则；弱编译首次出现附 weak compilation；Eval infrastructure 附 evaluation harness；Practice 的 Matter Sidecar 与 Canonical 的 Overlay / Sidecar 在 Practice §4.1 对应；Practice §七 “理念认证”改为通行的“概念验证”。修后通读另发现：Continuity Profile、Commitment Profile、Commitment / Continuity Kernel 与 §12.1 的 scope 指同一对适用范围，统一为 Commitment scope / Continuity scope；Commitment Boundary 在 §2 与 typed commitment interface 同处定义；Review Policy 在 §4.6 首次出现处标明属 Review Contract；§2.4 与 §12.2 的 P / F 编号前引改为可定位的表述；“这里”“本节”“本文推论”“本文所说的”改为对象直述 | Canonical 摘要、§2、§2.2、§2.3、§2.4、§4、§4.6、§4.8、§5.3、§6.6、§8.7、§11.2、§12.1、§12.2、§15.2、F16、F19、结语；Practice §4.1、§6.1、§七 |
+| Evidence Contract 关系词汇 | supports / contradicts / qualifies 不在 PROV-DM 关系集合内，derives-from 对应其派生关系；该区分写入正文，不再只由 PI-18 承担 | Canonical §6.2 |
+| Practice §一 | 原“文本责任与快照方法”只叙述修订流程，属仓库协议；改写为承重的“实践约束”，四项约束从摘要移入，摘要保留问题与形态 | Practice 摘要、§一 |
+| CourtWork 文档核对 | CourtWork `ada8657`（2026-09-13）的 PAPER.md 固定 9.6 / `d78fd31`；工程文档中与论文相关的七项记录里两项已登记（PI-01、PI-22），其余五项均为“无需修订正文”或收窄为实现缺口的本地裁决，无新的泛化观察；产品侧把 Assignment、Operator、Lane 合并为 actor、把 Review 实现为 Decision、把 Context Compiler 改称 Work Compiler，属产品命名，不改论文用词 | 不修订正文；本条登记 |
+| 外部快照复核（2026-09-13） | Anthropic agent evals、Fowler Event Sourcing、W3C PROV-DM、OMG CMMN、DeepSeek Harness reference、OpenAI model guidance、Harness-of-Harness、LLM-as-a-Judge lifecycle 八项来源均可达；PROV-DM 无认识关系词汇（见上）；CMMN 的定义在规范正文 §4–5 而非入口页，脚注调整主次；Harness-of-Harness 原文为 planning–coding–testing，PI-13 改按原文转述；OpenAI 页面仍无 `new_context` 或 history / notes 接口，PI-11 维持不升级 | PI-11 不变；PI-13、[^cmmn] 校正 |
+| 英文译文 | 中文源改变后，绑定 9.6 源的英文 cache 按既有规则 withheld；英文入口待重译与复核后开放 | 不改译文；manifest 保持指向 9.6 源 |
+
+**修后通读**：一个未继承本轮聊天的 Sonnet 实例只读通读修订后的 Canonical 与 Practice，报告六处悬空指称、六处残余自指、四处命名不一致、零处断裂与零处依赖 Index 的句子；全部处置见上表“同名对象”行。属于模型通读，不是人工审稿或同行评审。
+
+**本地候选检查**：三份源文件 Edition / base 同步为 2026-09-13；构建与 14 项阅读器检查通过，13 个历史发布文件字节不变，当前入口与带日期 HTML 一致，64 个文内链接均有目标，`git diff --check` 通过。浏览器抽查三视图首屏（Canonical 封面、Practice §一、Index PI-24 与本条），不声称逐屏检查全文。Canonical 与 Practice 正文合计较 9.6 缩短约 5,900 字符。`papers/qa/test_translation_gate.py` 的 exact-binding 用例在 9.6 节点已因 cache 过期失败，与本轮无关。未推送或部署。
+
+
 
 Astra复读现有正文与PI-20/PI-21后裁决：只登记PI-22及对象生命周期对照V-23，披露与Runtime验证复用V-21/V-19；不修订Canonical、Practice、Edition、CHANGELOG或发布产物。外部成熟实践的局部核验与产品消费留在Courtwork，不把本轮设计讨论提升为实现证据。
 
@@ -539,7 +574,7 @@ Astra复读现有正文与PI-20/PI-21后裁决：只登记PI-22及对象生命�
 
 [^prov-dm]: W3C, “PROV-DM: The PROV Data Model,” Recommendation, 2013-04-30, https://www.w3.org/TR/prov-dm/ 。访问日期：2026-09-05。用于 provenance 对象和关系的既有基础；来源关系本身不判定专业主张为真。
 
-[^cmmn]: OMG, “Case Management Model and Notation,” Version 1.1, December 2016, https://www.omg.org/spec/CMMN/1.1/About-CMMN ，规范正文 https://www.omg.org/spec/CMMN/1.1/PDF ，§4–5。访问日期：2026-09-05。用于 case 工作建模的定位，不把 SE 等同于 CMMN，也不声称穷尽案件管理相关工作。
+[^cmmn]: OMG, “Case Management Model and Notation,” Version 1.1, December 2016，规范正文 https://www.omg.org/spec/CMMN/1.1/PDF ，§4–5（case file、case plan、stage、milestone 的定义所在）；规范入口 https://www.omg.org/spec/CMMN/1.1/About-CMMN 只给出范围声明。访问日期：2026-09-05，入口页于 2026-09-13 复核。用于 case 工作建模的定位，不把 SE 等同于 CMMN，也不声称穷尽案件管理相关工作。
 
 [^infoq-thin-loop]: Tina，InfoQ，《人人都能整个“自己的 DeepSeek Harness”，那我们为啥还在给 Claude Code 们充会员？》，2026-09-04，https://www.infoq.cn/article/6Jc130IN2OaXqsPDIzmJ ，访问日期：2026-09-06。访谈报道用于 thin loop / control plane、Runtime replacement、declarative orchestration、state-mediated coordination 与 failure containment 的从业者观察；系统规模、开发周期、无人工编码／PR review 与行业共识均视为报道或受访者自述，不作为独立实验。
 
