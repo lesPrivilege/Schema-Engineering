@@ -30,8 +30,8 @@ DIST_DIR = SCRIPT_DIR / "dist"
 TRANSLATIONS_DIR = SCRIPT_DIR / "translations"
 EN_DIR = TRANSLATIONS_DIR / "en"
 
-EDITION = "2026-09-07"
-TEXT_REVISION = "9.6"
+EDITION = "2026-09-13"
+TEXT_REVISION = "9.7"
 READER_REVISION = "2026-09-11"
 # Publication-view candidate. The dated 2026-09-11 reader files stay untouched; the
 # candidate keeps its own dated path; integration must not overwrite historical releases.

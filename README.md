@@ -2,7 +2,7 @@
 
 Schema Engineering 是一组持续修订的工作论文，讨论 Agent 如何参与可提交、可恢复、可审阅的正式工作。
 
-当前版本为 **9.6（2026-09-07）**。可从 [中文阅读页](https://lesprivilege.github.io/Schema-Engineering/) 或 [English reader](https://lesprivilege.github.io/Schema-Engineering/index-en.html) 阅读；带日期的发布文件保留在 [`papers/dist/`](papers/dist/) 中。
+当前版本为 **9.7（2026-09-13）**。可从 [中文阅读页](https://lesprivilege.github.io/Schema-Engineering/) 或 [English reader](https://lesprivilege.github.io/Schema-Engineering/index-en.html) 阅读；带日期的发布文件保留在 [`papers/dist/`](papers/dist/) 中。
 
 ## 文本体系
 

@@ -4,6 +4,13 @@
 
 ## Unreleased
 
+### 9.7 — 2026-09-13 · 发表修订
+
+- 不新增命题、ontology、Contract 类型或原则编号。Canonical 与 Practice 删去自指旁白、保护性措辞、重复定义与不承重的过渡句；机制类比（MoE、fast / slow path）与 AGI 免责声明移入 Practice Index PI-24。
+- 同名对象统一：Current Semantic State 为 Semantic State 的当前值；渐进披露；§12.1 标题与正文一致；Candidate Change 与 Review Policy 有定义；弱编译与 Eval infrastructure 附通行英文；Practice §一 改写为实践约束，§七 改为概念验证。
+- Evidence Contract 的 supports / contradicts / qualifies 在正文中与 PROV-DM 派生关系区分。八项外部来源于 2026-09-13 复核可达，PI-13 与 CMMN 脚注按原文校正；CourtWork `ada8657` 文档无新的泛化观察。
+- Sonnet 5 只读探查，Fable 5.1 裁决与撰写；未做人工审稿。英文译文仍绑定 9.6 源，按规则 withheld，待重译。本地构建与校验通过；未推送或部署。
+
 ### 9.6 — 2026-09-07 · 本地发表候选
 
 - Astra 主笔合成稳定工作表示、授权视图、候选可见性与正式效力的关系；Luna 探索与独立 Astra 文本审查支持裁决。

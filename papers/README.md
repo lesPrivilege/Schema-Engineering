@@ -28,7 +28,9 @@ papers/
     ├── schema-engineering-2026-09-05.html
     ├── schema-engineering-2026-09-06.html
     ├── schema-engineering-2026-09-07-v9.5.html
-    └── schema-engineering-2026-09-07.html
+    ├── schema-engineering-2026-09-07.html
+    ├── schema-engineering-2026-09-07-reader-2026-09-11-paper-v1[-en].html
+    └── schema-engineering-2026-09-13-reader-2026-09-11-paper-v1.html
 ```
 
 ## 三份文本的责任
@@ -65,7 +67,7 @@ Canonical 与 Practice 只呈现当前成立的完整文本。材料通过裁决
 
 仓库级的观察登记、提交边界与发版检查见根目录 `CONTRIBUTING.md`；版本级变化见 `CHANGELOG.md`。
 
-既有 `schema-engineering-2026-09-07.html` 保留 9.6 的历史发布，`schema-engineering-2026-09-07-v9.5.html` 保留 9.5。本次阅读器更新另存 `schema-engineering-2026-09-07-reader-2026-09-10.html` 及对应 `-en.html`，不覆盖历史文件，也不改变论文 Edition。
+当前文本版次为 9.7（2026-09-13），发布文件为 `schema-engineering-2026-09-13-reader-2026-09-11-paper-v1.html`。`schema-engineering-2026-09-07.html` 与 `schema-engineering-2026-09-07-reader-*.html` 保留 9.6 的历史发布，`schema-engineering-2026-09-07-v9.5.html` 保留 9.5；历史文件不覆盖，校验器逐一比对其字节。
 
 ## 发版方法
 
@@ -85,7 +87,7 @@ python3 -m pip install -r papers/requirements.txt
 python3 papers/build_en.py
 python3 papers/build.py
 python3 papers/validate.py
-# → papers/dist/schema-engineering-2026-09-07-reader-2026-09-10[-en].html
+# → papers/dist/schema-engineering-2026-09-13-reader-2026-09-11-paper-v1[-en].html
 # → papers/dist/index.html / index-en.html
 ```
 
