@@ -29,3 +29,5 @@ node papers/qa/verify_prepublish.mjs --origin http://127.0.0.1:8962/ --cdp-port 
 ```
 
 54项覆盖前进/后退、刷新与共享链接、目录末项、键盘路径、无脚本details、显式主题优先级、减弱动态、高对比颜色映射、打印矩阵和离线阅读；另核 optical-03 几何及 common-red-v1 品牌色在浅深主题/正文墨色变化时稳定。forced-colors由浏览器媒体模拟；缩放自动化采用有效viewport/DPR模拟，不称真实浏览器菜单zoom。原生VoiceOver、IME、实体打印未测。
+
+译文 withheld 时，用 `verify_prepublish.mjs --languages zh` 检查当前中文入口；键盘顺序按实际语言链接是否存在验证，不为通过测试生成旧版 `index-en.html`。

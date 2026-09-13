@@ -49,7 +49,7 @@ const FOCUS = `(()=>{const el=document.activeElement;const cs=getComputedStyle(e
 
 try {
   await mkdir(OUT, { recursive: true });
-  for (const language of ["zh", "en"]) {
+  for (const language of arg("--languages", "zh,en").split(",")) {
     const filename = language === "zh" ? "index.html" : "index-en.html";
     const url = (q = "") => new URL(filename + q, ORIGIN).href;
 
@@ -91,10 +91,12 @@ try {
 
     // keyboard path with visible focus
     await load(url());
+    const hasLanguage = await evaluate(`!!document.querySelector('.language-switch[href]')`);
+    const tocOffset = hasLanguage ? 6 : 5;
     const path_ = [];
-    for (let i = 0; i < 9; i++) { await key("Tab", "Tab", 9); path_.push(await evaluate(FOCUS)); }
-    const expected = ["skip-link", "canonical", "practice", "index", "theme", "language", "toc-summary", "toc-link", "toc-link"];
-    const okOrder = path_[0].cls.includes("skip-link") && path_[1].text === "Canonical" && path_[2].text === "Practice" && path_[3].text === "Index" && path_[4].tag === "BUTTON" && path_[5].cls.includes("language-switch") && path_[6].tag === "SUMMARY" && path_[7].tag === "A" && path_[8].tag === "A";
+    for (let i = 0; i < tocOffset + 3; i++) { await key("Tab", "Tab", 9); path_.push(await evaluate(FOCUS)); }
+    const expected = ["skip-link", "canonical", "practice", "index", "theme", ...(hasLanguage ? ["language"] : []), "toc-summary", "toc-link", "toc-link"];
+    const okOrder = path_[0].cls.includes("skip-link") && path_[1].text === "Canonical" && path_[2].text === "Practice" && path_[3].text === "Index" && path_[4].tag === "BUTTON" && (!hasLanguage || path_[5].cls.includes("language-switch")) && path_[tocOffset].tag === "SUMMARY" && path_[tocOffset + 1].tag === "A" && path_[tocOffset + 2].tag === "A";
     record(`${language}-keyboard-order`, okOrder && path_.every((p) => p.visible), { expected, path: path_ });
     await load(url());
     await key("Tab", "Tab", 9); await key("Enter", "Enter", 13, "\r"); await sleep(200); await key("Tab", "Tab", 9);
@@ -111,7 +113,7 @@ try {
     const afterToggle = await evaluate(`({tag:document.activeElement.tagName,open:document.activeElement.closest('details')?.open})`);
     record(`${language}-keyboard-details-toggle`, beforeToggle.tag === "SUMMARY" && afterToggle.open !== beforeToggle.open, { beforeToggle, afterToggle });
     await load(url(), { width: 390, height: 844 });
-    for (let i = 0; i < 7; i++) await key("Tab", "Tab", 9);
+    for (let i = 0; i < tocOffset + 1; i++) await key("Tab", "Tab", 9);
     const narrowSummary = await evaluate(FOCUS);
     await key("Enter", "Enter", 13, "\r"); await sleep(250);
     const narrowOpen = await evaluate(`document.activeElement.closest('details')?.open`);
