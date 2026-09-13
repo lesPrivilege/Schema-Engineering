@@ -4,6 +4,13 @@
 
 ## Unreleased
 
+### 9.8 — 2026-09-14 · 持久工作语义与发表体例
+
+- Canonical 以既有工作记录与制度连接 Agent 消费，明确重复概率推理成本、状态复用及捕获维护成本；保留 judgment boundary、混合裁决与 F1–F27，不新增 ontology、Contract 或原则。
+- Practice 充实既有权威系统接入、可替换执行层与 Schema / 关键词 / 向量 / 关系检索的分工；独立实践快照保存成熟系统、专业标准和 metadata 实践的来源与范围。
+- 验收清单、证据解释、开放问题与非目标移入 Practice Index；正文不把研究方案或设计推论写成已发生实验。Luna 有界 Explore，Astra 裁决与正文撰写；未做人工审稿。
+- 三份文本与中文编译入口同步 9.8；英文保持 9.6 历史绑定并 withheld。历史 HTML 不覆盖。本地发布候选，未推送或部署，CourtWork 工程采用 pin 未修改。
+
 ### 9.7 — 2026-09-13 · 发表修订
 
 - 不新增命题、ontology、Contract 类型或原则编号。Canonical 与 Practice 删去自指旁白、保护性措辞、重复定义与不承重的过渡句；机制类比（MoE、fast / slow path）与 AGI 免责声明移入 Practice Index PI-24。

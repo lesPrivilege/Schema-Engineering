@@ -67,7 +67,7 @@ Canonical 与 Practice 只呈现当前成立的完整文本。材料通过裁决
 
 仓库级的观察登记、提交边界与发版检查见根目录 `CONTRIBUTING.md`；版本级变化见 `CHANGELOG.md`。
 
-当前文本版次为 9.7（2026-09-13），发布文件为 `schema-engineering-2026-09-13-reader-2026-09-11-paper-v1.html`。`schema-engineering-2026-09-07.html` 与 `schema-engineering-2026-09-07-reader-*.html` 保留 9.6 的历史发布，`schema-engineering-2026-09-07-v9.5.html` 保留 9.5；历史文件不覆盖，校验器逐一比对其字节。
+当前编订候选为 9.8（2026-09-14），候选文件为 `schema-engineering-2026-09-14-reader-2026-09-11-paper-v1.html`；尚未推送或部署。9.7 本地候选文件保持原字节。`schema-engineering-2026-09-07.html` 与 `schema-engineering-2026-09-07-reader-*.html` 保留 9.6 的历史发布，`schema-engineering-2026-09-07-v9.5.html` 保留 9.5；历史文件不覆盖，校验器逐一比对其字节。
 
 ## 发版方法
 
@@ -87,8 +87,9 @@ python3 -m pip install -r papers/requirements.txt
 python3 papers/build_en.py
 python3 papers/build.py
 python3 papers/validate.py
-# → papers/dist/schema-engineering-2026-09-13-reader-2026-09-11-paper-v1[-en].html
-# → papers/dist/index.html / index-en.html
+# → papers/dist/schema-engineering-2026-09-14-reader-2026-09-11-paper-v1.html
+# English: withheld（译文仍绑定 9.6）
+# → papers/dist/index.html
 ```
 
 依赖：Python 3.10+ 与锁定版本的 `markdown2`。编译产物是无外部运行依赖的单文件 HTML，包含 Canonical、Practice 和 Practice Index 三个视图。推送到 `main` 后，GitHub Actions 会重新构建、校验并发布 Pages；本地生成的 `dist/index.html` 不纳入版本控制，避免重复的可变发布文件。
