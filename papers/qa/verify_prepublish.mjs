@@ -79,10 +79,11 @@ try {
     await load(url("?view=index")); record(`${language}-query-alias-view`, (await evaluate(`document.body.dataset.activeMode`)) === "index", {});
 
     // long contents: last item reachable and working, wide rail and narrow details
+    // Scroll offsets round to CSS pixels; allow <1px fractional box overshoot.
     for (const width of [1440, 390]) {
       await load(url("?mode=index"), { width, height: width === 390 ? 844 : 900 });
       if (width === 390) await clickEl('[data-paper-mode="index"] .reader-toc summary');
-      const state = await evaluate(`(()=>{const toc=document.querySelector('[data-paper-mode="index"] .reader-toc');const links=[...toc.querySelectorAll('[data-toc-link]')];const last=links[links.length-1];last.scrollIntoView({block:'nearest'});const r=last.getBoundingClientRect();const t=toc.getBoundingClientRect();return {open:toc.open,count:links.length,inViewport:r.top>=0&&r.bottom<=innerHeight,inToc:r.top>=t.top-1&&r.bottom<=t.bottom+1,text:last.textContent.trim().slice(0,40),href:decodeURIComponent(new URL(last.href).hash.slice(1))};})()`);
+      const state = await evaluate(`(()=>{const toc=document.querySelector('[data-paper-mode="index"] .reader-toc');const links=[...toc.querySelectorAll('[data-toc-link]')];const last=links[links.length-1];last.scrollIntoView({block:'nearest'});const r=last.getBoundingClientRect();const t=toc.getBoundingClientRect();return {open:toc.open,count:links.length,inViewport:r.top>=-1&&r.bottom<=innerHeight+1,inToc:r.top>=t.top-1&&r.bottom<=t.bottom+1,text:last.textContent.trim().slice(0,40),href:decodeURIComponent(new URL(last.href).hash.slice(1))};})()`);
       await evaluate(`(()=>{const links=document.querySelectorAll('[data-paper-mode="index"] [data-toc-link]');links[links.length-1].focus();links[links.length-1].click();})()`); await sleep(300);
       const landed = await evaluate(`document.getElementById(${JSON.stringify(state.href)}).getBoundingClientRect().top`);
       record(`${language}-toc-last-${width}`, state.open && state.inViewport && state.inToc && Math.abs(landed - 128) < 4, { ...state, landed });
