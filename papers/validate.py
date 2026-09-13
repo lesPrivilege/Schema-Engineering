@@ -85,19 +85,32 @@ def validate_source(name: str, path: Path) -> str:
     return text
 
 
-def historical_blob() -> bytes:
-    relative = build.HISTORICAL_RELEASE_FILE.relative_to(SCRIPT_DIR.parent)
-    # The checkout is shallow in some local environments. The published
-    # historical file is still required to be tracked at HEAD; cat-file gives
-    # a byte comparison without relying on the index or a clean worktree.
+def head_blob(relative: str) -> bytes:
+    # The checkout is shallow in some local environments. cat-file gives a
+    # byte comparison without relying on the index or a clean worktree.
     result = subprocess.run(
-        ["git", "cat-file", "blob", f"HEAD:{relative.as_posix()}"],
+        ["git", "cat-file", "blob", f"HEAD:{relative}"],
         cwd=SCRIPT_DIR.parent,
         capture_output=True,
     )
     if result.returncode:
         fail(f"cannot read historical release from HEAD: {relative}")
     return result.stdout
+
+
+def historical_releases() -> list[str]:
+    """Tracked dist files other than the outputs of the current build."""
+
+    result = subprocess.run(
+        ["git", "ls-files", "--", "papers/dist"],
+        cwd=SCRIPT_DIR.parent,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        fail("cannot list tracked release files")
+    current = {READER_FILE.name, EN_READER_FILE.name}
+    return [line for line in result.stdout.splitlines() if Path(line).name not in current]
 
 
 def read_manifest() -> dict:
@@ -112,14 +125,11 @@ def read_manifest() -> dict:
 
 
 def validate_chinese(sources: dict[str, str]) -> list[str]:
-    expected_bases = {
-        "practice": "Canonical base: 2026-09-07 Canonical Edition",
-        "index": "Canonical base: 2026-09-07 Canonical Edition",
-    }
-    for name, marker in expected_bases.items():
-        if marker not in sources[name]:
+    canonical_base = f"Canonical base: {EDITION} Canonical Edition"
+    for name in ("practice", "index"):
+        if canonical_base not in sources[name]:
             fail(f"{name} does not declare the expected Canonical base")
-    if "Practice base: 2026-09-07 Generalized Practice Snapshot" not in sources["index"]:
+    if f"Practice base: {EDITION} Generalized Practice Snapshot" not in sources["index"]:
         fail("index does not declare the expected Practice base")
 
     if not READER_FILE.is_file() or not INDEX_FILE.is_file():
@@ -155,18 +165,23 @@ def validate_chinese(sources: dict[str, str]) -> list[str]:
     return [f"{name}" for name in checks]
 
 
-def validate_historical() -> None:
-    path = build.HISTORICAL_RELEASE_FILE
-    if not path.is_file():
-        fail(f"missing historical release: {path}")
-    expected = historical_blob()
-    current = path.read_bytes()
-    if current != expected:
-        fail(
-            "historical 9.6 release bytes changed "
-            f"(HEAD sha256={hashlib.sha256(expected).hexdigest()[:12]}, "
-            f"working sha256={hashlib.sha256(current).hexdigest()[:12]})"
-        )
+def validate_historical() -> list[str]:
+    releases = historical_releases()
+    if not releases:
+        fail("no historical release is tracked under papers/dist")
+    for relative in releases:
+        path = SCRIPT_DIR.parent / relative
+        if not path.is_file():
+            fail(f"missing historical release: {relative}")
+        expected = head_blob(relative)
+        current = path.read_bytes()
+        if current != expected:
+            fail(
+                f"historical release bytes changed: {relative} "
+                f"(HEAD sha256={hashlib.sha256(expected).hexdigest()[:12]}, "
+                f"working sha256={hashlib.sha256(current).hexdigest()[:12]})"
+            )
+    return releases
 
 
 def validate_english_if_present(sources: dict[str, str]) -> bool:
@@ -208,7 +223,7 @@ def validate_english_if_present(sources: dict[str, str]) -> bool:
 def main() -> None:
     sources = {name: validate_source(name, path) for name, path in SOURCE_FILES.items()}
     chinese_checks = validate_chinese(sources)
-    validate_historical()
+    historical = validate_historical()
     english = validate_english_if_present(sources)
     print(
         f"PASS: {len(SOURCE_FILES)} Chinese sources, {len(chinese_checks)} reader checks, "
@@ -217,7 +232,7 @@ def main() -> None:
     print(f"PASS: {READER_FILE.name} == index.html ({READER_FILE.stat().st_size:,} bytes)")
     if english:
         print(f"PASS: {EN_READER_FILE.name} == index-en.html ({EN_READER_FILE.stat().st_size:,} bytes)")
-    print(f"PASS: historical {build.HISTORICAL_RELEASE_FILE.name} bytes unchanged")
+    print(f"PASS: {len(historical)} historical release files unchanged")
 
 
 if __name__ == "__main__":

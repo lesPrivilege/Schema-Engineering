@@ -7,8 +7,8 @@ English compiler imports the rendering primitives below and reads its own
 derived translation cache.
 
 The text edition and the reader revision are deliberately separate. A new
-reader skin therefore gets a new filename and never rewrites the dated text
-release from the 9.6 publication.
+reader skin or a new text edition gets a new filename; every dated release
+already tracked under ``papers/dist`` keeps its bytes.
 """
 
 from __future__ import annotations
@@ -38,9 +38,6 @@ READER_REVISION = "2026-09-11"
 READER_CANDIDATE = "paper-v1"
 SIGNATURE_FAMILY = "black"  # "black" (default reading masthead) or "color" (cover / publishing use)
 
-# The old file is a historical text release. Keep this path visible so the
-# validator can guard it explicitly, while the reader uses a new path.
-HISTORICAL_RELEASE_FILE = DIST_DIR / f"schema-engineering-{EDITION}.html"
 OUT_FILE = DIST_DIR / f"schema-engineering-{EDITION}-reader-{READER_REVISION}-{READER_CANDIDATE}.html"
 INDEX_FILE = DIST_DIR / "index.html"
 EN_OUT_FILE = DIST_DIR / f"schema-engineering-{EDITION}-reader-{READER_REVISION}-{READER_CANDIDATE}-en.html"
