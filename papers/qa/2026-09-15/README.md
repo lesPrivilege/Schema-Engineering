@@ -14,4 +14,12 @@
 
 ## 发布
 
-本次用户已授权push部署；实际Actions及线上核对结果在发布完成后追加。本回执后续提交会自动触发同源码重建，不改变论文内容。
+内容提交`7966698183bf1555d5f7aebee92124ff5223de91`直接进入main并push。GitHub Pages [运行34947873162](https://github.com/lesPrivilege/Schema-Engineering/actions/runs/34947873162)的build/deploy均success。2026-09-15 08:37 UTC核对线上首页及本次固定阅读文件均HTTP200，395,833字节，SHA-256 `3b1d3f3ced0a16e0ec778104df0dd6ac6f6269064f0226e425a0322bd616fa55`，与本地构建一致，见[线上检查](live-verification.json)。
+
+本回执的后续提交只增加内部发布事实，按现workflow自动重建同一页面字节；最终main对应的运行可从[Pages工作流](https://github.com/lesPrivilege/Schema-Engineering/actions/workflows/pages.yml)按HEAD核对，不需要再次改写正文或生成物。
+
+## 下一轮基线
+
+SE从包含本回执的main实际HEAD接单，内容来源固定上述7966698；先核对本地/远端和dirty状态，再读README、CONTRIBUTING及Index原条目。中文公开9.8、阅读版本2026-09-15；英文保持9.6历史译文，后续重译按既有源绑定与复核规则处理。
+
+CourtWork的main与origin/main均为`caf3edbceb8cf9b535a28c547088874852752a1e`且工作树干净，产品施工沿其原current；SE不复制工单。CourtWork PAPER采用仍为9.6 / `d78fd312955c1f594e59cbdcbb0d3074ac355940`。本轮未创建新分支、工作树或新的Fresh开发线；两仓以各自main作为最新接续节点。

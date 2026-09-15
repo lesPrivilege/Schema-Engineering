@@ -1,0 +1,20 @@
+{
+  "source_sha": "7966698183bf1555d5f7aebee92124ff5223de91",
+  "run_id": 34947873162,
+  "checked_at": "2026-09-15T08:37:16.377648+00:00",
+  "items": [
+    {
+      "path": "index.html",
+      "http_status": 200,
+      "sha256": "3b1d3f3ced0a16e0ec778104df0dd6ac6f6269064f0226e425a0322bd616fa55",
+      "matches_local": true
+    },
+    {
+      "path": "schema-engineering-2026-09-14-reader-2026-09-15-paper-v1.html",
+      "http_status": 200,
+      "sha256": "3b1d3f3ced0a16e0ec778104df0dd6ac6f6269064f0226e425a0322bd616fa55",
+      "matches_local": true
+    }
+  ],
+  "pass": true
+}
