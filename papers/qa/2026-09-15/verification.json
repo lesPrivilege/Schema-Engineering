@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "papers/src/canonical.md": true,
+    "papers/src/practice.md": true,
+    "papers/reader/reader.css": true,
+    "papers/reader/reader.js": true,
+    "papers/dist/schema-engineering-2026-08-29.html": true,
+    "papers/dist/schema-engineering-2026-09-01.html": true,
+    "papers/dist/schema-engineering-2026-09-04.html": true,
+    "papers/dist/schema-engineering-2026-09-05.html": true,
+    "papers/dist/schema-engineering-2026-09-06.html": true,
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-10-en.html": true,
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-10.html": true,
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11-en.html": true,
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11-paper-v1-en.html": true,
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11-paper-v1.html": true,
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11.html": true,
+    "papers/dist/schema-engineering-2026-09-07-v9.5.html": true,
+    "papers/dist/schema-engineering-2026-09-07.html": true,
+    "papers/dist/schema-engineering-2026-09-13-reader-2026-09-11-paper-v1.html": true,
+    "papers/dist/schema-engineering-2026-09-14-reader-2026-09-11-paper-v1.html": true,
+    "rendered-canonical-apart-from-reader-metadata": true,
+    "rendered-practice-apart-from-reader-metadata": true,
+    "courtwork-footer-link": true
+  },
+  "pass": true,
+  "current_html_sha256": "3b1d3f3ced0a16e0ec778104df0dd6ac6f6269064f0226e425a0322bd616fa55"
+}

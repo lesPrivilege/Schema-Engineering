@@ -1,5 +1,15 @@
 # Schema Engineering · 对外阅读与发布面
 
+## 2026-09-15 · 发布状态与跨仓入口
+
+中文9.8已由`ec8d57ea9d2e69e84ebdc187472c5c50795804f7`的[Pages运行34778033066](https://github.com/lesPrivilege/Schema-Engineering/actions/runs/34778033066)发布。英文历史译文为9.6；当前入口因源绑定不匹配保持withheld。CourtWork工程采用9.6 / `d78fd312955c1f594e59cbdcbb0d3074ac355940`，其最新发布与开工基线为`caf3edbceb8cf9b535a28c547088874852752a1e`。
+
+用户授权在现有main完成内容收敛并push部署，不开额外分支。Astra保留本地README/CHANGELOG已有的发布状态修正，公开README以中英文版本入口及独立CourtWork定义收敛，既有阅读页页脚仅加产品链接；不改Canonical/Practice、CSS、JS、图或语言门禁。新reader revision为2026-09-15，以独立文件保存Index修订而保全历史HTML。原文中的候选和未部署描述按各自日期理解，当前状态由本节及[本次发布回执](../qa/2026-09-15/README.md)接续。
+
+下一轮SE从包含本回执的main实际HEAD接续；先读README/CONTRIBUTING和Index原条目。CourtWork产品任务回其current及原owner，SE只编订论文与出版设施。两个仓库的main都可作为新的接续节点，“fresh”只是当前基线的描述，不新增Fresh开发线。
+
+## 历史发布面约定
+
 2026-09-08 · 发布准备稿。本文只管理论文仓的公众入口、文本/图/版本及跨仓引用，不记录CourtWork产品任务或改变Canonical/Practice。具体编订与发布仍沿 [CONTRIBUTING](../../CONTRIBUTING.md)；当前候选/已发布必须分别查验。
 
 ## 对外定位草稿

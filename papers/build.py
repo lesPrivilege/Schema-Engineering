@@ -32,7 +32,7 @@ EN_DIR = TRANSLATIONS_DIR / "en"
 
 EDITION = "2026-09-14"
 TEXT_REVISION = "9.8"
-READER_REVISION = "2026-09-11"
+READER_REVISION = "2026-09-15"
 # Publication-view candidate. The dated 2026-09-11 reader files stay untouched; the
 # candidate keeps its own dated path; integration must not overwrite historical releases.
 READER_CANDIDATE = "paper-v1"
@@ -333,7 +333,7 @@ def _labels(language: str) -> dict[str, str]:
             "meta_index": "Practice Index",
             "meta_edition": "Edition",
             "meta_revision": "Text revision",
-            "meta_reader": "Reader candidate",
+            "meta_reader": "Reader revision",
             "cover_alt": COVER_ALT["en"],
         }
     return {
@@ -357,7 +357,7 @@ def _labels(language: str) -> dict[str, str]:
         "meta_index": "Practice Index",
         "meta_edition": "Edition",
         "meta_revision": "文本版本",
-        "meta_reader": "阅读面候选",
+        "meta_reader": "阅读版本",
         "cover_alt": COVER_ALT["zh"],
     }
 
@@ -489,7 +489,7 @@ TEMPLATE = """<!doctype html>
     </div>
     <div class="reader-actions">
       <button type="button" data-theme-toggle aria-label="{theme_label}">◐</button>
-      {language_link}
+{language_link}
     </div>
   </nav>
   <main id="reader-content" class="reader-content">
@@ -497,7 +497,7 @@ TEMPLATE = """<!doctype html>
     <article class="paper" id="paper-practice" data-paper-mode="practice" aria-hidden="false">{practice}</article>
     <article class="paper" id="paper-index" data-paper-mode="index" aria-hidden="false">{index}</article>
   </main>
-  <footer class="reader-footer"><span>Schema Engineering · {text_revision} · {edition} · {source_link} {translation_note}</span><span>{maker} · {reader_candidate} · {reader_revision}</span></footer>
+  <footer class="reader-footer"><span>Schema Engineering · {text_revision} · {edition} · {source_link} · <a href="https://lesprivilege.github.io/Courtwork/">CourtWork</a> {translation_note}</span><span>{maker} · {reader_candidate} · {reader_revision}</span></footer>
   <noscript><p class="noscript-note">{noscript_label}</p></noscript>
   <script>{js}</script>
 </body>

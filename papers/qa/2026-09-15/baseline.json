@@ -1,0 +1,30 @@
+{
+  "head": "ec8d57ea9d2e69e84ebdc187472c5c50795804f7",
+  "preexisting_modified": [
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sha256": {
+    "README.md": "7fe54426605040c771601d8e854ca7caae79ec930a83ae41d0a272a9dc9edc52",
+    "CHANGELOG.md": "7c86a246e907deb319fe890dba5962e6ce87c03e3ec0c616392d19a4fb1ee252",
+    "papers/src/canonical.md": "051d4237938369d8c37ca22ba998479126ba1e2ae18bf515d9fd7be0638aaf1b",
+    "papers/src/practice.md": "6bbd62747eebca995b3e1004132b6bb72c063839b5dec2b358c4ce62baa75792",
+    "papers/reader/reader.css": "8798e3b6477c5f4b32a9860980061e23efaf38f42f8056da4045243069ec8ed1",
+    "papers/reader/reader.js": "282b3e61505e01d1bc98b34c1e314f5d52ef30018b238074af4d0cfc2920ab65",
+    "papers/dist/schema-engineering-2026-08-29.html": "aef45a6772ad6815d9525740a44b3a1e43fcb657eb7dd19fe66962197ec44fd4",
+    "papers/dist/schema-engineering-2026-09-01.html": "695a4e3a7a69b40bed45999a5c0a6f4b5301eaad025155d0a76c34931144d131",
+    "papers/dist/schema-engineering-2026-09-04.html": "83af9710a56d8e359030d576cbf7490e78262feaf961affe7694c1e73a467021",
+    "papers/dist/schema-engineering-2026-09-05.html": "3e7cb2707671e0ecde430ea3eb4b88b2acdaef1704cc6e388e357dec87b4daff",
+    "papers/dist/schema-engineering-2026-09-06.html": "e5d766f86170d0cd908d4f6db0f467c487545c12c09f93c5df5862e03af0c87d",
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-10-en.html": "3b50eae25d9e5cb52baf7e5e98b3531ad87e2a41ae4c0d8340dcc9c08fd4f445",
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-10.html": "bb6c87d9ed1c04dd008d285da28be7dfc03cd33574cfb45c872beffc4c575a1f",
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11-en.html": "976f24ea766a87729f3c26a305c5dd9c242f66894a5aeeecd267e3f530d1305a",
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11-paper-v1-en.html": "03a8b779edab1dfc7db66a23870fb74f2e5e2a8cbc8ecb34c0d7cf1424201ced",
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11-paper-v1.html": "e2881697da019dd6262146a23e1e0ad7d09135fabc3026c5d185e3ddcdf39df3",
+    "papers/dist/schema-engineering-2026-09-07-reader-2026-09-11.html": "5a3ddbc90dafd61268b09fb9cdff1c9ed6a2a44bdf2befd4b213b79d427c6541",
+    "papers/dist/schema-engineering-2026-09-07-v9.5.html": "e05d5849dd3539424898a4bddbd1ab2df53f64f26faae8099e15f9b47cbf7d1e",
+    "papers/dist/schema-engineering-2026-09-07.html": "93ad2b128bdce45fe0fa9c61e30437091150345db4f51547aa6ec3e43ed54175",
+    "papers/dist/schema-engineering-2026-09-13-reader-2026-09-11-paper-v1.html": "3536fe07fbe4f2ec4b0a24200614422a7500e8181ddde1747dd97dae0e5420a2",
+    "papers/dist/schema-engineering-2026-09-14-reader-2026-09-11-paper-v1.html": "8fcd1645813d246084ccf2da1e1dbd5fb020ee80412b5b2abf9fe73588d2cc06"
+  }
+}

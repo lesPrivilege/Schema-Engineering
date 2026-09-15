@@ -1,0 +1,26 @@
+$ python3 papers/build_en.py
+SKIP: English reader requires a complete reviewed translation manifest
+exit=0
+$ python3 papers/qa/test_translation_gate.py
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.598s
+
+OK
+exit=0
+$ python3 papers/qa/test_reader_assets.py
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.003s
+
+OK
+exit=0
+$ python3 papers/validate.py
+PASS: 3 Chinese sources, 14 reader checks, Edition 2026-09-14; English=withheld
+PASS: schema-engineering-2026-09-14-reader-2026-09-15-paper-v1.html == index.html (395,839 bytes)
+PASS: 15 historical release files unchanged
+exit=0
+$ git diff --check
+exit=0
+
+Staged diff found one whitespace-only generated line at the withheld language-link slot. Removed template indentation for that slot; rebuilt and validated successfully (14 reader checks, 15 historical files unchanged).

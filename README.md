@@ -2,7 +2,9 @@
 
 Schema Engineering 是一组持续修订的工作论文，讨论 Agent 如何参与可提交、可恢复、可审阅的正式工作。
 
-当前编订候选为 **9.8（2026-09-14）**，尚未推送或部署。候选阅读文件保存在 [`papers/dist/`](papers/dist/)；[中文在线阅读页](https://lesprivilege.github.io/Schema-Engineering/) 的版本以实际部署为准。英文仍绑定 9.6，可阅读[固定历史译文](https://lesprivilege.github.io/Schema-Engineering/schema-engineering-2026-09-07-reader-2026-09-11-paper-v1-en.html)；当前英文入口暂停生成。
+[中文 9.8 · 2026-09-14](https://lesprivilege.github.io/Schema-Engineering/) · [English 9.6 · 2026-09-07](https://lesprivilege.github.io/Schema-Engineering/schema-engineering-2026-09-07-reader-2026-09-11-paper-v1-en.html) · [历史阅读文件](papers/dist/)
+
+发布与译文绑定见[发布记录](papers/notes/publication-surface.md#2026-09-15--发布状态与跨仓入口)。
 
 ## 文本体系
 
@@ -16,7 +18,9 @@ Canonical 与 Practice 正文均自足。可折旧的产品行为、个人实例
 
 ## 工程实践与论文反馈
 
-CourtWork 的实现、设计、RD、验收与开发 PR 已迁往 [CourtWork 源码](https://github.com/lesPrivilege/Courtwork/tree/main)，当前状态见 [CourtWork engineering/current.md](https://github.com/lesPrivilege/Courtwork/blob/main/engineering/current.md)。本地唯一开发入口为 `../Courtwork`；本目录只维护论文与发布设施。
+[CourtWork](https://lesprivilege.github.io/Courtwork/) 是让人和 Agent 持续工作的本地 AI 工作空间。项目、材料、成果与决定构成共同的工作现场，模型与执行者围绕它分工和接力。
+
+[产品源码](https://github.com/lesPrivilege/Courtwork/tree/main) · [工程状态](https://github.com/lesPrivilege/Courtwork/blob/main/engineering/current.md)
 
 CourtWork 的 [PAPER.md](https://github.com/lesPrivilege/Courtwork/blob/main/PAPER.md) 固定采用的论文版本与 SHA，并提供开发反馈入口。工程结果影响论文命题时，在 Practice Index 保存最小观察、支持范围与固定工程证据链接；完整施工记录留在 CourtWork。
 

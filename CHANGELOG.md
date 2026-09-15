@@ -4,12 +4,18 @@
 
 ## Unreleased
 
+### 2026-09-15 · 9.8发布状态与阅读入口
+
+- 接续中文9.8已发布事实，README提供中文9.8及英文9.6固定入口；新增CourtWork产品定义和既有页脚链接。
+- Index保存产品裁决的采用边界和发布接续，Canonical/Practice与论文版本保持；reader revision 2026-09-15另存，旧HTML不覆盖。
+- 实际检查与发布结果见[回执](papers/qa/2026-09-15/README.md)。
+
 ### 9.8 — 2026-09-14 · 持久工作语义与发表体例
 
 - Canonical 以既有工作记录与制度连接 Agent 消费，明确重复概率推理成本、状态复用及捕获维护成本；保留 judgment boundary、混合裁决与 F1–F27，不新增 ontology、Contract 或原则。
 - Practice 充实既有权威系统接入、可替换执行层与 Schema / 关键词 / 向量 / 关系检索的分工；独立实践快照保存成熟系统、专业标准和 metadata 实践的来源与范围。
 - 验收清单、证据解释、开放问题与非目标移入 Practice Index；正文不把研究方案或设计推论写成已发生实验。Luna 有界 Explore，Astra 裁决与正文撰写；未做人工审稿。
-- 三份文本与中文编译入口同步 9.8；英文保持 9.6 历史绑定并 withheld。历史 HTML 不覆盖。本地发布候选，未推送或部署，CourtWork 工程采用 pin 未修改。
+- 三份文本与中文编译入口同步 9.8；英文保持 9.6 历史绑定并 withheld。历史 HTML 不覆盖。初次编订为本地候选；随后以 `ec8d57e` 完成 [Pages 发布](https://github.com/lesPrivilege/Schema-Engineering/actions/runs/34778033066)，CourtWork 工程采用 pin 未修改。
 
 ### 9.7 — 2026-09-13 · 发表修订
 

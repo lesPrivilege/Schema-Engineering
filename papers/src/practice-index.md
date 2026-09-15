@@ -408,6 +408,14 @@ status
 
 ## 五、增量修订记录
 
+### 2026-09-15 · 9.8发布接续与实践入口
+
+- **来源 / 可观察事实**：SE `ec8d57ea9d2e69e84ebdc187472c5c50795804f7` 的[Pages工作流](https://github.com/lesPrivilege/Schema-Engineering/actions/runs/34778033066)已成功，中文线上为9.8；原9.8条目的“本地候选”是编订时点，现以本条接续。英文仍绑定9.6，固定历史译文可读，当前译文入口不生成。
+- **固定工程来源**：CourtWork [产品方向](https://github.com/lesPrivilege/Courtwork/blob/fe7f317b9e14d3ceb1692e1e565b6b8ac71baffe/engineering/product-direction.md)和[发布/开工回执](https://github.com/lesPrivilege/Courtwork/blob/caf3edbceb8cf9b535a28c547088874852752a1e/engineering/release/product-node-2026-09-15/deployment.md)。本轮产品裁决将工作现场、来源版本、决定与接续路径放在执行组合之前；属于产品方向与文档交付，没有新增机制实验。
+- **最小支持与正文处置**：既有Canonical §5的历史/状态/Context区分、§6的授权与提交边界及结语已容纳此方向。仅同步发布状态与实践入口，Canonical和Practice不改，不提高论文版本，不增加新观察ID或复制产品工单。
+- **不支持的外推 / 后续检验**：产品宣言和Pages部署不证明恢复、成本或成果接受有所改善；若后续固定任务的中断/来源更新/执行替换产生可复现的新增观察，再按原条目及检验矩阵裁决。CourtWork采用仍由其PAPER.md固定为9.6，SE公开版本更新不自动改变工程采用。
+- **呈现与保全**：README以独立产品定义连接CourtWork，阅读页仅在既有页脚增加CourtWork链接。2026-09-15阅读文件保存本次Index与入口，旧日期HTML、样式、交互、图与译文原字节保留。检查和发布回执留论文仓内部记录；正文不添加修订旁白。
+
 ### 2026-09-14 · 9.8
 
 - **裁决与撰写**：Luna 有界 Explore 并编制独立实践快照；Astra 负责主叙事、正文合成和最终裁决。未开展人工审稿、产品施工或新实证。
